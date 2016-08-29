@@ -3,7 +3,7 @@ package com.st.ggviario.client.view.adapters.dataset;
 import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
 import com.st.dbutil.android.model.Money;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.controls.references.RColors;
+import com.st.ggviario.client.references.RColors;
 import com.st.ggviario.client.model.Measure;
 
 /**

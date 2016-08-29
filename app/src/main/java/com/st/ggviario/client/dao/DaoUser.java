@@ -8,14 +8,14 @@ import com.st.ggviario.client.model.User;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import static com.st.ggviario.client.controls.references.RData.ALL;
-import static com.st.ggviario.client.controls.references.RData.DATABASE_NAME;
-import static com.st.ggviario.client.controls.references.RData.DATABASE_VERSION;
-import static com.st.ggviario.client.controls.references.RData.USER_ACCESSNAME;
-import static com.st.ggviario.client.controls.references.RData.USER_ID;
-import static com.st.ggviario.client.controls.references.RData.USER_NAME;
-import static com.st.ggviario.client.controls.references.RData.USER_SURNAME;
-import static com.st.ggviario.client.controls.references.RData.VER_CURRENT_LOGIN;
+import static com.st.ggviario.client.references.RData.ALL;
+import static com.st.ggviario.client.references.RData.DATABASE_NAME;
+import static com.st.ggviario.client.references.RData.DATABASE_VERSION;
+import static com.st.ggviario.client.references.RData.USER_ACCESSNAME;
+import static com.st.ggviario.client.references.RData.USER_ID;
+import static com.st.ggviario.client.references.RData.USER_NAME;
+import static com.st.ggviario.client.references.RData.USER_SURNAME;
+import static com.st.ggviario.client.references.RData.VER_CURRENT_LOGIN;
 
 /**
  * Created by xdata on 7/26/16.

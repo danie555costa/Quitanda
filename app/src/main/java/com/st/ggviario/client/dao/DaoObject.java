@@ -9,15 +9,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import static com.st.ggviario.client.controls.references.RData.ALL;
-import static com.st.ggviario.client.controls.references.RData.DATABASE_NAME;
-import static com.st.ggviario.client.controls.references.RData.DATABASE_VERSION;
-import static com.st.ggviario.client.controls.references.RData.OBJ_DESC;
-import static com.st.ggviario.client.controls.references.RData.OBJ_ID;
-import static com.st.ggviario.client.controls.references.RData.OBJ_PREVIEWID;
-import static com.st.ggviario.client.controls.references.RData.OBJ_TOBJ_ID;
-import static com.st.ggviario.client.controls.references.RData.OBJ_USER_ID;
-import static com.st.ggviario.client.controls.references.RData.T_OBJECT;
+import static com.st.ggviario.client.references.RData.ALL;
+import static com.st.ggviario.client.references.RData.DATABASE_NAME;
+import static com.st.ggviario.client.references.RData.DATABASE_VERSION;
+import static com.st.ggviario.client.references.RData.OBJ_DESC;
+import static com.st.ggviario.client.references.RData.OBJ_ID;
+import static com.st.ggviario.client.references.RData.OBJ_PREVIEWID;
+import static com.st.ggviario.client.references.RData.OBJ_TOBJ_ID;
+import static com.st.ggviario.client.references.RData.OBJ_USER_ID;
+import static com.st.ggviario.client.references.RData.T_OBJECT;
 
 /**
  * Created by xdata on 7/26/16.

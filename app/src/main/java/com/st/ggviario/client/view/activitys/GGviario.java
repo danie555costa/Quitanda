@@ -17,8 +17,8 @@ import com.st.dbutil.android.sqlite.AssetsDataBase;
 import com.st.dbutil.android.text.XTextName;
 import com.st.dbutil.android.view.SlidingTabLayout;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.controls.references.RData;
-import com.st.ggviario.client.controls.references.RMap;
+import com.st.ggviario.client.references.RData;
+import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.view.fragments.BlanckFragment;
 import com.st.ggviario.client.view.fragments.MainHome;
 

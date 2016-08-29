@@ -17,23 +17,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import static com.st.ggviario.client.controls.references.RData.ALL;
-import static com.st.ggviario.client.controls.references.RData.DATABASE_NAME;
-import static com.st.ggviario.client.controls.references.RData.DATABASE_VERSION;
-import static com.st.ggviario.client.controls.references.RData.REQ_BASEQUANTITY;
-import static com.st.ggviario.client.controls.references.RData.REQ_CLI_ID;
-import static com.st.ggviario.client.controls.references.RData.REQ_DTENTREGA;
-import static com.st.ggviario.client.controls.references.RData.REQ_DTPAGAR;
-import static com.st.ggviario.client.controls.references.RData.REQ_MET_ID;
-import static com.st.ggviario.client.controls.references.RData.REQ_MONTPAYMENT;
-import static com.st.ggviario.client.controls.references.RData.REQ_PREVIEWID;
-import static com.st.ggviario.client.controls.references.RData.REQ_PROD_ID;
-import static com.st.ggviario.client.controls.references.RData.REQ_QUANTITY;
-import static com.st.ggviario.client.controls.references.RData.REQ_TREQ_ID;
-import static com.st.ggviario.client.controls.references.RData.REQ_USER_ID;
-import static com.st.ggviario.client.controls.references.RData.SELL_PRICE;
-import static com.st.ggviario.client.controls.references.RData.T_REQUEST;
-import static com.st.ggviario.client.controls.references.RData.VER_OPERATION_DAY;
+import static com.st.ggviario.client.references.RData.ALL;
+import static com.st.ggviario.client.references.RData.DATABASE_NAME;
+import static com.st.ggviario.client.references.RData.DATABASE_VERSION;
+import static com.st.ggviario.client.references.RData.REQ_BASEQUANTITY;
+import static com.st.ggviario.client.references.RData.REQ_CLI_ID;
+import static com.st.ggviario.client.references.RData.REQ_DTENTREGA;
+import static com.st.ggviario.client.references.RData.REQ_DTPAGAR;
+import static com.st.ggviario.client.references.RData.REQ_MET_ID;
+import static com.st.ggviario.client.references.RData.REQ_MONTPAYMENT;
+import static com.st.ggviario.client.references.RData.REQ_PREVIEWID;
+import static com.st.ggviario.client.references.RData.REQ_PROD_ID;
+import static com.st.ggviario.client.references.RData.REQ_QUANTITY;
+import static com.st.ggviario.client.references.RData.REQ_TREQ_ID;
+import static com.st.ggviario.client.references.RData.REQ_USER_ID;
+import static com.st.ggviario.client.references.RData.SELL_PRICE;
+import static com.st.ggviario.client.references.RData.T_REQUEST;
+import static com.st.ggviario.client.references.RData.VER_OPERATION_DAY;
 
 /**
  * Created by xdata on 7/30/16.

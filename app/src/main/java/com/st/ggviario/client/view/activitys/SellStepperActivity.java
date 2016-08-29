@@ -15,7 +15,7 @@ import com.st.dbutil.android.model.Money;
 import com.st.dbutil.android.model.OnProcess;
 import com.st.dbutil.android.sqlite.DMLite;
 import com.st.dbutil.android.view.SlidingTabLayout;
-import com.st.ggviario.client.controls.references.RMap;
+import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.dao.DaoProduct;
 import com.st.ggviario.client.model.Client;
 import com.st.ggviario.client.model.Measure;

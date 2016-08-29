@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.st.dbutil.android.sqlite.LiteDataBase;
-import com.st.ggviario.client.controls.references.RData;
+import com.st.ggviario.client.references.RData;
 import com.st.ggviario.client.model.Client;
 
 import java.util.ArrayList;
@@ -13,18 +13,18 @@ import java.util.List;
 import java.util.Map;
 
 import static com.st.dbutil.android.sqlite.LiteSelect.toNetIntentList;
-import static com.st.ggviario.client.controls.references.RData.ALL;
-import static com.st.ggviario.client.controls.references.RData.CLI_CONTACT;
-import static com.st.ggviario.client.controls.references.RData.CLI_ID;
-import static com.st.ggviario.client.controls.references.RData.CLI_NAME;
-import static com.st.ggviario.client.controls.references.RData.CLI_OBJ_RESID;
-import static com.st.ggviario.client.controls.references.RData.CLI_PREVIEWID;
-import static com.st.ggviario.client.controls.references.RData.CLI_SURNAME;
-import static com.st.ggviario.client.controls.references.RData.DATABASE_NAME;
-import static com.st.ggviario.client.controls.references.RData.DATABASE_VERSION;
-import static com.st.ggviario.client.controls.references.RData.OBJ_DESC;
-import static com.st.ggviario.client.controls.references.RData.T_CLIENT;
-import static com.st.ggviario.client.controls.references.RData.VER_CLIEN_NEWS;
+import static com.st.ggviario.client.references.RData.ALL;
+import static com.st.ggviario.client.references.RData.CLI_CONTACT;
+import static com.st.ggviario.client.references.RData.CLI_ID;
+import static com.st.ggviario.client.references.RData.CLI_NAME;
+import static com.st.ggviario.client.references.RData.CLI_OBJ_RESID;
+import static com.st.ggviario.client.references.RData.CLI_PREVIEWID;
+import static com.st.ggviario.client.references.RData.CLI_SURNAME;
+import static com.st.ggviario.client.references.RData.DATABASE_NAME;
+import static com.st.ggviario.client.references.RData.DATABASE_VERSION;
+import static com.st.ggviario.client.references.RData.OBJ_DESC;
+import static com.st.ggviario.client.references.RData.T_CLIENT;
+import static com.st.ggviario.client.references.RData.VER_CLIEN_NEWS;
 
 
 /**

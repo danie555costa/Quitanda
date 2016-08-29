@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.st.dbutil.android.model.ItemFragment;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.controls.references.RMap;
+import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.view.activitys.Harvest;
 import com.st.ggviario.client.view.activitys.RegisterClientActivity;
 import com.st.ggviario.client.view.activitys.SellStepperActivity;

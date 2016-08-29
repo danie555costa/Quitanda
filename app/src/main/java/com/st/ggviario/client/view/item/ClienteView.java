@@ -10,7 +10,7 @@ import com.st.dbutil.android.beans.CallbackControler;
 import com.st.dbutil.android.model.CallbackClient;
 import com.st.dbutil.android.model.ItemView;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.controls.references.RMap;
+import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.model.Client;
 
 /**

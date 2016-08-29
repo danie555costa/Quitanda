@@ -20,7 +20,7 @@ import com.st.dbutil.android.model.ImageTextResource;
 import com.st.dbutil.android.model.ItemFragment;
 import com.st.dbutil.android.sqlite.DMLite;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.controls.references.RMap;
+import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.dao.DaoClient;
 import com.st.ggviario.client.model.Client;
 import com.st.ggviario.client.view.activitys.SellStepperActivity;

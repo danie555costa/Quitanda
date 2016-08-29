@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 
 import com.st.dbutil.android.model.ItemFragment;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.controls.references.RMap;
+import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.view.components.DatePickeControl;
 import com.st.ggviario.client.view.structure.AbstractPaymentMode;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
