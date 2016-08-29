@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_operation"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="3dp"
+
+    app:cardCornerRadius="2dp"
+    android:elevation="4dp"
+    android:layout_marginTop="@dimen/mat_card_margin"
+    android:layout_marginLeft="@dimen/mat_card_margin"
+    android:layout_marginRight="@dimen/mat_card_margin"
+    android:layout_marginBottom="0dp"
+    android:padding="0dp"
+    app:cardBackgroundColor="@color/app_background_white"
+    android:layout_margin="16dp"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_margin="0dp"
+        android:layout_height="wrap_content">
+
+        <!--
+
+         Preciso de saber o montante todo a pagar
+         A quantidade de items selecionado
+         Os item selecionados a sua quantiade a sua medida e o seu respectivo preço aplicado
+
+        -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            >
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_shopping_cart_primary_24dp"
+                />
+            <TextView
+                android:id="@+id/tv_car_total_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Meu carinho"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_marginStart="16dp"
+                android:layout_gravity="end"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_toRightOf="@+id/image"
+                />
+        </RelativeLayout>
+
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_marginRight="16dp"-->
+            <!--android:background="@color/app_background_list"/>-->
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_car_products"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_background_list"
+            android:paddingBottom="1dp"
+            />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/bt_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete_forever_primary_24dp"
+                android:layout_centerVertical="true"
+                android:padding="16dp"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/bt_clear"
+                android:text="900 000 000,00 STD"
+                android:textColor="@color/textPrimary"
+                android:textSize="24sp"
+                android:gravity="end"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

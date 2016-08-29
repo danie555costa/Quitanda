@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Material Designer Size-->
+    <dimen name="mat_toolbar_elevation">4dp</dimen>
+    <dimen name="mat_toolbar_margin_floating">8dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+    <!-- DIMENSIONS FROM CONNERS -->
+    <dimen name="connerButton">2dp</dimen>
+
+
+    <!-- DIMMENSION FOR PADING -->
+    <dimen name="paddingTextVertical">5dp</dimen>
+    <dimen name="paddingTextHorizontal">10dp</dimen>
+
+
+    <dimen name="paddingTiny">5dp</dimen>
+    <dimen name="paddingSmall">10dp</dimen>
+    <dimen name="paddingNormal">15dp</dimen>
+    <dimen name="paddingLong">20dp</dimen>
+    <dimen name="paddingBig">30dp</dimen>
+    <dimen name="paddingLongBig">40dp</dimen>
+    <dimen name="paddingDoubleBig">50dp</dimen>
+    <dimen name="paddingLongDoublBig">60dp</dimen>
+
+
+    <dimen name="paddingLayoutSmall">10dp</dimen>
+    <dimen name="paddingLayoutPety">8dp</dimen>
+    <dimen name="paddingLayoutTiny">5dp</dimen>
+    <dimen name="paddingLayoutMicroTiny">2dp</dimen>
+
+    <dimen name="paddingButon">5dp</dimen>
+
+
+    <!-- DIMIENSSOES DE BORDERS -->
+
+    <dimen name="borderTextBox">3dp</dimen>
+    <dimen name="borderLineFocused">3dp</dimen>
+    <dimen name="borderLineUnfocused">3dp</dimen>
+    <dimen name="borderDoualLineUnfocused">6dp</dimen>
+
+
+    <!-- DIMENSSOES DE TEXTOS -->
+    <dimen name="textSizeBite">10sp</dimen>
+    <dimen name="textSizeTiny">12sp</dimen>
+    <dimen name="textSizeSmall">14sp</dimen>
+    <dimen name="textSizeNormal">16sp</dimen>
+    <dimen name="textSizeGrandNormal">18sp</dimen>
+    <dimen name="textSizeBigNormal">20sp</dimen>
+    <dimen name="textSizeLong">23sp</dimen>
+    <dimen name="textSizeFloat">26sp</dimen>
+    <dimen name="textSizeBig">30sp</dimen>
+    <dimen name="textSizeBigLong">38sp</dimen>
+    <dimen name="textSizeBigDouble">38sp</dimen>
+    <dimen name="textSizeBigLongDouble">60sp</dimen>
+
+
+    <!-- DIMESNSAO PARA ESPACAMENTO DOS TEXTOS -->
+    <dimen name="spaceTextLine">30dp</dimen>
+
+    <dimen name="spaceBetweenPanelTiny">5dp</dimen>
+    <dimen name="spaceBetweenPanelSmall">10dp</dimen>
+    <dimen name="spaceBetweenPanelNormal">15dp</dimen>
+    <dimen name="spaceBetweenPanelLong">20dp</dimen>
+    <dimen name="spaceBetweenPanelBig">25dp</dimen>
+    <dimen name="spaceBetweenPanelBigLong">30dp</dimen>
+    <dimen name="spaceBetweenPanelBigDouble">35dp</dimen>
+
+
+    <!--  DEFINICOS PARA AS MARGESN -->
+    <dimen name="margemTiny">2dp</dimen>
+    <dimen name="margemMicroTiny">0.1dp</dimen>
+    <dimen name="margemTinySamll">4dp</dimen>
+    <dimen name="margemSmall">8dp</dimen>
+    <dimen name="margemNormal">10dp</dimen>
+    <dimen name="margemSmallLong">13dp</dimen>
+    <dimen name="margemLong">18dp</dimen>
+
+    <dimen name="margeGrandTiny">50dp</dimen>
+    <dimen name="margeGrandSmall">75dp</dimen>
+    <dimen name="margeGrandNormal">100dp</dimen>
+    <dimen name="margeGrandLong">150dp</dimen>
+    <dimen name="margeGrandBig">200dp</dimen>
+
+
+    <!-- DIMENSOES DOS TAMANHOS -->
+    <dimen name="larguraBotaoTeclado">105dp</dimen>
+    <dimen name="alturaBotaoTeclado">80.5dp</dimen>
+    <dimen name="alturaBotaoSteep">60dp</dimen>
+    <dimen name="alturaBotaoTecladoClear">50dp</dimen>
+    <dimen name="alturaListPrecosMedidas">100dp</dimen>
+
+    <dimen name="alturaMenuChoserPayment">45dp</dimen>
+
+    <dimen name="larguraNextMedida">50dp</dimen>
+    <dimen name="alturaNextMedida">100dp</dimen>
+
+    <dimen name="size_button_sync_now">200dp</dimen>
+
+    <dimen name="alturaIcomSelect">50dp</dimen>
+    <dimen name="larguraIcomSelect">50dp</dimen>
+    <dimen name="largura_aba_principal">110dp</dimen>
+    <dimen name="largura_aba_payment">210dp</dimen>
+
+    <dimen name="larguraCaixaUnidade">75dp</dimen>
+    <dimen name="larguraCaixaQuantidade">100dp</dimen>
+
+    <dimen name="alturaButtonPaymentNow">200dp</dimen>
+    <dimen name="larguraButtonPaymentNow">200dp</dimen>
+
+    <dimen name="alturaButtonNew">150dp</dimen>
+    <dimen name="larguraButtonNew">150dp</dimen>
+
+    <dimen name="alturaButtonPaymentPost">120dp</dimen>
+    <dimen name="larguraButtonPaymentPost">120dp</dimen>
+
+    <dimen name="size_image_client">100dp</dimen>
+
+    <!-- DIMENSÕES PARA OS DIVIDERES -->
+    <dimen name="dividerTiny">2dp</dimen>
+    <dimen name="dividerSmall">3dp</dimen>
+    <dimen name="dividerNormal">4dp</dimen>
+    <dimen name="dividerSmallLong">8dp</dimen>
+    <dimen name="dividerLong">6dp</dimen>
+    <dimen name="dividerBig">10dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="test1Dp">100dp</dimen>
+    <dimen name="test2Dp">100dp</dimen>
+    <dimen name="altura_buttin_handle">70dp</dimen>
+    <dimen name="size_img_pc">120dp</dimen>
+    <dimen name="mat_list_padding_top">8dp</dimen>
+    <dimen name="mat_card_margin">4dp</dimen>
+    <dimen name="text_size_button_land">32sp</dimen>
+    <dimen name="mat_1dp">1dp</dimen>
+
+</resources>

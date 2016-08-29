@@ -1,11 +1,31 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+    <!--Base application theme-->
+    <!--<style name="BaseApplicationTheme" parent="Theme.AppCompat.NoActionBar"/>-->
+    <style name="BaseApplicationTheme" parent="Theme.AppCompat.Light.NoActionBar" />
+
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="BaseApplicationTheme">
+        <!-- Customize your theme here. -->
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+
+        <!-- You can also set colorControlNormal,  colorControlActivated, colorControlHighlight, and colorSwitchThumbNormal.-->
+
+        <item name="colorControlNormal">@color/colorControlNormal</item>
+        <!--<item name="colorControlHighlight">@color/colorControlHighlight</item>-->
+        <!--<item name="colorControlActivated">@color/colorControlActivated</item>-->
+        <!--<item name="colorSwitchThumbNormal">@color/colorSwitchThumbNormal</item>-->
     </style>
 
+    <style name="AppThemeLight" parent="AlertDialog.AppCompat.Light" />
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

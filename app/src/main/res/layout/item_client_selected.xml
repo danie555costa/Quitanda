@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/lib_border_line_normal"
+    android:paddingRight="@dimen/lib_border_line_normal"
+    android:background="@drawable/border_text_box_cizento"
+    android:padding="0dp"
+    >
+
+
+    <RelativeLayout
+        android:id="@+id/panelContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true">
+
+
+        <TextView
+            android:id="@+id/tvClienteName"
+            style="@style/textLineLong"
+            android:textStyle="bold"
+            android:text="@string/client_name"
+            android:textColor="@android:color/white"
+            android:paddingRight="@dimen/lib_padding_text_right"
+            android:paddingLeft="@dimen/lib_padding_text_right"
+            android:paddingTop="@dimen/paddingLayoutSmall"
+            android:layout_margin="0dp"
+            android:paddingBottom="@dimen/paddingLayoutSmall"
+            android:layout_width="match_parent"
+            android:background="@drawable/shap_nome_client_selected"
+            />
+
+        <TextView
+            android:id="@+id/selectdDesc"
+            style="@style/textLineNormal"
+            android:textStyle="bold"
+            android:gravity="center|right"
+            android:text="Selecionado"
+            android:layout_below="@+id/tvClienteName"
+            android:textColor="@android:color/white"
+            android:paddingRight="@dimen/lib_padding_text_right"
+            android:paddingLeft="@dimen/lib_padding_text_right"
+            android:paddingTop="@dimen/paddingLayoutSmall"
+            android:layout_margin="0dp"
+            android:paddingBottom="@dimen/paddingLayoutSmall"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            />
+
+        <ImageButton
+            android:id="@+id/panelBobo"
+            android:layout_width="@dimen/margeGrandNormal"
+            android:layout_below="@+id/selectdDesc"
+            android:layout_height="@dimen/margeGrandNormal"
+            android:layout_marginLeft="@dimen/lib_padding_text_left"
+            android:src="@drawable/img_client_preson"
+            android:scaleType="centerCrop"
+            android:padding="@dimen/paddingLong"
+            android:background="@android:color/transparent"
+            />
+
+        <TextView
+            android:id="@+id/tvClientContact"
+            style="@style/textLineNormal"
+            android:layout_marginTop="@dimen/margemNormal"
+            android:layout_marginRight="@dimen/margeGrandTiny"
+            android:layout_below="@+id/selectdDesc"
+            android:layout_alignParentRight="true"
+            android:gravity="center|left"
+            android:layout_toRightOf="@+id/panelBobo"
+            android:hint="@string/contact"
+            />
+
+
+        <TextView
+            android:id="@+id/tvClinetMorada"
+            style="@style/textLineNormal"
+            android:layout_marginTop="@dimen/margemNormal"
+            android:layout_marginRight="@dimen/margeGrandTiny"
+            android:layout_below="@+id/tvClientContact"
+            android:layout_alignParentRight="true"
+            android:gravity="center|left"
+            android:layout_toRightOf="@+id/panelBobo"
+            android:hint="@string/clientResidence"
+
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

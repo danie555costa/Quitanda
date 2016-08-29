@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/app_background"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingStart="16dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        >
+        <TextView
+            android:id="@+id/title1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="20 de julho de 2016"
+            android:textSize="16sp"
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/tv_date_entrega"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/date_entrega"
+            android:textColor="@color/textSecondary"
+            android:layout_below="@+id/title1"
+            />
+
+        <ImageButton
+            android:id="@+id/ibt_edit_date_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_mode_edit_primary_24dp"
+            android:padding="16dp"
+            android:layout_alignParentEnd="true"
+            style="@style/AppThemeLight"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/title2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="20 de Agosto de 2016"
+            android:textSize="16sp"
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/tv_date_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/date_payment"
+            android:textColor="@color/textSecondary"
+            android:layout_below="@+id/title2"
+            />
+
+        <ImageButton
+            android:id="@+id/ibt_edit_date_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:src="@drawable/ic_mode_edit_primary_24dp"
+            android:layout_alignParentEnd="true"
+            />
+    </RelativeLayout>
+</LinearLayout>

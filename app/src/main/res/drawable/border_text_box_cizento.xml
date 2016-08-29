@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/connerButton"/>
+             <padding android:left="@dimen/lib_padding_text_left"
+                android:top="@dimen/lip_padding_text_top"
+                android:right="@dimen/lib_padding_text_right"
+                android:bottom="@dimen/lib_padding_text_button"/>
+             <solid android:color="@color/branca"/>
+             <stroke  android:color="@color/cizento_clar"
+                 android:width="@dimen/lib_border_line_tiny"/>
+        </shape>
+    </item>
+    
+    <item
+        android:state_focused="false"
+        >
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/connerButton"/>
+             <padding 
+                android:left="@dimen/lib_padding_text_left"
+                android:top="@dimen/lip_padding_text_top"
+                android:right="@dimen/lib_padding_text_right"
+                android:bottom="@dimen/lib_padding_text_button"/>
+             <solid 
+                 android:color="@color/branca"/>
+             <stroke 
+                 android:color="@color/lib_cizent"
+                 android:width="@dimen/lib_border_line_tiny"/>
+        </shape>
+    </item>
+</selector>

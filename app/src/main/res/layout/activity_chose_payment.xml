@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background">
+
+    <include android:id="@+id/toolbar_top"
+        layout="@layout/toolbar_main"/>
+
+    <com.st.dbutil.android.view.SlidingTabLayout
+        android:id="@+id/tabs_payment_mode"
+        style="@style/lib_tab_layout"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager_payment_mode"
+        style="@style/lib_view_pager"/>
+
+</LinearLayout>

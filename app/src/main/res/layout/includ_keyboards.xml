@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/calc_panel_button"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/bt_keyboard_1"
+            android:text="@string/_1"
+            style="@style/buttonKeyNumber"/>
+
+        <Button
+            android:id="@+id/bt_keyboard_2"
+            android:text="@string/_2"
+            style="@style/buttonKeyNumber"/>
+        <Button
+            android:id="@+id/bt_keyboard_3"
+            android:text="@string/_3"
+            style="@style/buttonKeyNumber"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/bt_keyboard_4"
+            android:text="@string/_4"
+            style="@style/buttonKeyNumber"/>
+        <Button
+            android:id="@+id/bt_keyboard_5"
+            android:text="@string/_5"
+            style="@style/buttonKeyNumber"/>
+        <Button
+            android:id="@+id/bt_keyboard_6"
+            android:text="@string/_6"
+            style="@style/buttonKeyNumber"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_keyboard_7"
+            android:text="@string/_7"
+            style="@style/buttonKeyNumber"/>
+
+        <Button
+            android:id="@+id/bt_keyboard_8"
+            android:text="@string/_8"
+            style="@style/buttonKeyNumber"/>
+
+        <Button
+            android:id="@+id/bt_keyboard_9"
+            android:text="@string/_9"
+            style="@style/buttonKeyNumber"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent">
+        <Button
+            android:id="@+id/bt_keyboard_p"
+            android:text="@string/point"
+            style="@style/buttonKeyNumber"/>
+        <Button
+            android:id="@+id/bt_keyboard_0"
+            android:text="@string/_0"
+            style="@style/buttonKeyNumber"/>
+        <Button
+            android:id="@+id/bt_keyboard_clear"
+            android:text="@string/c"
+            style="@style/buttonKeyNumber"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Quitanda.iml" filepath="$PROJECT_DIR$/Quitanda.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$USER_HOME$/AndroidStudioProjects/DBUtilAndroid/dbutil/dbutil.iml" filepath="$USER_HOME$/AndroidStudioProjects/DBUtilAndroid/dbutil/dbutil.iml" />
     </modules>
   </component>
 </project>
