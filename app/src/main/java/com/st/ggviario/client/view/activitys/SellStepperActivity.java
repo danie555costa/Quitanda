@@ -13,8 +13,10 @@ import com.st.dbutil.android.beans.CallbackControler;
 import com.st.dbutil.android.model.CallbackClient;
 import com.st.dbutil.android.model.Money;
 import com.st.dbutil.android.model.OnProcess;
+import com.st.dbutil.android.process.OnProcessResult;
 import com.st.dbutil.android.sqlite.DMLite;
 import com.st.dbutil.android.view.SlidingTabLayout;
+import com.st.ggviario.client.model.ResultPrice;
 import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.dao.DaoProduct;
 import com.st.ggviario.client.model.Client;
@@ -58,7 +60,7 @@ public class SellStepperActivity extends TabStepper implements RMap, CallbackCli
     HashMap<String, ArrayList<Measure>> measureDadas;
     private DaoProduct daoProduct;
     private Money valuePay;
-    private DaoProduct.ResultPrice resultCalculated;
+    private ResultPrice resultCalculated;
     private Toolbar toolbar;
 
     @Override
@@ -152,8 +154,6 @@ public class SellStepperActivity extends TabStepper implements RMap, CallbackCli
 
         switch (keyOrigen)
         {
-            case IDENTIFIER_SELL_SUPPORT:
-                intentLocal(summary, values);
             case IDENTIFIER_SELL_PAYMENT:
                 intentSellFinal(summary);
                 return;
@@ -181,18 +181,6 @@ public class SellStepperActivity extends TabStepper implements RMap, CallbackCli
         }
     }
 
-    private void intentLocal(String summary, Object[] values)
-    {
-        if(summary.equals(SUMMARY_PRICE_CALCULATED))
-        {
-            this.resultCalculated = (DaoProduct.ResultPrice) values[0];
-            if(resultCalculated != null)
-                this.valuePay = new Money(resultCalculated.valueFinalPagar);
-            else this.valuePay = new Money(0);
-            CallbackControler.sendIn(this, RMap.SUMMARY_PRICE_CALCULATED, new String []{IDENTIFIER_SELL_PRINCIPAL, IDENTIFIER_SELL_PAYMENT}, this.resultCalculated, this.valuePay);
-        }
-    }
-
     private void intentClientRegister(String summary, Object[] values)
     {
         this.client = (Client) values[0];
@@ -215,21 +203,6 @@ public class SellStepperActivity extends TabStepper implements RMap, CallbackCli
         {
             this.product = (Product) values[0];
             this.measure = (MeasureDataSet) values[1];
-            this.reCalculate();
-        }
-    }
-
-    private void reCalculate()
-    {
-        if(product != null
-                && quantity >0.0
-                && measure != null
-                && measure.isSelected())
-            this.daoProduct.calcPrice(this.product.getId(), this.quantity, measure.getIdMetreage(), this);
-        else
-        {
-            this.resultCalculated = null;
-            this.valuePay = null;
         }
     }
 
@@ -273,7 +246,6 @@ public class SellStepperActivity extends TabStepper implements RMap, CallbackCli
                 bundle.putSerializable(SellStepperActivity.MEASURE, this.measure);
                 bundle.putSerializable(CLIENT, this.client);
                 bundle.putSerializable(VALUE_PAY, this.valuePay);
-                bundle.putSerializable(RESULT_CALC, this.resultCalculated);
                 break;
             case RMap.QUERY_LIST_PRODUCTS:
                 bundle.putSerializable(LIST_PRODUCTS, this.productsDatas);

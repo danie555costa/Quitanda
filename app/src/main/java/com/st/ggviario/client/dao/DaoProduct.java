@@ -4,13 +4,15 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.st.dbutil.android.model.CallbackClient;
 import com.st.dbutil.android.model.OnProcess;
-import com.st.dbutil.android.process.BackgroudProcess;
+import com.st.dbutil.android.process.BackgroundProcess;
+import com.st.dbutil.android.process.OnProcessResult;
+import com.st.dbutil.android.process.ProcessResult;
 import com.st.dbutil.android.sqlite.LiteDataBase;
-import com.st.ggviario.client.references.RMap;
+import com.st.ggviario.client.model.ProductBuilder;
 import com.st.ggviario.client.model.Measure;
 import com.st.ggviario.client.model.Product;
+import com.st.ggviario.client.model.ResultPrice;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,33 +20,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import static com.st.dbutil.android.sqlite.LiteDataBase.Operaction.SELECT;
-import static com.st.ggviario.client.references.RData.ALL;
-import static com.st.ggviario.client.references.RData.CONV_MET_ID1;
-import static com.st.ggviario.client.references.RData.CONV_MET_ID2;
-import static com.st.ggviario.client.references.RData.CONV_VALUE1;
-import static com.st.ggviario.client.references.RData.CONV_VALUE2;
-import static com.st.ggviario.client.references.RData.DATABASE_NAME;
-import static com.st.ggviario.client.references.RData.DATABASE_VERSION;
-import static com.st.ggviario.client.references.RData.MET_COD;
-import static com.st.ggviario.client.references.RData.MET_ID;
-import static com.st.ggviario.client.references.RData.MET_NAME;
-import static com.st.ggviario.client.references.RData.PROD_ID;
-import static com.st.ggviario.client.references.RData.PROD_MET_ID;
-import static com.st.ggviario.client.references.RData.PROD_NAME;
-import static com.st.ggviario.client.references.RData.SELL_MET_ID;
-import static com.st.ggviario.client.references.RData.SELL_PRICE;
-import static com.st.ggviario.client.references.RData.SELL_PROD_ID;
-import static com.st.ggviario.client.references.RData.SELL_QUANTITY;
-import static com.st.ggviario.client.references.RData.T_CONVERSION;
-import static com.st.ggviario.client.references.RData.T_PRODUCT;
-import static com.st.ggviario.client.references.RData.VER_METREAGE_PRODUCT;
-import static com.st.ggviario.client.references.RData.VER_PRODUTO_SELL;
-import static com.st.ggviario.client.references.RData.VER_SELLROULE;
+import static com.st.ggviario.client.references.RData.*;
 
 /**
  * Created by xdata on 7/24/16.
  */
-public class DaoProduct extends LiteDataBase implements BackgroudProcess.Backgroud<DaoProduct.ResultPrice>
+public class DaoProduct extends LiteDataBase implements BackgroundProcess.Background<ResultPrice>  // implements BackgroundProcess.Background<DaoProduct.ResultPrice>
 {
     public DaoProduct(Context context)
     {
@@ -102,11 +83,11 @@ public class DaoProduct extends LiteDataBase implements BackgroudProcess.Backgro
      * @param idProductS
      * @param quantidade
      * @param idMetrageFromm
-     * @param clinet
+     * @param onResultCalc
      */
-    public void calcPrice(final String idProductS, double quantidade, final String idMetrageFromm, CallbackClient clinet)
+    public void calcPrice(final String idProductS, double quantidade, final String idMetrageFromm, OnProcessResult<ResultPrice> onResultCalc)
     {
-        BackgroudProcess<ResultPrice> resultPriceBackgroud = new BackgroudProcess<ResultPrice>(this, clinet);
+        BackgroundProcess resultPriceBackgroud = new BackgroundProcess(this, onResultCalc);
         resultPriceBackgroud.execute(idProductS, quantidade, idMetrageFromm);
     }
 
@@ -223,16 +204,15 @@ public class DaoProduct extends LiteDataBase implements BackgroudProcess.Backgro
                 baseQuantityTotal = baseQuantityTotal + baseQuantity;
             else baseQuantityTotal = null;
             ResultPrice resultPreco = new ResultPrice(quantityTotalUsed, baseQuantityTotal, valueFinallyPay);
-            Log.i("DBA:APP.TEST", "Calculo preco | "+result);
             return resultPreco;
         }
         return  null;
     }
 
     @Override
-    public void posExecute(ResultPrice resultPrice, CallbackClient client)
+    public void accept(ResultPrice result, OnProcessResult onProcessResult)
     {
-        client.onReceive(CallbackClient.SendType.ONE, client, RMap.SUMMARY_PRICE_CALCULATED, new Object[]{resultPrice});
+        onProcessResult.processResult(result);
     }
 
     public Product find(final String idProducto)
@@ -257,12 +237,15 @@ public class DaoProduct extends LiteDataBase implements BackgroudProcess.Backgro
     }
 
     @NonNull
-    public static Product mountProduct(LinkedHashMap<CharSequence, Object> produtoData) {
-        Product produto;
+    public static Product mountProduct(LinkedHashMap<CharSequence, Object> produtoData)
+    {
         String id = produtoData.get(PROD_ID).toString();
         String name = produtoData.get(PROD_NAME).toString();
-        produto = new Product(id, name);
-        return produto;
+        ProductBuilder builder = new ProductBuilder();
+
+        return builder.id(id)
+                .name(name)
+                .build();
     }
 
     public ArrayList<Measure> loadMetreages(final String idProducto)
@@ -280,10 +263,11 @@ public class DaoProduct extends LiteDataBase implements BackgroudProcess.Backgro
         execute();
 
         Measure itemMetreage;
+
         for(LinkedHashMap<CharSequence, Object> map : getSelectResult())
         {
             itemMetreage = mountMeasure(map);
-            itemMetreage.setIdProducto(idProducto);
+//            itemMetreage.setIdProducto(idProducto);
             metreages.add(itemMetreage);
         }
         end();
@@ -319,28 +303,5 @@ public class DaoProduct extends LiteDataBase implements BackgroudProcess.Backgro
             listProdutoShell.add(product);
         }
         return listProdutoShell;
-    }
-
-    public class ResultPrice implements Serializable
-    {
-        public final double valueFinalPagar;
-        public final Double quantityBaseTotal;
-        public final double quantidadeTotalUsada;
-
-        public ResultPrice(double quantidadeTotalUsada, Double quantityBaseTotal, double valueFinalPagar)
-        {
-            this.quantidadeTotalUsada = quantidadeTotalUsada;
-            this.quantityBaseTotal = quantityBaseTotal;
-            this.valueFinalPagar = valueFinalPagar;
-        }
-
-        @Override
-        public String toString() {
-            return "ResultPrice{" +
-                    "valueFinalPagar=" + valueFinalPagar +
-                    ", quantityBaseTotal=" + quantityBaseTotal +
-                    ", quantidadeTotalUsada=" + quantidadeTotalUsada +
-                    '}';
-        }
     }
 }

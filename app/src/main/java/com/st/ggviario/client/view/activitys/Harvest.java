@@ -62,9 +62,9 @@ public class Harvest extends TabStepper
 //    {
 //        super.onCreate(savedInstanceState);
 ////        this.setContentView(R.layout.activity_harvest);
-////        this.toolbar = (Toolbar) this.findViewById(R.id.toolbar_top);
+////        this.toolbarId = (Toolbar) this.findViewById(R.id.toolbar_top);
 //
-////        this.setSupportActionBar(this.toolbar);
+////        this.setSupportActionBar(this.toolbarId);
 ////        ActionBar actionBar = this.getSupportActionBar();
 ////        if (actionBar != null)
 ////        {

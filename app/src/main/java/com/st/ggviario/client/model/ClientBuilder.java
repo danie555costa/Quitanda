@@ -1,6 +1,4 @@
-package com.st.ggviario.client.builders;
-
-import com.st.ggviario.client.model.Client;
+package com.st.ggviario.client.model;
 
 /**
  * Created by Daniel Costa at 8/28/16.

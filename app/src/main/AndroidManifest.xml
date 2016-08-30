@@ -23,7 +23,7 @@
         </activity>
         <activity android:name=".view.activitys.SellStepperActivity" />
         <activity android:name=".view.activitys.Harvest" />
-        <activity android:name=".view.activitys.Calculator" />
+        <activity android:name=".view.activitys.CalculatorActivity" />
         <activity android:name=".view.activitys.PaymentMode" />
         <activity android:name=".view.activitys.RegisterClientActivity" />
         <!-- This meta-data tag is required to use Google Play Services. -->

@@ -19,6 +19,7 @@ import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.dao.DaoProduct;
 import com.st.ggviario.client.model.Product;
 import com.st.ggviario.client.view.adapters.SupportSellProducts;
+import com.st.ggviario.client.view.adapters.dataset.DataProduct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class SellCarStep extends AbstractStep implements ItemFragment
 		for(Product product: listProduct)
 		{
 			colorId = RColors.switchColor(product.getName().charAt(0), 500);
-			SupportSellProducts.DataProduct product1 = new SupportSellProducts.DataProduct(colorId, product);
+			DataProduct product1 = new DataProduct(colorId, product);
 			this.list.add(product1);
 		}
 	}

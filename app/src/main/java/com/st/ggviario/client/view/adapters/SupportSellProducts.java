@@ -21,22 +21,24 @@ import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.model.Product;
-import com.st.ggviario.client.model.template.BaseCharacter;
-import com.st.ggviario.client.view.activitys.Calculator;
+import com.st.ggviario.client.model.ProductBuilder;
+import com.st.ggviario.client.model.parcelable.ProductParcel;
+import com.st.ggviario.client.view.activitys.CalculatorActivity;
+import com.st.ggviario.client.view.adapters.dataset.DataProduct;
 import com.st.ggviario.client.view.fragments.SellCarStep;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by xdata on 8/11/16.
+ * Created by Daniel Costa at 8/11/16.
+ * Using user computer xdata
  */
 public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHolder, SupportRecyclerAdapter.OnCreateViewHolder, SupportRecyclerAdapter.OnItemClickListener, SupportRecyclerAdapter.OnPosViewCreated {
     private static final int TYPE_ITEM_CAR = R.layout.item_product_selected;
     private final SupportRecyclerAdapter support;
     private final List<BaseReclyclerAdapter.ItemDataSet> list;
     public static final int TYPE_CAR = R.layout.item_group_car;
-    public static final int TYPE_PRODUCT = R.layout.item_cart_operation;
 
     public SupportSellProducts(Context content)
     {
@@ -87,7 +89,7 @@ public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHol
         BaseReclyclerAdapter.ItemViewHolder viewHolder = null;
         switch (viewType)
         {
-            case TYPE_PRODUCT:
+            case R.layout.item_cart_operation:
                 viewHolder = new ViewHolderProduct(view);
                 break;
             case TYPE_CAR:
@@ -105,9 +107,9 @@ public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHol
         if(dataSet instanceof DataProduct)
         {
             DataProduct dataProduct = (DataProduct) dataSet;
-            Intent intent = new Intent(this.support.getContext(), Calculator.class);
+            Intent intent = new Intent(this.support.getContext(), CalculatorActivity.class);
             Bundle bunble = new Bundle();
-            bunble.putCharSequence(SellCarStep.PRODUCT, dataProduct.product);
+            bunble.putParcelable(SellCarStep.PRODUCT, new ProductParcel(dataProduct.getProduct()));
             intent.putExtras(bunble);
             support.getContext().startActivity(intent);
         }
@@ -135,7 +137,7 @@ public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHol
                     {
                         staggerLayoutParams.setFullSpan(true);
                     }
-                    else if(viewType == TYPE_PRODUCT)
+                    else if(viewType == R.layout.item_cart_operation)
                     {
 
                     }
@@ -168,35 +170,10 @@ public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHol
 
         public void setValues(DataProduct values)
         {
-            int cardColor =  support.getContext().getResources().getColor(values.idColor);
+            int cardColor =  support.getContext().getResources().getColor(values.getIdColor());
             this.imageOperation.setImageResource(R.drawable.ic_shopping_cart_white_48dp);
             this.titleOperation.setText(values);
             this.cardView.setCardBackgroundColor(cardColor);
-        }
-    }
-
-    public static class DataProduct extends BaseCharacter implements BaseReclyclerAdapter.ItemDataSet
-    {
-        private int idColor;
-        private Product product;
-        public boolean efeito;
-
-        public DataProduct(int idColor, Product product)
-        {
-            this.idColor = idColor;
-            this.product = product;
-            this.efeito = false;
-        }
-
-        @Override
-        public String toString()
-        {
-            return product.toString();
-        }
-
-        @Override
-        public int getTypeView() {
-            return TYPE_PRODUCT;
         }
     }
 
@@ -216,10 +193,14 @@ public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHol
         {
             super(view);
             ArrayList<BaseReclyclerAdapter.ItemDataSet> lista = new ArrayList<>();
-            lista.add(new DataProduct(0, new Product("23", "Ovos")));
-            lista.add(new DataProduct(0, new Product("23", "Ovos")));
-            lista.add(new DataProduct(0, new Product("23", "Ovos")));
-            lista.add(new DataProduct(0, new Product("23", "Ovos")));
+            ProductBuilder builder = new ProductBuilder();
+            Product product;
+
+            lista.add(new DataProduct(0,  builder.id("10").name("Ovos").build()));
+            lista.add(new DataProduct(0, builder.id("11").name("Castanha").build()));
+            lista.add(new DataProduct(0, builder.id("213").name("Ope").build()));
+            lista.add(new DataProduct(0, builder.id("89").name("Livros").build()));
+
             recyclerView = (RecyclerView) view.findViewById(R.id.rv_car_products);
 
             LinearLayoutManager llm = new LinearLayoutManager(support.getContext(), LinearLayoutManager.VERTICAL, false);

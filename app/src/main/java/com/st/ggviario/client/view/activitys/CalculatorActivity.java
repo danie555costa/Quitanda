@@ -11,10 +11,16 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.st.dbutil.android.model.CallbackClient;
+import com.st.dbutil.android.process.OnProcessResult;
+import com.st.dbutil.android.process.ProcessResult;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.dao.DaoProduct;
+import com.st.ggviario.client.dao.OnResultCalc;
+import com.st.ggviario.client.dao.ResultLite;
 import com.st.ggviario.client.model.Measure;
 import com.st.ggviario.client.model.Product;
+import com.st.ggviario.client.model.ResultPrice;
+import com.st.ggviario.client.model.parcelable.ProductParcel;
 import com.st.ggviario.client.view.adapters.SupportCalculator;
 import com.st.ggviario.client.view.adapters.dataset.CalculatorDataSet;
 import com.st.ggviario.client.view.adapters.dataset.MeasureDataSet;
@@ -27,75 +33,27 @@ import java.util.ArrayList;
  * Created by Daniel Costa on 8/13/16.
  * User computer: Daniel Costa
  */
-public class Calculator extends AppCompatActivity implements SupportCalculator.OnClickKeyboarListner, SupportCalculator.OnClickMeasureListener, CallbackClient {
+public class CalculatorActivity extends AppCompatActivity implements SupportCalculator.OnClickKeyboarListner, SupportCalculator.OnClickMeasureListener{
+    private DaoProduct daoProduct;
+    private Toolbar toolbar;
     private SupportCalculator supportAdapter;
     private Product product;
-    private DaoProduct daoProduct;
-    private ArrayList<Measure> list;
-    private Toolbar toolbar;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState)
+    protected void onCreate(@Nullable Bundle restoreInstance)
     {
-        super.onCreate(savedInstanceState);
+        super.onCreate(restoreInstance);
         super.setContentView(R.layout.activity_calculator);
-
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_calculator);
         this.toolbar  = (Toolbar) findViewById(R.id.toolbar_top);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         this.daoProduct = new DaoProduct(this);
+        this.supportAdapter = new SupportCalculator(CalculatorActivity.this);
 
-        Bundle paramns = this.getIntent().getExtras();
+        Bundle params = (restoreInstance == null) ? getIntent().getExtras() : restoreInstance;
+        this.product = loadProduct(params);
 
-        if(paramns != null && paramns.containsKey(SellCarStep.PRODUCT))
-        {
-            this.product = (Product) paramns.getCharSequence(SellCarStep.PRODUCT);
-            if(product == null)
-            {
-                finish();
-                return;
-            }
-            this.list = daoProduct.loadMetreages(product.getId());
-        }
-        else
-        {
-            finish();
-            return;
-        }
-
-        this.supportAdapter = new SupportCalculator(this);
-        this.supportAdapter.setListMeasure(list);
-
-        recyclerView.setHasFixedSize(true);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
-                super.onScrolled(recyclerView, dx, dy);
-//                int lastCompletePosition;
-
-//                lastCompletePosition = layoutManager.findLastCompletelyVisibleItemPosition();
-
-//                if(lastCompletePosition +1 == supportAdapter.getCreatedSupport().getItemCount())
-//                {
-//
-//                }
-            }
-        });
-
-        recyclerView.setAdapter(this.supportAdapter.getCreatedSupport());
-        this.supportAdapter.setOnClickKeyboardListner(this);
-        this.supportAdapter.setOnclickMeasureListener(this);
-
-        this.toolbar.setTitle(this.product);
+        this.toolbar.setTitle(product);
         this.toolbar.inflateMenu(R.menu.menu_calculator);
 
         this.setSupportActionBar(toolbar);
@@ -103,7 +61,50 @@ public class Calculator extends AppCompatActivity implements SupportCalculator.O
         {
             this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             this.getSupportActionBar().setTitle(product);
+            this.toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         }
+
+        recyclerView.setHasFixedSize(true);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+
+        prepareSupport(recyclerView);
+    }
+
+    private void prepareSupport(final RecyclerView recyclerView)
+    {
+        Thread exec = new Thread(new Runnable() {
+            @Override
+            public void run()
+            {
+                final ArrayList<Measure> list = loadDatas(product);
+                CalculatorActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        supportAdapter.setListMeasure(list);
+                        supportAdapter.setOnClickKeyboardListner(CalculatorActivity.this);
+                        supportAdapter.setOnclickMeasureListener(CalculatorActivity.this);
+                        recyclerView.setAdapter(supportAdapter.getCreatedSupport());
+                    }
+                });
+            }
+        });
+        exec.start();
+    }
+
+    private Product loadProduct(Bundle bundle)
+    {
+        ProductParcel productParcel = bundle.getParcelable(SellCarStep.PRODUCT);
+        Product product = productParcel.getProduct();
+        return  product;
+    }
+
+    private ArrayList<Measure>  loadDatas(Product product)
+    {
+        ArrayList<Measure> list;
+        list = daoProduct.loadMetreages(product.getId());
+        return  list;
     }
 
     @Override
@@ -143,41 +144,29 @@ public class Calculator extends AppCompatActivity implements SupportCalculator.O
 
     private void calc()
     {
-        MeasureDataSet dataMeasure = supportAdapter.getCurrentDataMeasure();
+        MeasureDataSet dataMeasure = this.supportAdapter.getCurrentDataMeasure();
         double value = supportAdapter.getKeyboardValue();
         if(value > 0
                 && dataMeasure != null
                 && dataMeasure.isSelected())
-            this.daoProduct.calcPrice(product.getId(), value, dataMeasure.getIdMetreage(), this);
+            this.daoProduct.calcPrice(this.product.getId(), value, dataMeasure.getIdMetreage(),
+                    new OnProcessResult<ResultPrice>() {
+                        @Override
+                        public void processResult(ResultPrice processResult)
+                        {
+                            if(processResult != null)
+                            {
+                                supportAdapter.setPrice(processResult.getValueFinalPagar());
+                            }
+                        }
+                    });
         else this.supportAdapter.setPrice(0.0);
-    }
-
-    @Override
-    public void onReceive(SendType sendType, CallbackClient origem, String summary, Object[] values) {
-        if(origem == this)
-        {
-            DaoProduct.ResultPrice resultPrice = (DaoProduct.ResultPrice) values[0];
-            if(resultPrice != null)
-            {
-                this.supportAdapter.setPrice(resultPrice.valueFinalPagar);
-            }
-        }
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
 
-    }
-
-    @Override
-    public Bundle query(CallbackClient clientOrigen, String queryQuention, Object... inParams) {
-        return null;
-    }
-
-    @Override
-    public CharSequence getProtocolKey() {
-        return null;
     }
 
     private class CalculatorResult implements Serializable

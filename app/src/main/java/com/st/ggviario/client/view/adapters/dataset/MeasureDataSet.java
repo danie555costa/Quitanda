@@ -41,7 +41,7 @@ public class MeasureDataSet  implements BaseReclyclerAdapter.ItemDataSet
     }
 
     public String getIdMetreage() {
-        return this.measuere.getIdMetreage();
+        return this.measuere.getId();
     }
 
     public void setSelected(boolean selected) {
@@ -53,11 +53,11 @@ public class MeasureDataSet  implements BaseReclyclerAdapter.ItemDataSet
     }
 
     public String getMeasureCod() {
-        return this.measuere.getCodMetreage();
+        return this.measuere.getKey();
     }
 
     public CharSequence getMeasureName() {
-        return this.measuere.getNameMetreage();
+        return this.measuere.getName();
     }
 
     public int getBackground() {
@@ -74,7 +74,7 @@ public class MeasureDataSet  implements BaseReclyclerAdapter.ItemDataSet
 
     public Money getValueMeasureForOne()
     {
-        return this.measuere.getPriceValueForOne();
+        return this.measuere.getDefaultPrice();
     }
 }
 

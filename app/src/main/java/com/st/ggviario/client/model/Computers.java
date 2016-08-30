@@ -1,7 +1,8 @@
 package com.st.ggviario.client.model;
 
 /**
- * Created by xdata on 8/9/16.
+ * Created by Daniel Costa at 8/9/16.
+ * Using user computer xdata
  */
 public class Computers implements CharSequence
 {

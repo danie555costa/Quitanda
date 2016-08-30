@@ -72,7 +72,7 @@ public class DaoSell extends LiteDataBase
         }
 
         int idProduct = Integer.parseInt(product.getId());
-        int idMetreage = Integer.parseInt(measure.getIdMetreage());
+        int idMetreage = Integer.parseInt(measure.getId());
         int idUser = user.getId();
         begin(Operaction.INSERT);
 
