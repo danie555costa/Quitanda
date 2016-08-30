@@ -6,20 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.st.dbutil.android.model.CallbackClient;
 import com.st.dbutil.android.process.OnProcessResult;
-import com.st.dbutil.android.process.ProcessResult;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.dao.DaoProduct;
-import com.st.ggviario.client.dao.OnResultCalc;
-import com.st.ggviario.client.dao.ResultLite;
+import com.st.ggviario.client.model.ItemSell;
 import com.st.ggviario.client.model.Measure;
+import com.st.ggviario.client.model.PriceCalculator;
 import com.st.ggviario.client.model.Product;
-import com.st.ggviario.client.model.ResultPrice;
 import com.st.ggviario.client.model.parcelable.ProductParcel;
 import com.st.ggviario.client.view.adapters.SupportCalculator;
 import com.st.ggviario.client.view.adapters.dataset.CalculatorDataSet;
@@ -149,17 +147,25 @@ public class CalculatorActivity extends AppCompatActivity implements SupportCalc
         if(value > 0
                 && dataMeasure != null
                 && dataMeasure.isSelected())
-            this.daoProduct.calcPrice(this.product.getId(), value, dataMeasure.getIdMetreage(),
-                    new OnProcessResult<ResultPrice>() {
+        {
+            PriceCalculator priceCalculator = new PriceCalculator(this.daoProduct);
+
+            priceCalculator.idMetreageFrom(dataMeasure.getMeasuere())
+                    .idProduct(this.product.getId())
+                    .quantity(value)
+                    .calc(new OnProcessResult<ItemSell>()
+                    {
                         @Override
-                        public void processResult(ResultPrice processResult)
+                        public void processedResult(ItemSell processResult)
                         {
                             if(processResult != null)
                             {
-                                supportAdapter.setPrice(processResult.getValueFinalPagar());
+                                supportAdapter.setPrice(processResult.getAmountPay());
+                                Log.i("DBA:APP.TEST", "RESULT OF CALC: "+ processResult);
                             }
                         }
                     });
+        }
         else this.supportAdapter.setPrice(0.0);
     }
 

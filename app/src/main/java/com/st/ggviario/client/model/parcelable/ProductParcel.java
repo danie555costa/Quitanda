@@ -4,6 +4,7 @@ package com.st.ggviario.client.model.parcelable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.st.ggviario.client.model.MeasureBuilder;
 import com.st.ggviario.client.model.ProductBuilder;
 import com.st.ggviario.client.model.Product;
 
@@ -23,8 +24,13 @@ public class ProductParcel implements Parcelable
     protected ProductParcel(Parcel in)
     {
         ProductBuilder builder = new ProductBuilder();
-        builder.id(in.readString())
-                .name(in.readString());
+        builder.id(in.readInt())
+                .name(in.readString())
+                .measure(new MeasureBuilder().id(in.readInt())
+                            .key(in.readString())
+                            .name(in.readString())
+                            .defaultPrice(in.readDouble())
+                            .build());
 
         this.product = builder.build();
     }
@@ -58,7 +64,11 @@ public class ProductParcel implements Parcelable
     @Override
     public void writeToParcel(Parcel parcel, int i)
     {
-        parcel.writeString(product.getId());
+        parcel.writeInt(product.getId());
         parcel.writeString(product.getName());
+        parcel.writeInt(product.getBaseMesure().getId());
+        parcel.writeString(product.getBaseMesure().getKey());
+        parcel.writeString(product.getBaseMesure().getName());
+        parcel.writeDouble(product.getBaseMesure().getDefaultPrice().doubleValue());
     }
 }

@@ -1,5 +1,12 @@
 package com.st.ggviario.client.model;
 
+import com.st.ggviario.client.references.RData;
+import com.st.ggviario.client.references.RMap;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
+
 /**
  * Created by Daniel Costa at 8/29/16.
  * Using user computer xdata
@@ -7,7 +14,7 @@ package com.st.ggviario.client.model;
 public class MeasureBuilder implements Builder<Measure>
 {
     private double defaultPrice;
-    private String id;
+    private int id;
     private String name;
     private String key;
 
@@ -16,7 +23,7 @@ public class MeasureBuilder implements Builder<Measure>
         return this;
     }
 
-    public MeasureBuilder id(String id) {
+    public MeasureBuilder id(int id) {
         this.id = id;
         return this;
     }
@@ -34,5 +41,13 @@ public class MeasureBuilder implements Builder<Measure>
     @Override
     public Measure build() {
         return new Measure(id, key, name, defaultPrice);
+    }
+
+    public Measure buildMap(LinkedHashMap<CharSequence, Object> map)
+    {
+        return id((int) map.get(RData.MET_ID))
+                .key(map.get(RData.MET_COD).toString())
+                .name(map.get(RData.MET_NAME).toString())
+                .build();
     }
 }

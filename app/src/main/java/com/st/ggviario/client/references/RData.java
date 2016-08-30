@@ -10,7 +10,7 @@ public class RData implements XFieldName
 {
     public static final String ALL="*";
     public static  String VER_CLIENTS;
-    public static int DATABASE_VERSION = 50;
+    public static int DATABASE_VERSION = 53;
     public static final String DATABASE_NAME = "ggviario.phone.db";
 
     //VIEWS
@@ -21,7 +21,9 @@ public class RData implements XFieldName
             VER_OPERACOES,
             VER_OPERATION_DAY,
             VER_SUMMARY_SELL,
-            VER_CLIEN_NEWS;
+            VER_CLIEN_NEWS,
+            VER_PRODUCT_COMPLETE // The data of product table and measure table
+                    ;
 
     // VIEW ATRIBUTS
     public static String

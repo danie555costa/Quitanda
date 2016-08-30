@@ -4,17 +4,19 @@ import com.st.ggviario.client.model.template.BaseCharacter;
 
 public class Product extends BaseCharacter
 {
-	private String id;
+	private int id;
 	private String name;
 	private int stock;
-	
-	Product(String id, String name)
+	private Measure baseMesure;
+
+	Product(int id, String name, Measure baseMeasure)
 	{
 		this.name = name;
 		this.id = id;
+		this.baseMesure = baseMeasure;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 	
@@ -29,5 +31,10 @@ public class Product extends BaseCharacter
 	@Override
 	public String toString() {
 		return this.name;
+	}
+
+	public Measure getBaseMesure()
+	{
+		return baseMesure;
 	}
 }

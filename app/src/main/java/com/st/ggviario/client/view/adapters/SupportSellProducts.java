@@ -196,10 +196,10 @@ public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHol
             ProductBuilder builder = new ProductBuilder();
             Product product;
 
-            lista.add(new DataProduct(0,  builder.id("10").name("Ovos").build()));
-            lista.add(new DataProduct(0, builder.id("11").name("Castanha").build()));
-            lista.add(new DataProduct(0, builder.id("213").name("Ope").build()));
-            lista.add(new DataProduct(0, builder.id("89").name("Livros").build()));
+            lista.add(new DataProduct(0,  builder.id(10).name("Ovos").measure("10").build()));
+            lista.add(new DataProduct(0, builder.id(11).name("Castanha").measure("10").build()));
+            lista.add(new DataProduct(0, builder.id(213).name("Ope").measure("10").build()));
+            lista.add(new DataProduct(0, builder.id(89).name("Livros").measure("10").build()));
 
             recyclerView = (RecyclerView) view.findViewById(R.id.rv_car_products);
 

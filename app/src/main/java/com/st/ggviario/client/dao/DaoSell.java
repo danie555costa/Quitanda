@@ -10,6 +10,7 @@ import com.st.dbutil.android.sqlite.LiteDataBase;
 import com.st.ggviario.client.model.Client;
 import com.st.ggviario.client.model.Measure;
 import com.st.ggviario.client.model.Product;
+import com.st.ggviario.client.model.ProductBuilder;
 import com.st.ggviario.client.model.Sell;
 import com.st.ggviario.client.model.User;
 
@@ -71,8 +72,8 @@ public class DaoSell extends LiteDataBase
             throw new Error("Situação inesperada o utilizador nao foi encontrado");
         }
 
-        int idProduct = Integer.parseInt(product.getId());
-        int idMetreage = Integer.parseInt(measure.getId());
+        int idProduct = product.getId();
+        int idMetreage = measure.getId();
         int idUser = user.getId();
         begin(Operaction.INSERT);
 
@@ -120,7 +121,7 @@ public class DaoSell extends LiteDataBase
     {
         Client client = DaoClient.mountClient(map);
         map.put(SELL_PRICE, map.get(REQ_MONTPAYMENT));
-        Product product = DaoProduct.mountProduct(map);
+        Product product = new ProductBuilder().build(map);
         Measure measure = DaoProduct.mountMeasure(map);
 
         double quantityReq = (double) map.get(REQ_QUANTITY);

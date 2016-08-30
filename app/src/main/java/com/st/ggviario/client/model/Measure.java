@@ -9,12 +9,12 @@ import java.io.Serializable;
 public class Measure extends BaseCharacter implements Serializable
 {
 	private final Money defaultPrice;
-	private String id;
+	private int id;
 	private String name;
 	private String key;
 
 
-	public Measure(String id, String key, String name, double price)
+	public Measure(int id, String key, String name, double price)
 	{
 		this.id = id;
 		this.name = name;
@@ -22,7 +22,7 @@ public class Measure extends BaseCharacter implements Serializable
 		this.defaultPrice = new Money(price);
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 

@@ -13,10 +13,9 @@ import com.st.dbutil.android.beans.CallbackControler;
 import com.st.dbutil.android.model.CallbackClient;
 import com.st.dbutil.android.model.Money;
 import com.st.dbutil.android.model.OnProcess;
-import com.st.dbutil.android.process.OnProcessResult;
 import com.st.dbutil.android.sqlite.DMLite;
 import com.st.dbutil.android.view.SlidingTabLayout;
-import com.st.ggviario.client.model.ResultPrice;
+import com.st.ggviario.client.model.ItemSell;
 import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.dao.DaoProduct;
 import com.st.ggviario.client.model.Client;
@@ -57,10 +56,10 @@ public class SellStepperActivity extends TabStepper implements RMap, CallbackCli
     private Client client;
     private MeasureDataSet measure;
     ArrayList<Product> productsDatas;
-    HashMap<String, ArrayList<Measure>> measureDadas;
+    HashMap<Integer, ArrayList<Measure>> measureDadas;
     private DaoProduct daoProduct;
     private Money valuePay;
-    private ResultPrice resultCalculated;
+    private ItemSell resultCalculated;
     private Toolbar toolbar;
 
     @Override
@@ -136,7 +135,7 @@ public class SellStepperActivity extends TabStepper implements RMap, CallbackCli
         this.oldPosition = restore.getInt(SellStepperActivity.OLD_POSITION);
         CallbackControler.outNet(this);
         this.productsDatas = (ArrayList<Product>) restore.getSerializable(LIST_PRODUCTS);
-        this.measureDadas = (HashMap<String, ArrayList<Measure>>) restore.getSerializable(LIST_MEASURE);
+        this.measureDadas = (HashMap<Integer, ArrayList<Measure>>) restore.getSerializable(LIST_MEASURE);
         this.client = (Client) restore.getSerializable(CLIENT);
         this.quantity = restore.getDouble(QUANTITY);
         this.product = (Product) restore.getSerializable(PRODUCT);

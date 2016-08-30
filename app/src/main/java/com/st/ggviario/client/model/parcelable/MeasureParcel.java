@@ -21,7 +21,7 @@ public class MeasureParcel implements Parcelable
     protected MeasureParcel(Parcel in)
     {
         MeasureBuilder builder = new MeasureBuilder();
-        builder.id(in.readString())
+        builder.id(in.readInt())
                 .key(in.readString())
                 .name(in.readString())
                 .defaultPrice(in.readDouble());
@@ -52,7 +52,7 @@ public class MeasureParcel implements Parcelable
 
     @Override
     public void writeToParcel(Parcel out, int i) {
-        out.writeString(measure.getId());
+        out.writeInt(measure.getId());
         out.writeString(measure.getKey());
         out.writeString(measure.getName());
         out.writeDouble(measure.getDefaultPrice().doubleValue());

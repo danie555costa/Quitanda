@@ -35,12 +35,16 @@ public class MeasureDataSet  implements BaseReclyclerAdapter.ItemDataSet
         return measuere.toString();
     }
 
+    public Measure getMeasuere() {
+        return measuere;
+    }
+
     @Override
     public int getTypeView() {
         return R.layout.item_measure;
     }
 
-    public String getIdMetreage() {
+    public int getIdMetreage() {
         return this.measuere.getId();
     }
 
