@@ -11,17 +11,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.st.dbutil.android.process.OnProcessResult;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.dao.DaoProduct;
+import com.st.ggviario.client.model.Car;
+import com.st.ggviario.client.model.CarBuilder;
 import com.st.ggviario.client.model.ItemSell;
 import com.st.ggviario.client.model.Measure;
 import com.st.ggviario.client.model.PriceCalculator;
 import com.st.ggviario.client.model.Product;
+import com.st.ggviario.client.model.contract.ObserverCalculated;
 import com.st.ggviario.client.model.parcelable.ProductParcel;
 import com.st.ggviario.client.view.adapters.SupportCalculator;
 import com.st.ggviario.client.view.adapters.dataset.CalculatorDataSet;
 import com.st.ggviario.client.view.adapters.dataset.MeasureDataSet;
+import com.st.ggviario.client.view.events.CloseActivityEvent;
+import com.st.ggviario.client.view.events.CarEvemtAction;
+import com.st.ggviario.client.view.events.EventAction;
 import com.st.ggviario.client.view.fragments.SellCarStep;
 
 import java.io.Serializable;
@@ -31,11 +36,14 @@ import java.util.ArrayList;
  * Created by Daniel Costa on 8/13/16.
  * User computer: Daniel Costa
  */
-public class CalculatorActivity extends AppCompatActivity implements SupportCalculator.OnClickKeyboarListner, SupportCalculator.OnClickMeasureListener{
+public class CalculatorActivity extends AppCompatActivity implements SupportCalculator.OnClickKeyboardListener, SupportCalculator.OnClickMeasureListener{
     private DaoProduct daoProduct;
     private Toolbar toolbar;
     private SupportCalculator supportAdapter;
     private Product product;
+    private  ArrayList<EventAction> list;
+    private Car car;
+    private CarEvemtAction carAction;
 
     @Override
     protected void onCreate(@Nullable Bundle restoreInstance)
@@ -47,9 +55,18 @@ public class CalculatorActivity extends AppCompatActivity implements SupportCalc
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         this.daoProduct = new DaoProduct(this);
         this.supportAdapter = new SupportCalculator(CalculatorActivity.this);
+        this.list = new ArrayList<>();
+
+
+
+
 
         Bundle params = (restoreInstance == null) ? getIntent().getExtras() : restoreInstance;
         this.product = loadProduct(params);
+        this.car = new CarBuilder().build();
+        this.carAction = new CarEvemtAction(this.car, this.product);
+        this.list.add(new CloseActivityEvent());
+        this.list.add(this.carAction);
 
         this.toolbar.setTitle(product);
         this.toolbar.inflateMenu(R.menu.menu_calculator);
@@ -106,22 +123,20 @@ public class CalculatorActivity extends AppCompatActivity implements SupportCalc
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id == android.R.id.home)
-            this.finishAsResult();
-        return true;
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        Log.i("DBA:APP.TEST", "onOptionsItemSelected this list size is "+this.list.size());
+        for(EventAction menuItemSelected: this.list)
+        {
+            if(menuItemSelected.accept(item, this)) return true;
+        }
+        return false;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_calculator, menu);
         return true;
-    }
-
-    private void finishAsResult()
-    {
-        this.finish();
     }
 
     @Override
@@ -148,23 +163,22 @@ public class CalculatorActivity extends AppCompatActivity implements SupportCalc
                 && dataMeasure != null
                 && dataMeasure.isSelected())
         {
-            PriceCalculator priceCalculator = new PriceCalculator(this.daoProduct);
+            PriceCalculator priceCalculator = new PriceCalculator(new DaoProduct(this));
 
             priceCalculator.idMetreageFrom(dataMeasure.getMeasuere())
                     .idProduct(this.product.getId())
                     .quantity(value)
-                    .calc(new OnProcessResult<ItemSell>()
-                    {
+                    .addOnCalculated(carAction)
+                    .addOnCalculated(new ObserverCalculated() {
                         @Override
-                        public void processedResult(ItemSell processResult)
-                        {
-                            if(processResult != null)
+                        public void accept(ItemSell itemSell) {
+                            if(itemSell != null)
                             {
-                                supportAdapter.setPrice(processResult.getAmountPay());
-                                Log.i("DBA:APP.TEST", "RESULT OF CALC: "+ processResult);
+                                supportAdapter.setPrice(itemSell.getAmountPay());
                             }
                         }
-                    });
+                    })
+                    .calc();
         }
         else this.supportAdapter.setPrice(0.0);
     }

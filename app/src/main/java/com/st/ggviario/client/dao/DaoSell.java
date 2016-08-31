@@ -121,7 +121,7 @@ public class DaoSell extends LiteDataBase
     {
         Client client = DaoClient.mountClient(map);
         map.put(SELL_PRICE, map.get(REQ_MONTPAYMENT));
-        Product product = new ProductBuilder().build(map);
+        Product product = new ProductBuilder().buildMap(map);
         Measure measure = DaoProduct.mountMeasure(map);
 
         double quantityReq = (double) map.get(REQ_QUANTITY);
@@ -138,7 +138,7 @@ public class DaoSell extends LiteDataBase
 //        begin(Operaction.SELECT);
 //        select(ALL)
 //                .from(VER_SUMMARY_SELL)
-//                .execute();
+//                .executeQuery();
 //        ArrayList<LinkedHashMap<CharSequence, Object>> result = getSelectResult();
 //        end();
 //

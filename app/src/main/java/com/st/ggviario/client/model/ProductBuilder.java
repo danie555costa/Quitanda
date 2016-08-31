@@ -30,7 +30,6 @@ public class ProductBuilder implements Builder<Product>
         return this;
     }
 
-    @Override
     public Product build() {
         Measure measure;
         if(this.measure instanceof Measure)
@@ -45,11 +44,12 @@ public class ProductBuilder implements Builder<Product>
         return new Product(id, name, measure);
     }
 
-    public Product build(LinkedHashMap<CharSequence, Object> map)
+    public Product buildMap(LinkedHashMap<CharSequence, Object> map)
     {
         return id((int) map.get(PROD_ID))
                 .name(map.get(PROD_NAME).toString())
                 .measure(new MeasureBuilder().buildMap(map))
                 .build();
     }
+
 }

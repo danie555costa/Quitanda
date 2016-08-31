@@ -6,7 +6,7 @@ import com.st.dbutil.android.process.ProcessResult;
  * Created by Daniel Costa at 8/30/16.
  * Using user computer xdata
  */
-public class ItemSell implements ProcessResult
+public class ItemSell extends ProcessResult
 {
     private final Product product;
     private final Measure measure;
@@ -16,8 +16,8 @@ public class ItemSell implements ProcessResult
     private final Double baseQuantity;
     private final double usedQuantity;
 
-
     public ItemSell(double amountPay, Double baseQuantity, double usedQuantity, Product product, Measure measure, double requestQuantity) {
+        super(amountPay);
         this.amountPay = amountPay;
         this.baseQuantity = baseQuantity;
         this.usedQuantity = usedQuantity;
@@ -48,14 +48,5 @@ public class ItemSell implements ProcessResult
 
     public double getUsedQuantity() {
         return usedQuantity;
-    }
-
-    @Override
-    public String toString() {
-        return "ItemSell{" +
-                "amountPay=" + amountPay +
-                ", baseQuantity=" + baseQuantity +
-                ", usedQuantity=" + usedQuantity +
-                '}';
     }
 }

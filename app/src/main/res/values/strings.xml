@@ -105,5 +105,7 @@
     <string name="new_client">Novo cliente</string>
     <string name="save">Salvar</string>
     <string name="title_activity_ola_float">Ola Float</string>
+    <string name="add">Adicionar</string>
+    <string name="remove">Remover</string>
 
 </resources>

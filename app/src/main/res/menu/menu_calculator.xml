@@ -5,7 +5,7 @@
     tools:context=".view.activitys.CalculatorActivity">
 
     <item
-        android:id="@+id/item_car_action"
+        android:id="@+id/opt_car_action"
         android:orderInCategory="100"
         android:icon="@drawable/ic_add_shopping_cart_white_24dp"
         android:title="@string/add_in_car"

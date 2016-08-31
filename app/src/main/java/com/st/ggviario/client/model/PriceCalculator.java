@@ -6,8 +6,10 @@ import com.st.dbutil.android.process.BackgroundProcess;
 import com.st.dbutil.android.process.OnProcessResult;
 import com.st.dbutil.android.process.ProcessResult;
 import com.st.ggviario.client.dao.DaoProduct;
+import com.st.ggviario.client.model.contract.ObserverCalculated;
 import com.st.ggviario.client.model.template.SellRuleFinal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +22,7 @@ public class PriceCalculator implements BackgroundProcess.Background<ProcessResu
     private int idProduct;
     private Double quantity;
     private Measure measureFrom;
+    private ArrayList<ObserverCalculated> listOnCalculed;
 
 
     public PriceCalculator(DaoProduct daoProduct)
@@ -29,6 +32,7 @@ public class PriceCalculator implements BackgroundProcess.Background<ProcessResu
 
     public PriceCalculator idProduct(int idProduct) {
         this.idProduct = idProduct;
+        this.listOnCalculed = new ArrayList<>();
         return this;
     }
 
@@ -43,28 +47,40 @@ public class PriceCalculator implements BackgroundProcess.Background<ProcessResu
         return this;
     }
 
-    public void calc(OnProcessResult<ItemSell> onResultCalc)
+    public void calc()
     {
-        BackgroundProcess backgroundProcess = new BackgroundProcess(this, onResultCalc);
+        Log.i("DBA:APP.TEST", getClass().getSimpleName()+"-> calc");
+
+        BackgroundProcess backgroundProcess = new BackgroundProcess(this, new OnProcessResult<ItemSell>() {
+            @Override
+            public void processedResult(ItemSell processResult)
+            {
+                for(ObserverCalculated item: listOnCalculed)
+                    item.accept(processResult);
+            }
+        });
         backgroundProcess.execute();
     }
 
     @Override
-    public ProcessResult onExecute(Object... paramns)
+    public ProcessResult<ItemSell> onExecute(Object... paramns)
     {
+        Log.i("DBA:APP.TEST", getClass().getSimpleName()+ "-> onExecute");
         if(idProduct <= 0
                 || measureFrom.getId() <= 0
                 || quantity == null) return null;
 
         Product product = this.daoProduct.find(this.idProduct);
-        List<SellRule> roules = this.daoProduct.loadSellRules(product, this.measureFrom);
+        List<PriceRule> rule = this.daoProduct.loadSellRules(product, this.measureFrom);
+
 
         //Caso existir as regras de calculo
-        if(!roules.isEmpty())
+        if(!rule.isEmpty())
         {
-            roules.get(roules.size() -1).setOtherRule(new SellRuleFinal());
+            rule.get(rule.size() -1).setOtherRule(new SellRuleFinal());
             Log.i("DBA:APP.TEST", "Iniciando o calculo");
-            SellRule startRule = roules.get(0);
+            PriceRule startRule = rule.get(0);
+
             double amountValue = startRule.calc(this.quantity);
             Double usedQuantity = startRule.getAcceptedQuantity();
             Double baseQuantity = daoProduct.convertMeasures(this.measureFrom.getId(), product.getBaseMesure().getId(), usedQuantity);
@@ -81,5 +97,11 @@ public class PriceCalculator implements BackgroundProcess.Background<ProcessResu
             return  build;
         }
         return null;
+    }
+
+    public PriceCalculator addOnCalculated(ObserverCalculated onCalculated)
+    {
+        this.listOnCalculed.add(onCalculated);
+        return this;
     }
 }

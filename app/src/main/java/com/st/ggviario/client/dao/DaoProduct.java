@@ -1,11 +1,11 @@
 package com.st.ggviario.client.dao;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.st.dbutil.android.model.OnProcess;
 import com.st.dbutil.android.sqlite.LiteDataBase;
 import com.st.ggviario.client.model.Measure;
+import com.st.ggviario.client.model.PriceRule;
 import com.st.ggviario.client.model.Product;
 import com.st.ggviario.client.model.ProductBuilder;
 import com.st.ggviario.client.model.SellRule;
@@ -110,7 +110,7 @@ public class DaoProduct extends LiteDataBase
         map = getSelectResult().get(0);
         end();
 
-        return new ProductBuilder().build(map);
+        return new ProductBuilder().buildMap(map);
     }
 
     public ArrayList<Measure> loadMetreages(final int idProducto)
@@ -162,7 +162,7 @@ public class DaoProduct extends LiteDataBase
         end();
         for(LinkedHashMap<CharSequence, Object> map: result)
         {
-            Product product = new ProductBuilder().build(map);
+            Product product = new ProductBuilder().buildMap(map);
             if(productOnProcess != null)
                 productOnProcess.process(product);
             listProdutoShell.add(product);
@@ -170,9 +170,9 @@ public class DaoProduct extends LiteDataBase
         return listProdutoShell;
     }
 
-    public List<SellRule> loadSellRules(final Product product, final Measure idMeasureFrom)
+    public List<PriceRule> loadSellRules(final Product product, final Measure idMeasureFrom)
     {
-        List<SellRule> list = new ArrayList<>();
+        List<PriceRule> list = new ArrayList<>();
         begin(SELECT);
         select(ALL)
                 .from(VER_SELLROULE)
@@ -180,8 +180,9 @@ public class DaoProduct extends LiteDataBase
                     @Override
                     public boolean accept(int wherePosition, HashMap<CharSequence, Object> row)
                     {
-                        boolean result =  (row.get(SELL_PROD_ID)+"").equals(product.getId())
+                        boolean result = Objects.equals(row.get(SELL_PROD_ID), product.getId())
                                 && Objects.equals(row.get(SELL_MET_ID), idMeasureFrom.getId());
+
                         return result;
                         //ORDER BY sh.sell_quantity DESC Executed by view
                     }});

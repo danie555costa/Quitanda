@@ -136,7 +136,7 @@ public class SellStepperActivity extends TabStepper implements RMap, CallbackCli
         CallbackControler.outNet(this);
         this.productsDatas = (ArrayList<Product>) restore.getSerializable(LIST_PRODUCTS);
         this.measureDadas = (HashMap<Integer, ArrayList<Measure>>) restore.getSerializable(LIST_MEASURE);
-        this.client = (Client) restore.getSerializable(CLIENT);
+//        this.client = (Client) restore.getSerializable(CLIENT);
         this.quantity = restore.getDouble(QUANTITY);
         this.product = (Product) restore.getSerializable(PRODUCT);
         this.measure = (MeasureDataSet) restore.getSerializable(MEASURE);

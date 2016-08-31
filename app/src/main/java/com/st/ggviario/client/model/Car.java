@@ -45,4 +45,11 @@ public class Car
         }
         return null;
     }
+
+    public boolean contains(Product product)
+    {
+        for(ItemSell sell: this.itemSellList)
+            if(sell.getProduct().equals(product)) return true;
+        return false;
+    }
 }

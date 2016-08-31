@@ -29,7 +29,7 @@ public class SupportCalculator implements  SupportRecyclerAdapter.OnCreateViewHo
     private final SupportRecyclerAdapter support;
     private final List<BaseReclyclerAdapter.ItemDataSet> list;
     private final CalculatorDataSet calc;
-    private OnClickKeyboarListner onClickKeyboarListner;
+    private OnClickKeyboardListener onClickKeyboardListener;
     private MeasureDataSet currentDadaMeasure;
     private OnClickMeasureListener onCLickMeasureListener;
 
@@ -64,7 +64,7 @@ public class SupportCalculator implements  SupportRecyclerAdapter.OnCreateViewHo
         if(viewType == TYPE_KEYBOARD)
         {
             CalculatorViewHolder calcHolder = new CalculatorViewHolder(view);
-            calcHolder.setOnclickListiner(this.onClickKeyboarListner);
+            calcHolder.setOnclickListiner(this.onClickKeyboardListener);
             holder = calcHolder;
         }
         else
@@ -78,8 +78,8 @@ public class SupportCalculator implements  SupportRecyclerAdapter.OnCreateViewHo
         return holder;
     }
 
-    public void setOnClickKeyboardListner(OnClickKeyboarListner onClickKeyboarListner) {
-        this.onClickKeyboarListner = onClickKeyboarListner;
+    public void setOnClickKeyboardListner(OnClickKeyboardListener onClickKeyboarListner) {
+        this.onClickKeyboardListener = onClickKeyboarListner;
     }
 
     @Override
@@ -141,13 +141,12 @@ public class SupportCalculator implements  SupportRecyclerAdapter.OnCreateViewHo
 
 
 
-    public interface OnClickKeyboarListner
+    public interface OnClickKeyboardListener
     {
         void onClick(View view, char key, CalculatorDataSet data);
 
         void onClickAction(View view, KeyboardAction action, CalculatorDataSet data);
     }
-
 
     public enum KeyboardAction
     {
@@ -158,7 +157,6 @@ public class SupportCalculator implements  SupportRecyclerAdapter.OnCreateViewHo
 
     public interface OnClickMeasureListener
     {
-
         void onClickMeasure(View view, MeasureDataSet dataMeasure);
     }
 }

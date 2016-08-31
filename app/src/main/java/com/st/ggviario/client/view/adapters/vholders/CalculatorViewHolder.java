@@ -48,7 +48,7 @@ public class CalculatorViewHolder extends BaseReclyclerAdapter.ItemViewHolder im
     private final View panelView;
     private final TextView tvPreviewValue;
     private CalculatorDataSet values;
-    private SupportCalculator.OnClickKeyboarListner onClickKeyboarListner;
+    private SupportCalculator.OnClickKeyboardListener onClickKeyboarListner;
 
     /**
      *
@@ -187,7 +187,7 @@ public class CalculatorViewHolder extends BaseReclyclerAdapter.ItemViewHolder im
         this.tvPreviewValue.setText(FMT.format(this.values.getPreviewPrice()));
     }
 
-    public void setOnclickListiner(SupportCalculator.OnClickKeyboarListner onClickKeyboarListner)
+    public void setOnclickListiner(SupportCalculator.OnClickKeyboardListener onClickKeyboarListner)
     {
         this.onClickKeyboarListner = onClickKeyboarListner;
     }
