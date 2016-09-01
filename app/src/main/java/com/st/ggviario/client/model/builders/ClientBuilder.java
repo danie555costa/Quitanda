@@ -1,10 +1,12 @@
-package com.st.ggviario.client.model;
+package com.st.ggviario.client.model.builders;
+
+import com.st.ggviario.client.model.Client;
 
 /**
  * Created by Daniel Costa at 8/28/16.
  * Using user computer xdata
  */
-public class ClientBuilder implements Builder<Client>
+public class ClientBuilder extends Builder<Client>
 {
     private Integer idClient;
     private String name;
@@ -12,6 +14,12 @@ public class ClientBuilder implements Builder<Client>
     private String residence;
     private String contact;
     private long previewId;
+
+
+    public ClientBuilder() {
+        super(Client.class);
+    }
+
 
     public ClientBuilder idClient(Integer idClient) {
         this.idClient = idClient;

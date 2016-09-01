@@ -10,7 +10,7 @@ import com.st.dbutil.android.sqlite.LiteDataBase;
 import com.st.ggviario.client.model.Client;
 import com.st.ggviario.client.model.Measure;
 import com.st.ggviario.client.model.Product;
-import com.st.ggviario.client.model.ProductBuilder;
+import com.st.ggviario.client.model.builders.ProductBuilder;
 import com.st.ggviario.client.model.Sell;
 import com.st.ggviario.client.model.User;
 

@@ -2,7 +2,7 @@ package com.st.ggviario.client.view.adapters.dataset;
 
 import android.support.annotation.NonNull;
 
-import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.model.template.BaseCharacter;
 import com.st.ggviario.client.view.activitys.SellStepperActivity;
@@ -13,7 +13,7 @@ import java.text.NumberFormat;
  * Created by Daniel Costa at 8/28/16.
  * Using user computer xdata
  */
-public class CalculatorDataSet extends BaseCharacter implements BaseReclyclerAdapter.ItemDataSet
+public class CalculatorDataSet extends BaseCharacter implements BaseRecyclerAdapter.ItemDataSet
 {
     private final NumberFormat formatter;
     private String originalTest;

@@ -7,7 +7,7 @@ import com.st.dbutil.android.sqlite.LiteDataBase;
 import com.st.ggviario.client.model.Measure;
 import com.st.ggviario.client.model.PriceRule;
 import com.st.ggviario.client.model.Product;
-import com.st.ggviario.client.model.ProductBuilder;
+import com.st.ggviario.client.model.builders.ProductBuilder;
 import com.st.ggviario.client.model.SellRule;
 import com.st.ggviario.client.references.RData;
 

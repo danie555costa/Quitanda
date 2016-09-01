@@ -5,7 +5,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Button;
 
-import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.view.activitys.PaymentMode;
@@ -15,7 +15,7 @@ import com.st.ggviario.client.view.adapters.ListItemView;
  * Created by Daniel Costa at 8/26/16.
  * Using user computer xdata
  */
-public class ModePayment extends BaseReclyclerAdapter.ItemViewHolder implements SupportRecyclerAdapter.OnCreateViewHolder, View.OnClickListener {
+public class ModePayment extends BaseRecyclerAdapter.ItemViewHolder implements SupportRecyclerAdapter.OnCreateViewHolder, View.OnClickListener {
 
     private final RecyclerView recyclerView;
     private final Button btChagePayMode;
@@ -31,7 +31,7 @@ public class ModePayment extends BaseReclyclerAdapter.ItemViewHolder implements 
 
 
     @Override
-    public BaseReclyclerAdapter.ItemViewHolder onCreateViewHolder(View view, int viewType, int onRecyclerViewId) {
+    public BaseRecyclerAdapter.ItemViewHolder onCreateViewHolder(View view, int viewType, int onRecyclerViewId) {
         switch (viewType)
         {
             case R.layout.item_detais:
@@ -43,7 +43,7 @@ public class ModePayment extends BaseReclyclerAdapter.ItemViewHolder implements 
     }
 
     @Override
-    public boolean bind(BaseReclyclerAdapter.ItemDataSet itemDataSet, int position)
+    public boolean bind(BaseRecyclerAdapter.ItemDataSet itemDataSet, int position)
     {
         super.bind(itemDataSet, position);
         if(supportAdapterPayInfo == null)
@@ -56,18 +56,18 @@ public class ModePayment extends BaseReclyclerAdapter.ItemViewHolder implements 
             // O valor não devera ser colocado nessa area (sera colocado apenas para o teste) O ideal e colocar o valor no momento de OnBind
 
             ListItemView.TextTowLineDataSet dataSet;
-            supportAdapterPayInfo.addItemDataSet(dataSet = new ListItemView.TextTowLineDataSet(R.layout.item_detais));
+            supportAdapterPayInfo.addDataSet(dataSet = new ListItemView.TextTowLineDataSet(R.layout.item_detais));
             dataSet.setTextPrimary("Cliente");
             dataSet.setTextSecond1("Anonimo");
 
-            supportAdapterPayInfo.addItemDataSet(dataSet = new ListItemView.TextTowLineDataSet(R.layout.item_detais));
+            supportAdapterPayInfo.addDataSet(dataSet = new ListItemView.TextTowLineDataSet(R.layout.item_detais));
             dataSet.setTextPrimary("Pagamento");
             dataSet.setTextSecond1("Credito");
 
-            supportAdapterPayInfo.addItemDataSet(dataSet = new ListItemView.TextTowLineDataSet(R.layout.item_detais));
+            supportAdapterPayInfo.addDataSet(dataSet = new ListItemView.TextTowLineDataSet(R.layout.item_detais));
             dataSet.setTextPrimary("Data entrega");
 
-            supportAdapterPayInfo.addItemDataSet(dataSet = new ListItemView.TextTowLineDataSet(R.layout.item_detais));
+            supportAdapterPayInfo.addDataSet(dataSet = new ListItemView.TextTowLineDataSet(R.layout.item_detais));
             dataSet.setTextPrimary("Data pagamento");
             dataSet.setTextSecond1("30/10/2016");
 

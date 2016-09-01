@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.model.Measure;
@@ -27,7 +27,7 @@ public class SupportCalculator implements  SupportRecyclerAdapter.OnCreateViewHo
     private static final int TYPE_MEASURE = R.layout.item_measure;
 
     private final SupportRecyclerAdapter support;
-    private final List<BaseReclyclerAdapter.ItemDataSet> list;
+    private final List<BaseRecyclerAdapter.ItemDataSet> list;
     private final CalculatorDataSet calc;
     private OnClickKeyboardListener onClickKeyboardListener;
     private MeasureDataSet currentDadaMeasure;
@@ -58,9 +58,9 @@ public class SupportCalculator implements  SupportRecyclerAdapter.OnCreateViewHo
     }
 
     @Override
-    public BaseReclyclerAdapter.ItemViewHolder onCreateViewHolder(View view, int viewType, int onRecyclerViewId)
+    public BaseRecyclerAdapter.ItemViewHolder onCreateViewHolder(View view, int viewType, int onRecyclerViewId)
     {
-        BaseReclyclerAdapter.ItemViewHolder holder;
+        BaseRecyclerAdapter.ItemViewHolder holder;
         if(viewType == TYPE_KEYBOARD)
         {
             CalculatorViewHolder calcHolder = new CalculatorViewHolder(view);
@@ -83,7 +83,7 @@ public class SupportCalculator implements  SupportRecyclerAdapter.OnCreateViewHo
     }
 
     @Override
-    public void onItemClick(View view, BaseReclyclerAdapter.ItemDataSet dataSet, int adapterPosition, int viewPosition) {
+    public void onItemClick(View view, BaseRecyclerAdapter.ItemDataSet dataSet, int adapterPosition, int viewPosition) {
         if(dataSet.getTypeView() == TYPE_MEASURE)
         {
             MeasureDataSet dataMeasure = (MeasureDataSet) dataSet;

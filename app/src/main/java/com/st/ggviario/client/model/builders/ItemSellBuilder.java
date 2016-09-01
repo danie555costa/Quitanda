@@ -1,10 +1,14 @@
-package com.st.ggviario.client.model;
+package com.st.ggviario.client.model.builders;
+
+import com.st.ggviario.client.model.ItemSell;
+import com.st.ggviario.client.model.Measure;
+import com.st.ggviario.client.model.Product;
 
 /**
  * Created by Daniel Costa at 8/30/16.
  * Using user computer xdata
  */
-public class ItemSellBuilder implements Builder<ItemSell>
+public class ItemSellBuilder extends Builder<ItemSell>
 {
     private Product product;
     private Measure measure;
@@ -13,6 +17,11 @@ public class ItemSellBuilder implements Builder<ItemSell>
     private double amountPay;
     private Double baseQuantity;
     private double usedQuantity;
+
+
+    public ItemSellBuilder() {
+        super(ItemSell.class);
+    }
 
     public ItemSellBuilder product(Product product) {
         this.product = product;

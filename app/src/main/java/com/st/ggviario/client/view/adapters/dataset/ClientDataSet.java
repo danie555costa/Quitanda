@@ -1,6 +1,6 @@
 package com.st.ggviario.client.view.adapters.dataset;
 
-import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.model.Client;
 
@@ -8,7 +8,7 @@ import com.st.ggviario.client.model.Client;
  * Created by Daniel Costa at 8/28/16.
  * Using user computer xdata
  */
-public class ClientDataSet implements BaseReclyclerAdapter.ItemDataSet
+public class ClientDataSet implements BaseRecyclerAdapter.ItemDataSet
 {
     private final Client client;
     public ClientDataSet(Client client)

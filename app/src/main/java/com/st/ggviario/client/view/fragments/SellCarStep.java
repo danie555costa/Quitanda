@@ -14,12 +14,15 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.st.dbutil.android.model.ImageTextResource;
 import com.st.dbutil.android.model.ItemFragment;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.references.RColors;
-import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.dao.DaoProduct;
 import com.st.ggviario.client.model.Product;
-import com.st.ggviario.client.view.adapters.SupportSellProducts;
+import com.st.ggviario.client.references.RColors;
+import com.st.ggviario.client.references.RMap;
+import com.st.ggviario.client.view.adapters.ViewHolderAdapter;
+import com.st.ggviario.client.view.adapters.builder.CarSummaryViewHolderBuilder;
+import com.st.ggviario.client.view.adapters.builder.ProductViewHolderBuilder;
 import com.st.ggviario.client.view.adapters.dataset.DataProduct;
+import com.st.ggviario.client.view.adapters.dataset.CarSummaryDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +30,10 @@ import java.util.List;
 public class SellCarStep extends AbstractStep implements ItemFragment
 {
 	public static final String PRODUCT = "PRODUCT";
+	public static final String CAR = "CAR";
+
 	private View rootView;
-	private SupportSellProducts supportAdapter;
+	private ViewHolderAdapter supportAdapter;
 	private RecyclerView recyclerView;
 	private DaoProduct daoProduct;
 	private List list;
@@ -38,10 +43,14 @@ public class SellCarStep extends AbstractStep implements ItemFragment
 	{
 		super.onCreate(savedInstanceState);
 
-		this.supportAdapter = new SupportSellProducts(this.getContext());
+		this.supportAdapter = new ViewHolderAdapter(this.getContext());
+		this.supportAdapter.addDataSet(new CarSummaryDataSet());
+		this.supportAdapter.addViewHolderBuilder(new ProductViewHolderBuilder());
+		this.supportAdapter.addViewHolderBuilder(new CarSummaryViewHolderBuilder());
+
 		this.daoProduct = new DaoProduct(this.getContext());
 		ArrayList<Product> listProduct = daoProduct.loadProducts(null);
-		this.list = supportAdapter.getCreatedSupport().getListDataSet();
+		this.list = supportAdapter.getListDataSet();
 		int colorId;
 
 		for(Product product: listProduct)
@@ -92,7 +101,7 @@ public class SellCarStep extends AbstractStep implements ItemFragment
 //                lastCompletPosition = layoutManager.findLastCompletelyVisibleItemPosition() ;
 //                lastCompletPosition = max;
 
-				if(lastCompletPosition +1 == supportAdapter.getCreatedSupport().getItemCount())
+				if(lastCompletPosition +1 == supportAdapter.getItemCount())
 				{
 
 				}
@@ -100,7 +109,7 @@ public class SellCarStep extends AbstractStep implements ItemFragment
 			}
 		});
 
-		this.recyclerView.setAdapter(this.supportAdapter.getCreatedSupport());
+		this.recyclerView.setAdapter(this.supportAdapter);
 		return  this.rootView;
 	}
 

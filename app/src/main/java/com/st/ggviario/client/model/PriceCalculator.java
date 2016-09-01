@@ -6,6 +6,7 @@ import com.st.dbutil.android.process.BackgroundProcess;
 import com.st.dbutil.android.process.OnProcessResult;
 import com.st.dbutil.android.process.ProcessResult;
 import com.st.ggviario.client.dao.DaoProduct;
+import com.st.ggviario.client.model.builders.ItemSellBuilder;
 import com.st.ggviario.client.model.contract.ObserverCalculated;
 import com.st.ggviario.client.model.template.SellRuleFinal;
 

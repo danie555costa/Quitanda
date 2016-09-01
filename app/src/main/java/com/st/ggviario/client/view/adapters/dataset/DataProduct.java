@@ -1,6 +1,6 @@
 package com.st.ggviario.client.view.adapters.dataset;
 
-import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.model.Product;
 import com.st.ggviario.client.model.template.BaseCharacter;
@@ -9,7 +9,7 @@ import com.st.ggviario.client.model.template.BaseCharacter;
  * Created by Daniel Costa at 8/29/16.
  * Using user computer xdata
  */
-public class DataProduct extends BaseCharacter implements BaseReclyclerAdapter.ItemDataSet
+public class DataProduct extends BaseCharacter implements BaseRecyclerAdapter.ItemDataSet
 {
     private int idColor;
     private Product product;
@@ -30,7 +30,7 @@ public class DataProduct extends BaseCharacter implements BaseReclyclerAdapter.I
 
     @Override
     public int getTypeView() {
-        return R.layout.item_cart_operation;
+        return R.layout.item_operation;
     }
 
     public Product getProduct() {

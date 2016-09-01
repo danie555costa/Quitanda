@@ -7,7 +7,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 
 /**
  * Created by Daniel Costa on 8/24/16.
@@ -15,7 +15,7 @@ import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
  */
 public class ListItemView
 {
-    public static class TextOneLineDataSet implements BaseReclyclerAdapter.ItemDataSet
+    public static class TextOneLineDataSet implements BaseRecyclerAdapter.ItemDataSet
     {
         private int typeView;
         private CharSequence textPrimary;
@@ -79,7 +79,7 @@ public class ListItemView
     }
 
 
-    public static class ItemViewHolder extends BaseReclyclerAdapter.ItemViewHolder
+    public static class ItemViewHolder extends BaseRecyclerAdapter.ItemViewHolder
     {
         private final View view;
         private TextView tvPrimaryText;
@@ -123,16 +123,16 @@ public class ListItemView
                 this.avatarButton = (Button) avatar;
         }
 
-        public  boolean bind(BaseReclyclerAdapter.ItemDataSet itemDataSet, int position)
+        public  boolean bind(BaseRecyclerAdapter.ItemDataSet dataSet, int position)
         {
-            super.bind(itemDataSet, position);
-            if(itemDataSet instanceof TextOneLineDataSet)
+            super.bind(dataSet, position);
+            if(dataSet instanceof TextOneLineDataSet)
             {
-                this.tvPrimaryText.setText(((TextOneLineDataSet) itemDataSet).getTextPrimary());
-                if (itemDataSet instanceof TextTowLineDataSet && this.tvTextSecond1 != null)
-                    this.tvTextSecond1.setText(((TextTowLineDataSet) itemDataSet).getTextSecond1());
-                if(itemDataSet instanceof TextTreeLineDataSet && this.tvTextSecond2 != null)
-                    this.tvTextSecond2.setText(((TextTreeLineDataSet) itemDataSet).getTextSecond2());
+                this.tvPrimaryText.setText(((TextOneLineDataSet) dataSet).getTextPrimary());
+                if (dataSet instanceof TextTowLineDataSet && this.tvTextSecond1 != null)
+                    this.tvTextSecond1.setText(((TextTowLineDataSet) dataSet).getTextSecond1());
+                if(dataSet instanceof TextTreeLineDataSet && this.tvTextSecond2 != null)
+                    this.tvTextSecond2.setText(((TextTreeLineDataSet) dataSet).getTextSecond2());
             }
             return true;
         }

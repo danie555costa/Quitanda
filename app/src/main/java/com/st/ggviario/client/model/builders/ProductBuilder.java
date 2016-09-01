@@ -1,4 +1,8 @@
-package com.st.ggviario.client.model;
+package com.st.ggviario.client.model.builders;
+
+import com.st.ggviario.client.model.Client;
+import com.st.ggviario.client.model.Measure;
+import com.st.ggviario.client.model.Product;
 
 import java.util.LinkedHashMap;
 
@@ -9,11 +13,16 @@ import static com.st.ggviario.client.references.RData.PROD_NAME;
  * Created by Daniel Costa at 8/29/16.
  * Using user computer xdata
  */
-public class ProductBuilder implements Builder<Product>
+public class ProductBuilder extends Builder<Product>
 {
     private String name;
     private int id;
     private CharSequence measure;
+
+
+    public ProductBuilder() {
+        super(Product.class);
+    }
 
     public ProductBuilder name(String name) {
         this.name = name;
@@ -25,8 +34,8 @@ public class ProductBuilder implements Builder<Product>
         return this;
     }
 
-    public ProductBuilder measure(CharSequence idMesure) {
-        this.measure = idMesure;
+    public ProductBuilder measure(CharSequence measure) {
+        this.measure = measure;
         return this;
     }
 

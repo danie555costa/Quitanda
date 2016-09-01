@@ -7,7 +7,7 @@ import android.view.MenuItem;
  * Created by Daniel Costa at 8/30/16.
  * Using user computer xdata
  */
-public interface EventAction
+public interface MenuObserver
 {
     boolean accept(MenuItem menuItem, Activity appCompatActivity);
 }

@@ -1,22 +1,24 @@
-package com.st.ggviario.client.model;
+package com.st.ggviario.client.model.builders;
 
+import com.st.ggviario.client.model.Measure;
 import com.st.ggviario.client.references.RData;
-import com.st.ggviario.client.references.RMap;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by Daniel Costa at 8/29/16.
  * Using user computer xdata
  */
-public class MeasureBuilder implements Builder<Measure>
+public class MeasureBuilder extends Builder<Measure>
 {
     private double defaultPrice;
     private int id;
     private String name;
     private String key;
+
+    public MeasureBuilder() {
+        super(Measure.class);
+    }
 
     public MeasureBuilder defaultPrice(double defaultPrice) {
         this.defaultPrice = defaultPrice;

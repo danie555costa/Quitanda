@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.view.adapters.vholders.ListProductSelectedPayment;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class SupportSellPayment implements SupportRecyclerAdapter.OnCreateViewHolder, SupportRecyclerAdapter.OnPosViewCreated {
     private final Context context;
-    private final List<BaseReclyclerAdapter.ItemDataSet> listItems;
+    private final List<BaseRecyclerAdapter.ItemDataSet> listItems;
     private final PaymentModeDataSet dataPayment;
     private final ListProductSelectedDataSet listProducteSelected;
 
@@ -39,7 +39,7 @@ public class SupportSellPayment implements SupportRecyclerAdapter.OnCreateViewHo
     }
 
     @Override
-    public BaseReclyclerAdapter.ItemViewHolder onCreateViewHolder(View view, int viewType, int onRecyclerViewId)
+    public BaseRecyclerAdapter.ItemViewHolder onCreateViewHolder(View view, int viewType, int onRecyclerViewId)
     {
         switch (viewType)
         {
@@ -65,7 +65,7 @@ public class SupportSellPayment implements SupportRecyclerAdapter.OnCreateViewHo
     }
 
 
-    public class PaymentModeDataSet implements BaseReclyclerAdapter.ItemDataSet
+    public class PaymentModeDataSet implements BaseRecyclerAdapter.ItemDataSet
     {
         private TypePayment typePayment;
 
@@ -75,7 +75,7 @@ public class SupportSellPayment implements SupportRecyclerAdapter.OnCreateViewHo
         }
     }
 
-    public class ListProductSelectedDataSet implements BaseReclyclerAdapter.ItemDataSet
+    public class ListProductSelectedDataSet implements BaseRecyclerAdapter.ItemDataSet
     {
         @Override
         public int getTypeView()

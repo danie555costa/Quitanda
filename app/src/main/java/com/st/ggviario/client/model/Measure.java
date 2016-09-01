@@ -8,18 +8,17 @@ import java.io.Serializable;
 
 public class Measure extends BaseCharacter implements Serializable
 {
-	private final Money defaultPrice;
+	private double defaultPrice;
 	private int id;
 	private String name;
 	private String key;
-
 
 	public Measure(int id, String key, String name, double price)
 	{
 		this.id = id;
 		this.name = name;
 		this.key = key;
-		this.defaultPrice = new Money(price);
+		this.defaultPrice = (price);
 	}
 
 	public int getId() {
@@ -32,7 +31,7 @@ public class Measure extends BaseCharacter implements Serializable
 
 	public Money getDefaultPrice()
 	{
-		return defaultPrice;
+		return new Money(defaultPrice);
 	}
 
 	@Override

@@ -1,12 +1,12 @@
 package com.st.ggviario.client.model;
 
-import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.ggviario.client.model.template.BaseCharacter;
 
 /**
  * Created by xdata on 8/9/16.
  */
-public class Content extends BaseCharacter implements BaseReclyclerAdapter.ItemDataSet
+public class Content extends BaseCharacter implements BaseRecyclerAdapter.ItemDataSet
 {
     private String title;
     private String value;

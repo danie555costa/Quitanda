@@ -9,7 +9,7 @@ public class Product extends BaseCharacter
 	private int stock;
 	private Measure baseMesure;
 
-	Product(int id, String name, Measure baseMeasure)
+	public Product(int id, String name, Measure baseMeasure)
 	{
 		this.name = name;
 		this.id = id;

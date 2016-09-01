@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.nineoldandroids.animation.Animator;
-import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.view.activitys.SellStepperActivity;
@@ -21,7 +21,7 @@ import java.text.NumberFormat;
  * Created by Daniel Costa at 8/28/16.
  * Using user computer xdata
  */
-public class CalculatorViewHolder extends BaseReclyclerAdapter.ItemViewHolder implements View.OnClickListener
+public class CalculatorViewHolder extends BaseRecyclerAdapter.ItemViewHolder implements View.OnClickListener
 {
     private static final NumberFormat FMT = SellStepperActivity.instanceFormatterMoney();
     private final int [] buttons = {
@@ -93,10 +93,10 @@ public class CalculatorViewHolder extends BaseReclyclerAdapter.ItemViewHolder im
     }
 
     @Override
-    public boolean bind(BaseReclyclerAdapter.ItemDataSet itemDataSet, int position) {
-        if(itemDataSet instanceof CalculatorDataSet)
+    public boolean bind(BaseRecyclerAdapter.ItemDataSet dataSet, int position) {
+        if(dataSet instanceof CalculatorDataSet)
         {
-            this.values = (CalculatorDataSet) itemDataSet;
+            this.values = (CalculatorDataSet) dataSet;
             this.tvCalcView.setText(values);
             this.treatVisible();
         }

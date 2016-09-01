@@ -1,13 +1,13 @@
 package com.st.ggviario.client.view.adapters.dataset;
 
-import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.ggviario.client.model.Product;
 
 /**
  * Created by Daniel Costa at 8/29/16.
  * Using user computer xdata
  */
-public class ProductDataSet implements BaseReclyclerAdapter.ItemDataSet
+public class ProductDataSet implements BaseRecyclerAdapter.ItemDataSet
 {
 
     private final Product product;

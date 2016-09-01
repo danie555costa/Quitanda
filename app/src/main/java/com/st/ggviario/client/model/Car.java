@@ -1,5 +1,6 @@
 package com.st.ggviario.client.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,6 +11,12 @@ public class Car
 {
     private List<ItemSell> itemSellList;
     private double amountFinal;
+
+    public Car()
+    {
+        this.itemSellList = new ArrayList<>();
+        this.amountFinal = 0;
+    }
 
     public Car(List<ItemSell> itemSellList, double amountFinal)
     {

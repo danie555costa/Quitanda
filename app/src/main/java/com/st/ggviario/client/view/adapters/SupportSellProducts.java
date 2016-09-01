@@ -17,12 +17,11 @@ import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.model.Product;
-import com.st.ggviario.client.model.ProductBuilder;
-import com.st.ggviario.client.model.parcelable.ProductParcel;
+import com.st.ggviario.client.model.builders.ProductBuilder;
 import com.st.ggviario.client.view.activitys.CalculatorActivity;
 import com.st.ggviario.client.view.adapters.dataset.DataProduct;
 import com.st.ggviario.client.view.fragments.SellCarStep;
@@ -37,7 +36,7 @@ import java.util.List;
 public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHolder, SupportRecyclerAdapter.OnCreateViewHolder, SupportRecyclerAdapter.OnItemClickListener, SupportRecyclerAdapter.OnPosViewCreated {
     private static final int TYPE_ITEM_CAR = R.layout.item_product_selected;
     private final SupportRecyclerAdapter support;
-    private final List<BaseReclyclerAdapter.ItemDataSet> list;
+    private final List<BaseRecyclerAdapter.ItemDataSet> list;
     public static final int TYPE_CAR = R.layout.item_group_car;
 
     public SupportSellProducts(Context content)
@@ -60,7 +59,7 @@ public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHol
     }
 
     @Override
-    public void onBindViewHolder(BaseReclyclerAdapter.ItemViewHolder viewHolder, BaseReclyclerAdapter.ItemDataSet dataSet, int position, int onRecyclerViewId)
+    public void onBindViewHolder(BaseRecyclerAdapter.ItemViewHolder viewHolder, BaseRecyclerAdapter.ItemDataSet dataSet, int position, int onRecyclerViewId)
     {
         if(viewHolder instanceof ViewHolderProduct)
         {
@@ -85,11 +84,11 @@ public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHol
     }
 
     @Override
-    public BaseReclyclerAdapter.ItemViewHolder onCreateViewHolder(View view, int viewType, int onRecyclerViewId) {
-        BaseReclyclerAdapter.ItemViewHolder viewHolder = null;
+    public BaseRecyclerAdapter.ItemViewHolder onCreateViewHolder(View view, int viewType, int onRecyclerViewId) {
+        BaseRecyclerAdapter.ItemViewHolder viewHolder = null;
         switch (viewType)
         {
-            case R.layout.item_cart_operation:
+            case R.layout.item_operation:
                 viewHolder = new ViewHolderProduct(view);
                 break;
             case TYPE_CAR:
@@ -102,15 +101,15 @@ public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHol
     }
 
     @Override
-    public void onItemClick(View view, BaseReclyclerAdapter.ItemDataSet dataSet, int adapterPosition, int viewPosition)
+    public void onItemClick(View view, BaseRecyclerAdapter.ItemDataSet dataSet, int adapterPosition, int viewPosition)
     {
         if(dataSet instanceof DataProduct)
         {
             DataProduct dataProduct = (DataProduct) dataSet;
             Intent intent = new Intent(this.support.getContext(), CalculatorActivity.class);
-            Bundle bunble = new Bundle();
-            bunble.putParcelable(SellCarStep.PRODUCT, new ProductParcel(dataProduct.getProduct()));
-            intent.putExtras(bunble);
+            Bundle bundle = new Bundle();
+            bundle.putString(SellCarStep.PRODUCT, new ProductBuilder().toXml(dataProduct.getProduct()));
+            intent.putExtras(bundle);
             support.getContext().startActivity(intent);
         }
 
@@ -137,7 +136,7 @@ public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHol
                     {
                         staggerLayoutParams.setFullSpan(true);
                     }
-                    else if(viewType == R.layout.item_cart_operation)
+                    else if(viewType == R.layout.item_operation)
                     {
 
                     }
@@ -152,7 +151,7 @@ public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHol
     }
 
 
-    public class ViewHolderProduct extends BaseReclyclerAdapter.ItemViewHolder
+    public class ViewHolderProduct extends BaseRecyclerAdapter.ItemViewHolder
     {
         private final CardView cardView;
         private final TextView titleOperation;
@@ -177,22 +176,22 @@ public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHol
         }
     }
 
-    private class CarSummary implements BaseReclyclerAdapter.ItemDataSet
+    private class CarSummary implements BaseRecyclerAdapter.ItemDataSet
     {
         @Override
         public int getTypeView() {
-            return TYPE_CAR;
+            return R.layout.item_group_car;
         }
     }
 
-    private class ViewHoderCar extends BaseReclyclerAdapter.ItemViewHolder
+    private class ViewHoderCar extends BaseRecyclerAdapter.ItemViewHolder
     {
         private final SupportRecyclerAdapter supportProductCar;
         RecyclerView recyclerView;
         public ViewHoderCar(View view)
         {
             super(view);
-            ArrayList<BaseReclyclerAdapter.ItemDataSet> lista = new ArrayList<>();
+            ArrayList<BaseRecyclerAdapter.ItemDataSet> lista = new ArrayList<>();
             ProductBuilder builder = new ProductBuilder();
             Product product;
 
@@ -212,7 +211,7 @@ public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHol
         }
     }
 
-    class ViewHolderItemCar extends BaseReclyclerAdapter.ItemViewHolder
+    class ViewHolderItemCar extends BaseRecyclerAdapter.ItemViewHolder
     {
 
         public ViewHolderItemCar(View itemView)
@@ -221,7 +220,7 @@ public class SupportSellProducts implements SupportRecyclerAdapter.OnBindViewHol
         }
     }
 
-    class DataProductCar implements BaseReclyclerAdapter.ItemDataSet
+    class DataProductCar implements BaseRecyclerAdapter.ItemDataSet
     {
 
         @Override

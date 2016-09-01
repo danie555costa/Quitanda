@@ -3,7 +3,7 @@ package com.st.ggviario.client.view.adapters;
 import android.content.Context;
 import android.view.View;
 
-import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.model.Client;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class SupportClient implements SupportRecyclerAdapter.OnCreateViewHolder {
     private final Context context;
-    private final List<BaseReclyclerAdapter.ItemDataSet> list;
+    private final List<BaseRecyclerAdapter.ItemDataSet> list;
     private SupportRecyclerAdapter support;
 
     public SupportClient(Context context)
@@ -37,7 +37,7 @@ public class SupportClient implements SupportRecyclerAdapter.OnCreateViewHolder 
     }
 
     @Override
-    public BaseReclyclerAdapter.ItemViewHolder onCreateViewHolder(View view, int viewType, int onRecyclerViewId) {
+    public BaseRecyclerAdapter.ItemViewHolder onCreateViewHolder(View view, int viewType, int onRecyclerViewId) {
         switch (viewType)
         {
             case R.layout.item_client: return new ClientViewHolder(view);

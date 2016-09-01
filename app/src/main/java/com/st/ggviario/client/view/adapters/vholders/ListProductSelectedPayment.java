@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
-import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.view.adapters.ListItemView;
@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Daniel Costa at 8/27/16.
  * Using user computer xdata
  */
-public class ListProductSelectedPayment extends BaseReclyclerAdapter.ItemViewHolder implements SupportRecyclerAdapter.OnCreateViewHolder
+public class ListProductSelectedPayment extends BaseRecyclerAdapter.ItemViewHolder implements SupportRecyclerAdapter.OnCreateViewHolder
 {
 
     private final RecyclerView recyclerViewProduct;
@@ -28,7 +28,7 @@ public class ListProductSelectedPayment extends BaseReclyclerAdapter.ItemViewHol
     }
 
     @Override
-    public BaseReclyclerAdapter.ItemViewHolder onCreateViewHolder(View view, int viewType, int onRecyclerViewId)
+    public BaseRecyclerAdapter.ItemViewHolder onCreateViewHolder(View view, int viewType, int onRecyclerViewId)
     {
         switch (viewType)
         {
@@ -43,9 +43,9 @@ public class ListProductSelectedPayment extends BaseReclyclerAdapter.ItemViewHol
     }
 
     @Override
-    public boolean bind(BaseReclyclerAdapter.ItemDataSet itemDataSet, int position)
+    public boolean bind(BaseRecyclerAdapter.ItemDataSet dataSet, int position)
     {
-        super.bind(itemDataSet, position);
+        super.bind(dataSet, position);
 
         if(productSelectedAdapters == null)
         {

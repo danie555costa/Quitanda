@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.st.dbutil.android.adapter.BaseReclyclerAdapter;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.model.template.BaseCharacter;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Created by xdata on 8/11/16.
  */
-public class SupportHome implements SupportRecyclerAdapter.OnBindViewHolder, SupportRecyclerAdapter.OnCreateViewHolder, SupportRecyclerAdapter.OnItemClickListener, SupportRecyclerAdapter.OnCreateView {
+public class SupportHome implements SupportRecyclerAdapter.OnBindViewHolder, SupportRecyclerAdapter.OnCreateViewHolder, SupportRecyclerAdapter.OnCreateView {
     private final SupportRecyclerAdapter support;
     private final List<DataOperation> list;
 
@@ -39,7 +39,6 @@ public class SupportHome implements SupportRecyclerAdapter.OnBindViewHolder, Sup
 
         this.support.setOnCreateViewHolder(this);
         this.support.setOnBindViewHolder(this);
-        this.support.setOnItemClickListener(this);
         this.support.setOnCreateView(this);
     }
 
@@ -49,7 +48,7 @@ public class SupportHome implements SupportRecyclerAdapter.OnBindViewHolder, Sup
     }
 
     @Override
-    public void onBindViewHolder(BaseReclyclerAdapter.ItemViewHolder viewHolder, BaseReclyclerAdapter.ItemDataSet dataSet, int position, int onRecyclerViewId)
+    public void onBindViewHolder(BaseRecyclerAdapter.ItemViewHolder viewHolder, BaseRecyclerAdapter.ItemDataSet dataSet, int position, int onRecyclerViewId)
     {
         if(viewHolder instanceof ItemOperation)
         {
@@ -71,21 +70,8 @@ public class SupportHome implements SupportRecyclerAdapter.OnBindViewHolder, Sup
     }
 
     @Override
-    public BaseReclyclerAdapter.ItemViewHolder onCreateViewHolder(View view, int viewType, int onRecyclerViewId) {
+    public BaseRecyclerAdapter.ItemViewHolder onCreateViewHolder(View view, int viewType, int onRecyclerViewId) {
         return new ItemOperation(view);
-    }
-
-    @Override
-    public void onItemClick(View view, BaseReclyclerAdapter.ItemDataSet dataSet, int adapterPosition, int viewPosition)
-    {
-        if(dataSet instanceof DataOperation)
-        {
-            DataOperation operation = (DataOperation) dataSet;
-            if(operation.classManager == null) return;
-            Intent intent = new Intent(this.support.getContext(), operation.classManager);
-            support.getContext().startActivity(intent);
-        }
-
     }
 
     @Override
@@ -93,7 +79,7 @@ public class SupportHome implements SupportRecyclerAdapter.OnBindViewHolder, Sup
         final int screenOrientation = this.support.getContext().getResources().getConfiguration().orientation;
         final int HORIZONTAL_SCREEN = Configuration.ORIENTATION_LANDSCAPE;
 
-        final View itemView = inflater.inflate(R.layout.item_cart_operation, group, false);
+        final View itemView = inflater.inflate(R.layout.item_operation, group, false);
 
         itemView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener()
         {
@@ -147,11 +133,12 @@ public class SupportHome implements SupportRecyclerAdapter.OnBindViewHolder, Sup
     }
 
 
-    public class ItemOperation extends BaseReclyclerAdapter.ItemViewHolder
+    public class ItemOperation extends BaseRecyclerAdapter.ItemViewHolder
     {
         private final CardView cardView;
         private final TextView titleOperation;
         private final ImageView imageOperation;
+        private DataOperation value;
 
 
         public ItemOperation(View itemView)
@@ -169,10 +156,24 @@ public class SupportHome implements SupportRecyclerAdapter.OnBindViewHolder, Sup
             this.imageOperation.setImageResource(values.idImage);
             this.titleOperation.setText(values);
             this.cardView.setCardBackgroundColor(cardColor);
+            this.value = values;
+        }
+
+        @Override
+        public boolean isClickable(int position) {
+            return true;
+        }
+
+        @Override
+        public void onClink(int position)
+        {
+            if(this.value.classManager == null) return;
+            Intent intent = new Intent(this.getContext(), this.value.classManager);
+            support.getContext().startActivity(intent);
         }
     }
 
-    public static class DataOperation extends BaseCharacter implements BaseReclyclerAdapter.ItemDataSet
+    public static class DataOperation extends BaseCharacter implements BaseRecyclerAdapter.ItemDataSet
     {
         private int idColor;
         private String nameOperation;

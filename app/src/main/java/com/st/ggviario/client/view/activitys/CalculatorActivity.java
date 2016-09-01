@@ -14,19 +14,19 @@ import android.view.View;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.dao.DaoProduct;
 import com.st.ggviario.client.model.Car;
-import com.st.ggviario.client.model.CarBuilder;
 import com.st.ggviario.client.model.ItemSell;
 import com.st.ggviario.client.model.Measure;
 import com.st.ggviario.client.model.PriceCalculator;
 import com.st.ggviario.client.model.Product;
+import com.st.ggviario.client.model.builders.CarBuilder;
+import com.st.ggviario.client.model.builders.ProductBuilder;
 import com.st.ggviario.client.model.contract.ObserverCalculated;
-import com.st.ggviario.client.model.parcelable.ProductParcel;
 import com.st.ggviario.client.view.adapters.SupportCalculator;
 import com.st.ggviario.client.view.adapters.dataset.CalculatorDataSet;
 import com.st.ggviario.client.view.adapters.dataset.MeasureDataSet;
-import com.st.ggviario.client.view.events.CloseActivityEvent;
 import com.st.ggviario.client.view.events.CarEvemtAction;
-import com.st.ggviario.client.view.events.EventAction;
+import com.st.ggviario.client.view.events.CloseActivityEvent;
+import com.st.ggviario.client.view.events.MenuObserver;
 import com.st.ggviario.client.view.fragments.SellCarStep;
 
 import java.io.Serializable;
@@ -41,7 +41,7 @@ public class CalculatorActivity extends AppCompatActivity implements SupportCalc
     private Toolbar toolbar;
     private SupportCalculator supportAdapter;
     private Product product;
-    private  ArrayList<EventAction> list;
+    private  ArrayList<MenuObserver> list;
     private Car car;
     private CarEvemtAction carAction;
 
@@ -50,6 +50,7 @@ public class CalculatorActivity extends AppCompatActivity implements SupportCalc
     {
         super.onCreate(restoreInstance);
         super.setContentView(R.layout.activity_calculator);
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_calculator);
         this.toolbar  = (Toolbar) findViewById(R.id.toolbar_top);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -57,16 +58,12 @@ public class CalculatorActivity extends AppCompatActivity implements SupportCalc
         this.supportAdapter = new SupportCalculator(CalculatorActivity.this);
         this.list = new ArrayList<>();
 
+        this.prepareValues(restoreInstance);
 
-
-
-
-        Bundle params = (restoreInstance == null) ? getIntent().getExtras() : restoreInstance;
-        this.product = loadProduct(params);
-        this.car = new CarBuilder().build();
         this.carAction = new CarEvemtAction(this.car, this.product);
         this.list.add(new CloseActivityEvent());
         this.list.add(this.carAction);
+
 
         this.toolbar.setTitle(product);
         this.toolbar.inflateMenu(R.menu.menu_calculator);
@@ -84,6 +81,15 @@ public class CalculatorActivity extends AppCompatActivity implements SupportCalc
         recyclerView.setLayoutManager(layoutManager);
 
         prepareSupport(recyclerView);
+    }
+
+    private void prepareValues(@Nullable Bundle restoreInstance)
+    {
+        restoreInstance = (restoreInstance == null)?
+                getIntent().getExtras(): restoreInstance;
+
+        this.product = loadProduct(restoreInstance);
+        this.car = new CarBuilder().buildFromXML(restoreInstance.getString(SellCarStep.CAR));
     }
 
     private void prepareSupport(final RecyclerView recyclerView)
@@ -110,8 +116,8 @@ public class CalculatorActivity extends AppCompatActivity implements SupportCalc
 
     private Product loadProduct(Bundle bundle)
     {
-        ProductParcel productParcel = bundle.getParcelable(SellCarStep.PRODUCT);
-        Product product = productParcel.getProduct();
+        ProductBuilder  builder = new ProductBuilder();
+        Product product = builder.buildFromXML(bundle.getString(SellCarStep.PRODUCT));
         return  product;
     }
 
@@ -119,14 +125,14 @@ public class CalculatorActivity extends AppCompatActivity implements SupportCalc
     {
         ArrayList<Measure> list;
         list = daoProduct.loadMetreages(product.getId());
-        return  list;
+        return list;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
         Log.i("DBA:APP.TEST", "onOptionsItemSelected this list size is "+this.list.size());
-        for(EventAction menuItemSelected: this.list)
+        for(MenuObserver menuItemSelected: this.list)
         {
             if(menuItemSelected.accept(item, this)) return true;
         }

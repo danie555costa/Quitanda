@@ -15,7 +15,10 @@ import com.st.dbutil.android.model.Money;
 import com.st.dbutil.android.model.OnProcess;
 import com.st.dbutil.android.sqlite.DMLite;
 import com.st.dbutil.android.view.SlidingTabLayout;
+import com.st.ggviario.client.model.Car;
 import com.st.ggviario.client.model.ItemSell;
+import com.st.ggviario.client.model.builders.Builder;
+import com.st.ggviario.client.model.builders.CarBuilder;
 import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.dao.DaoProduct;
 import com.st.ggviario.client.model.Client;
@@ -61,6 +64,7 @@ public class SellStepperActivity extends TabStepper implements RMap, CallbackCli
     private Money valuePay;
     private ItemSell resultCalculated;
     private Toolbar toolbar;
+    private Car car;
 
     @Override
     protected void onCreate(Bundle restore)
@@ -72,6 +76,7 @@ public class SellStepperActivity extends TabStepper implements RMap, CallbackCli
         SellCarStep principal = new SellCarStep();
         SellClientStep client = new SellClientStep();
         SellPayment payment =  new SellPayment();
+
         super.addStep(principal);
         super.addStep(client);
         super.addStep(payment);
@@ -103,7 +108,9 @@ public class SellStepperActivity extends TabStepper implements RMap, CallbackCli
                 productsDatas.add(product);
             }
         });
-        CallbackControler.inNet(this);
+
+        CarBuilder carBuilder = new CarBuilder();
+        this.car = carBuilder.buildEmpty();
     }
 
 
@@ -119,6 +126,7 @@ public class SellStepperActivity extends TabStepper implements RMap, CallbackCli
         save.putSerializable(PRODUCT, this.product);
         save.putSerializable(MEASURE, this.measure);
         save.putSerializable(SellStepperActivity.OLD_POSITION, this.oldPosition);
+        save.putString(SellCarStep.CAR, new CarBuilder().toXml(this.car));
     }
 
     @Override
@@ -141,9 +149,9 @@ public class SellStepperActivity extends TabStepper implements RMap, CallbackCli
         this.product = (Product) restore.getSerializable(PRODUCT);
         this.measure = (MeasureDataSet) restore.getSerializable(MEASURE);
         this.oldPosition = restore.getInt(OLD_POSITION);
-        Log.e("DBA:APP.TEST", getClass().getSimpleName()+"-> RESTORE SUPPORT DATA");
-        CallbackControler.outNet(this);
-        CallbackControler.inNet(this);
+        CarBuilder carBuilder = new CarBuilder();
+        this.car = carBuilder.buildFromXML(restore.getString(SellCarStep.CAR));
+
     }
 
     @Override

@@ -14,7 +14,7 @@ import com.st.ggviario.client.model.contract.ObserverCalculated;
  * Created by Daniel Costa at 8/30/16.
  * Using user computer xdata
  */
-public class CarEvemtAction implements EventAction, ObserverCalculated {
+public class CarEvemtAction implements MenuObserver, ObserverCalculated {
     private final Product product;
     private Car car;
     private ItemSell itemSell;
