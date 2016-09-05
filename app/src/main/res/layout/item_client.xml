@@ -17,7 +17,7 @@
         android:id="@+id/area1">
 
         <TextView
-            android:id="@+id/tv_measure_cod"
+            android:id="@+id/tv_client_avatar"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:text="D"

@@ -43,6 +43,7 @@ dependencies {
     //-- EXTEND DE FRAGMENT FOR AbstractStep
     compile 'com.github.fcannizzaro:material-stepper:1.2.2'
 
+
     //OTHER STEPPER
 //    {
 //       compile 'me.drozdzynski.library.steppers:steppers:0.3.3-SNAPSHOT'
@@ -54,5 +55,9 @@ dependencies {
 
     //DATA PIKER WDULLAER {https://github.com/wdullaer/MaterialDateTimePicker}
     compile 'com.wdullaer:materialdatetimepicker:2.5.0'
+
+
+    //COMPILE FOR SQLSCOUT IN DIVICE
+    compile 'com.idescout.sql:sqlscout-server:1.0'
 
 }

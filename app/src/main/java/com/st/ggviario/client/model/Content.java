@@ -1,7 +1,7 @@
 package com.st.ggviario.client.model;
 
 import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
-import com.st.ggviario.client.model.template.BaseCharacter;
+import com.st.ggviario.client.util.BaseCharacter;
 
 /**
  * Created by xdata on 8/9/16.

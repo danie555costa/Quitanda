@@ -4,40 +4,40 @@
     android:layout_height="wrap_content"
     android:background="@drawable/app_background"
     android:paddingTop="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+    android:paddingStart="16dp"
     android:paddingBottom="16dp"
-    android:layout_marginTop="1dp"
-    >
+    android:layout_marginTop="1dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/bt_remove"
+        android:layout_toEndOf="@+id/bt_remove"
         >
         <TextView
-            android:id="@+id/tv_car_item_name"
+            android:id="@+id/tv_item_sell_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Producto"
+            android:text="@string/product"
             android:textSize="16sp"
             android:textColor="@color/textPrimary"
             />
 
         <TextView
-            android:id="@+id/tv_car_item_quantity"
+            android:id="@+id/tv_item_sell_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="45 Kg."
+            android:hint="@string/measure"
             android:textSize="14sp"
             android:textColor="@color/textSecondary"
             />
+
         <TextView
-            android:id="@+id/tv_car_item_amount"
+            android:id="@+id/tv_item_sell_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100 000 000,00"
+            android:text="@string/values"
             android:layout_margin="0dp"
             android:textSize="14sp"
             android:textColor="@color/textSecondary"
@@ -53,6 +53,6 @@
         android:textColor="@color/white"
         android:layout_alignParentEnd="true"
         android:src="@drawable/ic_delete_primary_24dp"
-        android:contentDescription="Remover"
+        android:contentDescription="@string/remove"
         />
 </RelativeLayout>

@@ -1,6 +1,6 @@
 package com.st.ggviario.client.model;
 
-import com.st.ggviario.client.model.template.BaseCharacter;
+import com.st.ggviario.client.util.BaseCharacter;
 
 /**
  * Created by Daniel Costa on 7/26/16.
@@ -67,5 +67,29 @@ public class Client extends BaseCharacter
     public String getId()
     {
         return ((this.idClient == null) ? "~~" + previewId : this.idClient + "");
+    }
+
+    public int getRealId() {
+        return  (this.idClient != null)? this.idClient: -1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        if (previewId != client.previewId) return false;
+        return idClient != null ? idClient.equals(client.idClient)
+                : client.idClient == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = idClient != null ? idClient.hashCode() : 0;
+        result = 31 * result + (int) (previewId ^ (previewId >>> 32));
+        return result;
     }
 }

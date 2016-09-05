@@ -1,4 +1,4 @@
-package com.st.ggviario.client.model.template;
+package com.st.ggviario.client.util;
 
 import java.io.Serializable;
 

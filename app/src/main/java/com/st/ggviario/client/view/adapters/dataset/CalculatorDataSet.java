@@ -4,8 +4,9 @@ import android.support.annotation.NonNull;
 
 import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.model.template.BaseCharacter;
-import com.st.ggviario.client.view.activitys.SellStepperActivity;
+import com.st.ggviario.client.util.BaseCharacter;
+import com.st.ggviario.client.util.FormatterFactory;
+import com.st.ggviario.client.util.animator.Selectable;
 
 import java.text.NumberFormat;
 
@@ -21,11 +22,20 @@ public class CalculatorDataSet extends BaseCharacter implements BaseRecyclerAdap
     private boolean closed;
     private double previewPrice;
 
-    public CalculatorDataSet(int maxLength)
+    public CalculatorDataSet(int maxLength, double lastQuantity)
     {
-        this.originalTest = "";
+        this.originalTest = lastQuantity+"";
         this.maxLength = maxLength;
-        this.formatter = SellStepperActivity.instanceFormatterQuantity();
+
+        this.formatter = new FormatterFactory().instanceFormatterQuantity();
+
+        int intPart = (int) lastQuantity;
+        double decimalPart = lastQuantity-intPart;
+        if(decimalPart == 0)
+            originalTest = intPart+"";
+        else if(lastQuantity == 0)
+            originalTest = "";
+
     }
 
     @Override @NonNull

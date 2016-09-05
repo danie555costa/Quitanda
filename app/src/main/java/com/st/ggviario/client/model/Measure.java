@@ -1,7 +1,7 @@
 package com.st.ggviario.client.model;
 
 import com.st.dbutil.android.model.Money;
-import com.st.ggviario.client.model.template.BaseCharacter;
+import com.st.ggviario.client.util.BaseCharacter;
 
 import java.io.Serializable;
 
@@ -43,5 +43,21 @@ public class Measure extends BaseCharacter implements Serializable
 	public String getKey()
 	{
 		return this.key;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Measure measure = (Measure) o;
+
+		return id == measure.id;
+
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
 	}
 }

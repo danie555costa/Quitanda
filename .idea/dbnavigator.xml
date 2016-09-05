@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -23,21 +23,30 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes>
-      <connection connection-id="bd250691-1c90-4f0b-a45b-d6d52c1334cb">
-        <schema name="lib" object-types="function, sequence, table, view" />
-        <schema name="pg_toast" object-types="function, sequence, table, view" />
-        <schema name="public" object-types="function, sequence, table, view" />
-      </connection>
-    </loaded-nodes>
+    <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="bd250691-1c90-4f0b-a45b-d6d52c1334cb">
       <console name="GGViario" type="STANDARD" />
     </connection>
+    <connection id="2940170a-fd56-4bd9-9e0d-4b5c314a6f25">
+      <console name="Projecto Nicon" type="STANDARD" />
+      <console name="Projecto Nicon 1" type="STANDARD"><![CDATA[create table T_TYPECONTRATO
+(
+   TCTT_ID NUMBER(1) NOT NULL,
+   TCTT_DESC CHARACTER VARYING(32) NOT NULL,
+   TCTT_COD CHARACTER VARYING (16) NOT NULL,
+   CONSTRAINT PK_TYPECONTRATO_ID PRIMARY KEY (TCTT_ID)
+);
+
+COMMENT ON TABLE T_TYPECONTRATO IS 'Os tipos possiveis de contratos que existem';]]></console>
+      <console name="Projecto Nicon 2" type="STANDARD" />
+    </connection>
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
-    <last-used-providers />
+    <last-used-providers>
+      <object-type object-type="PACKAGE" editor-provider="CODE_BODY" />
+    </last-used-providers>
   </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
@@ -51,8 +60,14 @@
     <last-used-dependency-type value="INCOMING" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
-    <last-used-operator value="LIKE" />
+    <last-used-operator value="EQUAL" />
     <filters>
+      <filter connection-id="2940170a-fd56-4bd9-9e0d-4b5c314a6f25" schema="" object-type="schema" join-type="AND">
+        <condition operator="EQUAL" pattern="SEGUROS" active="true" />
+      </filter>
+      <filter connection-id="2940170a-fd56-4bd9-9e0d-4b5c314a6f25" schema="" object-type="user" join-type="AND">
+        <condition operator="EQUAL" pattern="SEGUROS" active="true" />
+      </filter>
       <filter connection-id="bd250691-1c90-4f0b-a45b-d6d52c1334cb" schema="" object-type="schema" join-type="OR">
         <condition operator="LIKE" pattern="public" active="true" />
         <condition operator="LIKE" pattern="lib" active="true" />
@@ -81,6 +96,80 @@
           <os-authentication value="false" />
           <empty-password value="false" />
           <user value="postgres" />
+          <password value="MTIzNA==" />
+        </database>
+        <properties>
+          <auto-commit value="false" />
+        </properties>
+        <ssh-settings>
+          <active value="false" />
+          <proxy-host value="" />
+          <proxy-port value="22" />
+          <proxy-user value="" />
+          <proxy-password value="" />
+          <auth-type value="PASSWORD" />
+          <key-file value="" />
+          <key-passphrase value="" />
+        </ssh-settings>
+        <details>
+          <charset value="UTF-8" />
+          <ddl-file-binding value="true" />
+          <database-logging value="true" />
+          <environment-type value="default" />
+          <idle-time-to-disconnect value="30" />
+          <password-expiry-time value="10" />
+          <max-connection-pool-size value="7" />
+          <alternative-statement-delimiter value="" />
+          <connect-automatically value="true" />
+        </details>
+        <object-filters hide-empty-schemas="false">
+          <object-type-filter use-master-settings="true">
+            <object-type name="SCHEMA" enabled="true" />
+            <object-type name="USER" enabled="true" />
+            <object-type name="ROLE" enabled="true" />
+            <object-type name="PRIVILEGE" enabled="true" />
+            <object-type name="CHARSET" enabled="true" />
+            <object-type name="TABLE" enabled="true" />
+            <object-type name="VIEW" enabled="true" />
+            <object-type name="MATERIALIZED_VIEW" enabled="true" />
+            <object-type name="NESTED_TABLE" enabled="true" />
+            <object-type name="COLUMN" enabled="true" />
+            <object-type name="INDEX" enabled="true" />
+            <object-type name="CONSTRAINT" enabled="true" />
+            <object-type name="DATASET_TRIGGER" enabled="true" />
+            <object-type name="DATABASE_TRIGGER" enabled="true" />
+            <object-type name="SYNONYM" enabled="true" />
+            <object-type name="SEQUENCE" enabled="true" />
+            <object-type name="PROCEDURE" enabled="true" />
+            <object-type name="FUNCTION" enabled="true" />
+            <object-type name="PACKAGE" enabled="true" />
+            <object-type name="TYPE" enabled="true" />
+            <object-type name="TYPE_ATTRIBUTE" enabled="true" />
+            <object-type name="ARGUMENT" enabled="true" />
+            <object-type name="DIMENSION" enabled="true" />
+            <object-type name="CLUSTER" enabled="true" />
+            <object-type name="DBLINK" enabled="true" />
+          </object-type-filter>
+          <object-name-filters />
+        </object-filters>
+      </connection>
+      <connection id="2940170a-fd56-4bd9-9e0d-4b5c314a6f25" active="true">
+        <database>
+          <name value="Projecto Nicon" />
+          <description value="" />
+          <database-type value="ORACLE" />
+          <config-type value="BASIC" />
+          <database-version value="11.2" />
+          <driver-source value="BUILTIN" />
+          <driver-library value="" />
+          <driver value="" />
+          <url-type value="SID" />
+          <host value="192.168.45.101" />
+          <port value="1521" />
+          <database value="XE" />
+          <os-authentication value="false" />
+          <empty-password value="false" />
+          <user value="SEGUROS" />
           <password value="MTIzNA==" />
         </database>
         <properties>

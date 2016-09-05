@@ -9,5 +9,7 @@ import android.view.MenuItem;
  */
 public interface MenuObserver
 {
-    boolean accept(MenuItem menuItem, Activity appCompatActivity);
+    boolean accept(MenuItem menuItem, Activity activity);
+
+    int getKey();
 }

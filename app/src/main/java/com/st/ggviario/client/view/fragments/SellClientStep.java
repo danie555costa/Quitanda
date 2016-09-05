@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,29 +13,69 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
-import com.st.dbutil.android.model.ImageTextResource;
-import com.st.dbutil.android.model.ItemFragment;
+import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.references.RMap;
+import com.st.ggviario.client.dao.DaoClient;
+import com.st.ggviario.client.model.Client;
+import com.st.ggviario.client.util.animator.OnAnimateSelection;
+import com.st.ggviario.client.util.animator.Selectable;
 import com.st.ggviario.client.view.activitys.RegisterClientActivity;
-import com.st.ggviario.client.view.adapters.SupportClient;
+import com.st.ggviario.client.view.adapters.vholders.ClientViewHolder;
+import com.st.ggviario.client.view.adapters.vholders.SupportAdapter;
+import com.st.ggviario.client.view.adapters.vfactory.ClientViewHolderFactory;
+import com.st.ggviario.client.view.adapters.dataset.ClientDataSet;
+
+import java.util.ArrayList;
 
 /**
  * Created by Daniel Costa at 7/26/16.
  * Using user computer xdata
  */
-public class SellClientStep extends AbstractStep implements ItemFragment
+public class SellClientStep extends AbstractStep
 {
     private Context context;
-    private SupportClient support;
+    private SupportAdapter support;
+    private DaoClient daoClient;
+    private ClientViewHolder clientViewHolder;
 
     @Override
     public void onCreate(@Nullable Bundle restore)
     {
         super.onCreate(restore);
         this.context = this.getActivity();
-        this.support = new SupportClient(this.context);
+        this.support = new SupportAdapter(this.context);
+        ClientViewHolderFactory clientViewHolderFactory;
+        this.support.addViewHolderFactory(clientViewHolderFactory = new ClientViewHolderFactory());
+        clientViewHolderFactory.getAnimatorManager()
+                .addOnAnimateSelection(new OnAnimateSelection() {
+                    @Override
+                    public void onPreAnimate(BaseRecyclerAdapter.ItemViewHolder itemViewHolder, Selectable selectable) {
+                        clientViewHolder = (ClientViewHolder) itemViewHolder;
+                    }
+
+                    @Override
+                    public void onPosAnimate(BaseRecyclerAdapter.ItemViewHolder itemViewHolder, Selectable selectable) {
+                        if(clientViewHolder.isSeleted())
+                            SellClientStep.super.onNext();
+                    }
+                });
+
+        this.daoClient = new DaoClient(context);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run()
+            {
+                ArrayList<Client> list = daoClient.loadClientes();
+                for(Client client: list)
+                {
+                    support.addDataSet(new ClientDataSet(client));
+                }
+            }
+        });
+        thread.start();
     }
+
+
 
 
     @Nullable
@@ -49,7 +88,7 @@ public class SellClientStep extends AbstractStep implements ItemFragment
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false);
 
         recicler.setLayoutManager(layoutManager);
-        recicler.setAdapter(this.support.getSupport());
+        recicler.setAdapter(this.support);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -66,31 +105,13 @@ public class SellClientStep extends AbstractStep implements ItemFragment
         startActivityForResult(intent, 10);
     }
 
-    @Override
-    public CharSequence getTitle()
-    {
-        String title = (context == null)? "Cliente": context.getString(R.string.clients);
-        return new ImageTextResource(title, R.drawable.img_clients);
-    }
+
 
     @Override
     public String name() {
-        return this.getTitle().toString();
+        return "Cliente";
     }
 
-
-    @Override
-    public Fragment getFragment()
-    {
-        return this;
-    }
-
-
-    @Override
-    public CharSequence getProtocolKey()
-    {
-        return RMap.IDENTIFIER_SELL_CLIENT_SUPPORT;
-    }
 
     @Override
     public boolean isOptional() {

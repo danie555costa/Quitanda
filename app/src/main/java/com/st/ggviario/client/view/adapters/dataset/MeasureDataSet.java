@@ -16,7 +16,6 @@ public class MeasureDataSet  implements BaseRecyclerAdapter.ItemDataSet
     private boolean selected;
     private int background;
     private boolean usedEfect;
-    private int valueMeasureForOne;
 
     public MeasureDataSet(Measure measuere)
     {
@@ -35,7 +34,7 @@ public class MeasureDataSet  implements BaseRecyclerAdapter.ItemDataSet
         return measuere.toString();
     }
 
-    public Measure getMeasuere() {
+    public Measure getMeasure() {
         return measuere;
     }
 

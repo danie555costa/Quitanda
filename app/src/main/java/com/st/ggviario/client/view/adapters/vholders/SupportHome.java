@@ -1,4 +1,4 @@
-package com.st.ggviario.client.view.adapters;
+package com.st.ggviario.client.view.adapters.vholders;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +20,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.model.template.BaseCharacter;
+import com.st.ggviario.client.util.BaseCharacter;
 
 import java.util.List;
 
@@ -187,7 +187,7 @@ public class SupportHome implements SupportRecyclerAdapter.OnBindViewHolder, Sup
             this.nameOperation = nameOperaction;
             this.idImage = idImage;
             this.efeito = false;
-            Log.i("DBA:APP.TEST", "DataProduct{idColor:\""+idColor+", nameOperation"+nameOperation+", idImage:\""+idImage+"}");
+            Log.i("DBA:APP.TEST", "ProductDataSet{idColor:\""+idColor+", nameOperation"+nameOperation+", idImage:\""+idImage+"}");
 
         }
 

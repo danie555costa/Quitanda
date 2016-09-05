@@ -1,4 +1,4 @@
-package com.st.ggviario.client.view.components;
+package com.st.ggviario.client.util.components;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -8,9 +8,9 @@ import java.util.Calendar;
  * Created by Daniel Costa at 8/27/16.
  * Using user computer xdata
  */
-public class DatePickeControl implements DatePickerDialog.OnDateSetListener
+public class DatePickerControl implements DatePickerDialog.OnDateSetListener
 {
-    public DatePickeControl(String label)
+    public DatePickerControl(String label)
     {
         this.calendar = Calendar.getInstance();
         this.label = label;

@@ -6,9 +6,14 @@ package com.st.ggviario.client.model.builders;
  */
 
 
-import android.util.Log;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.thoughtworks.xstream.XStream;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @param <T> O tipo de instacia que sera criada pelo Builder
@@ -27,7 +32,7 @@ public abstract class Builder  <T>
 
     /**
      * Build new Object of type
-     * @return
+     * @return Instance of T created
      */
     public abstract T build();
 
@@ -36,9 +41,8 @@ public abstract class Builder  <T>
      * @param xml
      * @return
      */
-    public T buildFromXML(String xml)
+    public @Nullable T buildFromXML(String xml)
     {
-        Log.i("DBA:APP.TEST", xml);
         XStream xStream = new XStream();
         onPrepareXStream(xStream);
         return (T) xStream.fromXML(xml);
@@ -46,20 +50,34 @@ public abstract class Builder  <T>
 
     /**
      * Converte any instace of type in xml
-     * @param instance
-     * @return
+     * @param instance the instance
+     * @return created xml
      */
-    public String toXml(T instance)
+    public String toXml(@NonNull T instance)
     {
         XStream xStream = new XStream();
 
         onPrepareXStream(xStream);
         String xml =  xStream.toXML(instance);
-        Log.i("DBA:APP.TEST", xml);
         return xml;
     }
 
     protected void  onPrepareXStream(XStream xstream){
-//        xstream.alias(this.rootClass.getSimpleName(), this.rootClass.getClass());
+        xstream.alias(this.rootClass.getSimpleName(), this.rootClass);
+    }
+
+    public  String listAsXml(ArrayList<T> list) {
+        XStream xStream = new XStream();
+        this.onPrepareXStream(xStream);
+        String xml = xStream.toXML(list);
+        return xml;
+    }
+
+    public List<T> listOfXml(String xml)
+    {
+        XStream xStream = new XStream();
+        this.onPrepareXStream(xStream);
+        List<T> listInstances = (List<T>) xStream.fromXML(xml);
+        return listInstances;
     }
 }

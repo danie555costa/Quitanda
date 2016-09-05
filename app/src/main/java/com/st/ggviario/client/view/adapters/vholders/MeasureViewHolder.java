@@ -2,7 +2,6 @@ package com.st.ggviario.client.view.adapters.vholders;
 
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.view.View;
 import android.widget.TextView;
@@ -14,9 +13,7 @@ import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.dbutil.android.adapter.ViewPagerAdpter;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.view.adapters.SupportCalculator;
 import com.st.ggviario.client.view.adapters.dataset.MeasureDataSet;
-import com.st.ggviario.client.view.events.OnClickMeasure;
 
 /**
  * Created by Daniel Costa at 8/28/16.
@@ -30,18 +27,19 @@ public  class MeasureViewHolder extends BaseRecyclerAdapter.ItemViewHolder
     private final TextView tvMeasureName;
     private final TextView tvCodMeasure;
     private final TextView tvMeasureValue;
-    private MeasureDataSet dataValues;
-    private OnClickMeasure measureManager;
+    private MeasureDataSet measureDataSet;
+    private final onChangeMeasure onChangeMeasure;
 
-    private SupportCalculator.OnClickMeasureListener clickListiner;
+    private OnClickMeasureListener onClickMeasureListener;
+    private OnBindListener onBindListener;
 
-    public MeasureViewHolder(View itemView, OnClickMeasure measureManager)
+    public MeasureViewHolder(View itemView, MeasureViewHolder.onChangeMeasure onChangeMeasure)
     {
         super(itemView);
+        this.onChangeMeasure = onChangeMeasure;
         this.tvCodMeasure = (TextView) itemView.findViewById(R.id.tv_measure_cod);
         this.tvMeasureName = (TextView) itemView.findViewById(R.id.tv_measure_name);
         this.tvMeasureValue = (TextView) itemView.findViewById(R.id.tv_measure_value);
-        this.measureManager = measureManager;
     }
 
     @Override
@@ -49,13 +47,14 @@ public  class MeasureViewHolder extends BaseRecyclerAdapter.ItemViewHolder
     {
         if(dataSet instanceof  MeasureDataSet)
         {
-            this.dataValues = (MeasureDataSet) dataSet;
-            if (dataValues.isSelected()) markSelectedMeasure(tvCodMeasure, false);
-            else unMarkSelectedMeasure(dataValues, this.tvCodMeasure, false);
-            this.tvMeasureName.setText(dataValues.getMeasureName());
-            this.tvMeasureValue.setText(dataValues.getValueMeasureForOne());
+            this.measureDataSet = (MeasureDataSet) dataSet;
+            if (measureDataSet.isSelected()) markSelectedMeasure(tvCodMeasure, false);
+            else unMarkSelectedMeasure(measureDataSet, this.tvCodMeasure, false);
+            this.tvMeasureName.setText(measureDataSet.getMeasureName());
+            this.tvMeasureValue.setText(measureDataSet.getValueMeasureForOne());
         }
-        return false;
+        this.onBindListener.onBind(this);
+        return true;
     }
 
     @Override
@@ -63,36 +62,33 @@ public  class MeasureViewHolder extends BaseRecyclerAdapter.ItemViewHolder
         return true;
     }
 
+    public void setSelected(boolean selected) {
+        this.measureDataSet.setSelected(selected);
+        if(selected) markSelectedMeasure(this.tvCodMeasure, true);
+        else unMarkSelectedMeasure(this.measureDataSet, this.tvCodMeasure, true);
+    }
+
     @Override
     public void onClink(int position)
     {
+        MeasureViewHolder current = this.onChangeMeasure.getChange();
+        this.measureDataSet.setSelected(!this.measureDataSet.isSelected());
 
-        final TextView tvMeasureCod = (TextView) this.itemView.findViewById(R.id.tv_measure_cod);
-        this.dataValues.setSelected(!this.dataValues.isSelected());
-        if(this.dataValues.isSelected())
+        if(this.measureDataSet.isSelected())
         {
-            MeasureViewHolder.markSelectedMeasure(tvMeasureCod, true);
-            if(currentDadaMeasure != null)
-            {
-                currentDadaMeasure.setSelected(false);
-                RecyclerView.ViewHolder itemHolder = support.getViewHolderIfAvailable(currentDadaMeasure);
-                if(itemHolder != null && itemHolder.itemView != null)
-                {
-                    View itemView = itemHolder.itemView;
-                    TextView tvMeasureOldSelectio = (TextView) itemView.findViewById(R.id.tv_measure_cod);
-                    MeasureViewHolder.switchTextWhiteAnimation(tvMeasureOldSelectio,
-                            currentDadaMeasure.getBackground(),
-                            currentDadaMeasure.getMeasureCod(),
-                            MeasureViewHolder.ENTER_ANIMATION,
-                            MeasureViewHolder.EXIT_ANIMATION);
-                }
-            }
-            this.currentDadaMeasure = dataMeasure;
+            this.onChangeMeasure.onChange(this);
         }
-        else MeasureViewHolder.unMarkSelectedMeasure(dataMeasure, tvMeasureCod, true);
+        else this.onChangeMeasure.onChange(null);
+
+        if(current != null) current.setSelected(false);
+
+        this.setSelected(this.measureDataSet.isSelected());
+
+        if(onClickMeasureListener != null)
+            this.onClickMeasureListener.onClickMeasure(this.itemView, this.measureDataSet);
     }
 
-    public static void unMarkSelectedMeasure(MeasureDataSet data, TextView tvMeasureCod, boolean animate)
+    public void unMarkSelectedMeasure(MeasureDataSet data, TextView tvMeasureCod, boolean animate)
     {
         if(animate)
             switchTextWhiteAnimation(tvMeasureCod, data.getBackground(), data.getMeasureCod(), ENTER_ANIMATION, EXIT_ANIMATION);
@@ -103,7 +99,7 @@ public  class MeasureViewHolder extends BaseRecyclerAdapter.ItemViewHolder
         }
     }
 
-    public static void markSelectedMeasure(final TextView tvMeasureCod, boolean animate)
+    public void markSelectedMeasure(final TextView tvMeasureCod, boolean animate)
     {
         float dp = tvMeasureCod.getContext().getResources().getDisplayMetrics().density;
         int dimen = (int)(24*dp);
@@ -116,6 +112,11 @@ public  class MeasureViewHolder extends BaseRecyclerAdapter.ItemViewHolder
         final CharSequence enterText = image;
         if(animate)
             switchTextWhiteAnimation(tvMeasureCod, enterBackground, enterText, ENTER_ANIMATION, EXIT_ANIMATION);
+        else {
+            tvMeasureCod.setText(image);
+            tvMeasureCod.setBackgroundResource(enterBackground);
+        }
+
     }
 
     public static void switchTextWhiteAnimation(final TextView tvMeasureCod, final int enterBackground,
@@ -146,8 +147,32 @@ public  class MeasureViewHolder extends BaseRecyclerAdapter.ItemViewHolder
         }
     }
 
-    public void setClickListiner(SupportCalculator.OnClickMeasureListener clickListiner) {
-        this.clickListiner = clickListiner;
+    public void setOnClickMeasureListener(OnClickMeasureListener onClickMeasureListener) {
+        this.onClickMeasureListener = onClickMeasureListener;
+    }
+
+    public void setOnBindListener(OnBindListener onBindListener) {
+        this.onBindListener = onBindListener;
+    }
+
+    public MeasureDataSet getValue() {
+        return this.measureDataSet;
+    }
+
+    public interface OnClickMeasureListener
+    {
+        void onClickMeasure(View view, MeasureDataSet dataMeasure);
+    }
+
+    public interface onChangeMeasure {
+
+        void onChange(MeasureViewHolder newMeasureViewHolder);
+
+        MeasureViewHolder getChange();
+    }
+
+    public interface OnBindListener {
+        void onBind(MeasureViewHolder measureViewHolder);
     }
 }
 

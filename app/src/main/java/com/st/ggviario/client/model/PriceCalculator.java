@@ -20,7 +20,7 @@ import java.util.List;
 public class PriceCalculator implements BackgroundProcess.Background<ProcessResult> {
     private final DaoProduct daoProduct;
 
-    private int idProduct;
+    private Product product;
     private Double quantity;
     private Measure measureFrom;
     private ArrayList<ObserverCalculated> listOnCalculed;
@@ -31,8 +31,8 @@ public class PriceCalculator implements BackgroundProcess.Background<ProcessResu
         this.daoProduct = daoProduct;
     }
 
-    public PriceCalculator idProduct(int idProduct) {
-        this.idProduct = idProduct;
+    public PriceCalculator product(Product product) {
+        this.product = product;
         this.listOnCalculed = new ArrayList<>();
         return this;
     }
@@ -42,7 +42,7 @@ public class PriceCalculator implements BackgroundProcess.Background<ProcessResu
         return this;
     }
 
-    public PriceCalculator idMetreageFrom(Measure measureFrom)
+    public PriceCalculator product(Measure measureFrom)
     {
         this.measureFrom = measureFrom;
         return this;
@@ -67,13 +67,11 @@ public class PriceCalculator implements BackgroundProcess.Background<ProcessResu
     public ProcessResult<ItemSell> onExecute(Object... paramns)
     {
         Log.i("DBA:APP.TEST", getClass().getSimpleName()+ "-> onExecute");
-        if(idProduct <= 0
-                || measureFrom.getId() <= 0
+        if(product == null
+                || measureFrom == null
                 || quantity == null) return null;
 
-        Product product = this.daoProduct.find(this.idProduct);
         List<PriceRule> rule = this.daoProduct.loadSellRules(product, this.measureFrom);
-
 
         //Caso existir as regras de calculo
         if(!rule.isEmpty())
@@ -100,7 +98,7 @@ public class PriceCalculator implements BackgroundProcess.Background<ProcessResu
         return null;
     }
 
-    public PriceCalculator addOnCalculated(ObserverCalculated onCalculated)
+    public PriceCalculator onCalculated(ObserverCalculated onCalculated)
     {
         this.listOnCalculed.add(onCalculated);
         return this;

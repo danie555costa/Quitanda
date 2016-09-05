@@ -75,12 +75,14 @@
             android:id="@+id/rv_car_products"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="50dp"
             android:background="@color/app_background_list"
             android:paddingBottom="1dp"
             />
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingEnd="16dp">
 
             <ImageView
                 android:id="@+id/bt_clear"
@@ -93,12 +95,13 @@
 
 
             <TextView
+                android:id="@+id/tv_car_amount_pay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/bt_clear"
                 android:text="900 000 000,00 STD"
                 android:textColor="@color/textPrimary"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:gravity="end"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="16dp"

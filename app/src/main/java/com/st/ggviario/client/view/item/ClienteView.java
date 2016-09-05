@@ -25,9 +25,7 @@ public class ClienteView implements ItemView, CallbackClient, RMap, View.OnClick
     private boolean selected;
     private int position;
 
-    public  ClienteView()
-    {
-
+    public  ClienteView() {
     }
 
     public  ClienteView(Client client)

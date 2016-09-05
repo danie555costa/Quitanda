@@ -15,7 +15,7 @@ import com.st.dbutil.android.model.ImageTextResource;
 import com.st.dbutil.android.model.ItemFragment;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.references.RMap;
-import com.st.ggviario.client.view.adapters.SupportSellPayment;
+import com.st.ggviario.client.view.adapters.vholders.SupportSellPayment;
 
 public class SellPayment extends AbstractStep implements ItemFragment, RMap
 {

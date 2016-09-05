@@ -17,7 +17,7 @@ import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.view.activitys.Harvest;
 import com.st.ggviario.client.view.activitys.RegisterClientActivity;
 import com.st.ggviario.client.view.activitys.SellStepperActivity;
-import com.st.ggviario.client.view.adapters.SupportHome;
+import com.st.ggviario.client.view.adapters.vholders.SupportHome;
 
 import java.util.List;
 

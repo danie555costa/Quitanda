@@ -1,6 +1,6 @@
 package com.st.ggviario.client.model;
 
-import com.st.ggviario.client.model.template.BaseCharacter;
+import com.st.ggviario.client.util.BaseCharacter;
 
 public class Product extends BaseCharacter
 {

@@ -1,4 +1,4 @@
-package com.st.ggviario.client.view.adapters;
+package com.st.ggviario.client.view.adapters.vholders;
 
 import android.util.Log;
 import android.view.View;

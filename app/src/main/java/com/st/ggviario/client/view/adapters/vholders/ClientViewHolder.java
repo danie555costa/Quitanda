@@ -5,13 +5,14 @@ import android.widget.TextView;
 
 import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.ggviario.client.R;
+import com.st.ggviario.client.util.SelectableViewHolder;
 import com.st.ggviario.client.view.adapters.dataset.ClientDataSet;
 
 /**
  * Created by Daniel Costa at 8/28/16.
  * Using user computer xdata
  */
-public class ClientViewHolder extends BaseRecyclerAdapter.ItemViewHolder
+public class ClientViewHolder extends SelectableViewHolder
 {
 
     private final TextView tvClientName;
@@ -22,21 +23,21 @@ public class ClientViewHolder extends BaseRecyclerAdapter.ItemViewHolder
     public ClientViewHolder(View itemView)
     {
         super(itemView);
+        super.setAvatarId(R.id.tv_client_avatar);
+
         this.tvClientName = (TextView) itemView.findViewById(R.id.tv_client_name);
         this.tvClientResidence = (TextView) itemView.findViewById(R.id.tv_client_residence);
         this.tvClientContact = (TextView) itemView.findViewById(R.id.tv_client_contact);
     }
 
     @Override
-    public boolean bind(BaseRecyclerAdapter.ItemDataSet dataSet, int position) {
-        if(dataSet instanceof ClientDataSet){
+    public void posBindAnimate(BaseRecyclerAdapter.ItemDataSet dataSet, int position) {
+        if(dataSet instanceof ClientDataSet)
+        {
             this.clientDataSet = (ClientDataSet) dataSet;
             this.tvClientName.setText(clientDataSet.getClient());
             this.tvClientContact.setText(clientDataSet.getClient().getContact());
             this.tvClientResidence.setText(clientDataSet.getClient().getResidence());
         }
-        return true;
     }
-
-
 }

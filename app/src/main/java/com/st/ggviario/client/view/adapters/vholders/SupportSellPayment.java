@@ -1,4 +1,4 @@
-package com.st.ggviario.client.view.adapters;
+package com.st.ggviario.client.view.adapters.vholders;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.view.adapters.vholders.ListProductSelectedPayment;
+import com.st.ggviario.client.view.adapters.vholders.ListItemSellPayment;
 import com.st.ggviario.client.view.adapters.vholders.ModePayment;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class SupportSellPayment implements SupportRecyclerAdapter.OnCreateViewHo
     private final Context context;
     private final List<BaseRecyclerAdapter.ItemDataSet> listItems;
     private final PaymentModeDataSet dataPayment;
-    private final ListProductSelectedDataSet listProducteSelected;
+    private final ListItemSellPaymentDataSet listProducteSelected;
 
     private SupportRecyclerAdapter supportRecyclerAdapter;
 
@@ -33,7 +33,7 @@ public class SupportSellPayment implements SupportRecyclerAdapter.OnCreateViewHo
         this.listItems = this.supportRecyclerAdapter.getListDataSet();
         this.supportRecyclerAdapter.useTypeViewAsReferenceLayout(true);
         this.listItems.add(this.dataPayment = new PaymentModeDataSet());
-        this.listItems.add(this.listProducteSelected = new ListProductSelectedDataSet());
+        this.listItems.add(this.listProducteSelected = new ListItemSellPaymentDataSet());
         this.supportRecyclerAdapter.setOnCreateViewHolder(this);
         this.supportRecyclerAdapter.setOnPosViewCreated(this);
     }
@@ -44,7 +44,7 @@ public class SupportSellPayment implements SupportRecyclerAdapter.OnCreateViewHo
         switch (viewType)
         {
             case R.layout.item_group_payment_mode: return new ModePayment(view);
-            case R.layout.item_group_payment_products: return new ListProductSelectedPayment(view);
+            case R.layout.item_group_payment_products: return new ListItemSellPayment(view);
         }
         return null;
     }
@@ -59,7 +59,7 @@ public class SupportSellPayment implements SupportRecyclerAdapter.OnCreateViewHo
     {
         switch (viewType)
         {
-            case R.layout.item_product_selected:
+            case R.layout.item_sell:
                 view.findViewById(R.id.bt_remove).setVisibility(View.GONE);
         }
     }
@@ -75,7 +75,7 @@ public class SupportSellPayment implements SupportRecyclerAdapter.OnCreateViewHo
         }
     }
 
-    public class ListProductSelectedDataSet implements BaseRecyclerAdapter.ItemDataSet
+    public class ListItemSellPaymentDataSet implements BaseRecyclerAdapter.ItemDataSet
     {
         @Override
         public int getTypeView()

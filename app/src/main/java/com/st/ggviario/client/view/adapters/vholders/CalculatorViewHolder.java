@@ -11,8 +11,8 @@ import com.nineoldandroids.animation.Animator;
 import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.view.activitys.SellStepperActivity;
-import com.st.ggviario.client.view.adapters.SupportCalculator;
+import com.st.ggviario.client.util.FormatterFactory;
+import com.st.ggviario.client.util.animator.Selectable;
 import com.st.ggviario.client.view.adapters.dataset.CalculatorDataSet;
 
 import java.text.NumberFormat;
@@ -23,7 +23,7 @@ import java.text.NumberFormat;
  */
 public class CalculatorViewHolder extends BaseRecyclerAdapter.ItemViewHolder implements View.OnClickListener
 {
-    private static final NumberFormat FMT = SellStepperActivity.instanceFormatterMoney();
+    private final NumberFormat formatterMoney;
     private final int [] buttons = {
             R.id.bt_keyboard_0,
             R.id.bt_keyboard_0,
@@ -41,14 +41,13 @@ public class CalculatorViewHolder extends BaseRecyclerAdapter.ItemViewHolder imp
             R.id.bt_keyboard_backspace
     };
 
-    private final Button buttonClear;
     private final ImageButton buttonBackspace;
     private final TextView tvCalcView;
     private final ImageButton btClose;
     private final View panelView;
     private final TextView tvPreviewValue;
     private CalculatorDataSet values;
-    private SupportCalculator.OnClickKeyboardListener onClickKeyboarListner;
+    private OnClickKeyboardListener onClickKeyboarListener;
 
     /**
      *
@@ -57,39 +56,34 @@ public class CalculatorViewHolder extends BaseRecyclerAdapter.ItemViewHolder imp
     public CalculatorViewHolder(final View itemView)
     {
         super(itemView);
-        this.buttonClear = (Button) this.itemView.findViewById(R.id.bt_keyboard_clear);
         this.buttonBackspace = (ImageButton) this.itemView.findViewById(R.id.bt_keyboard_backspace);
         this.tvCalcView = (TextView) this.itemView.findViewById(R.id.tv_calc_visor);
         this.btClose = (ImageButton) this.itemView.findViewById(R.id.bt_close_keyboard);
         this.panelView = this.itemView.findViewById(R.id.calc_panel_button);
         this.tvPreviewValue = (TextView) this.itemView.findViewById(R.id.tv_preview_value);
 
+        FormatterFactory formatterfactory = new FormatterFactory();
+        this.formatterMoney = formatterfactory.instanceFormatterMoney();
         for(int id_button: buttons)
             this.itemView.findViewById(id_button).setOnClickListener(this);
 
         this.btClose.setOnClickListener(this);
     }
 
-    private void treatVisible() {
+    private void treatVisible()
+    {
         if (values.isClosed())
         {
             panelView.setVisibility(View.VISIBLE);
             btClose.setVisibility(View.VISIBLE);
             buttonBackspace.setImageResource(R.drawable.ic_backspace_black_24dp);
-//                itemView.findViewById(R.id.separator).setVisibility(View.VISIBLE);
             values.setClosed(false);
         } else {
             panelView.setVisibility(View.GONE);
             btClose.setVisibility(View.GONE);
             buttonBackspace.setImageResource(R.drawable.ic_calculator_black);
-//                itemView.findViewById(R.id.separator).setVisibility(View.GONE);
             values.setClosed(true);
         }
-    }
-
-    public void setValues(CalculatorDataSet values)
-    {
-
     }
 
     @Override
@@ -98,6 +92,7 @@ public class CalculatorViewHolder extends BaseRecyclerAdapter.ItemViewHolder imp
         {
             this.values = (CalculatorDataSet) dataSet;
             this.tvCalcView.setText(values);
+            this.tvPreviewValue.setText(formatterMoney.format(values.getPreviewPrice()));
             this.treatVisible();
         }
         return true;
@@ -106,7 +101,6 @@ public class CalculatorViewHolder extends BaseRecyclerAdapter.ItemViewHolder imp
     @Override
     public void onClick(View view)
     {
-
         int id = view.getId();
         boolean valid;
         switch (id)
@@ -124,25 +118,27 @@ public class CalculatorViewHolder extends BaseRecyclerAdapter.ItemViewHolder imp
             case R.id.bt_keyboard_p:
                 Button bt = (Button) view;
                 valid = values.addChar(bt.getText().charAt(0));
-
-                if(valid && onClickKeyboarListner != null)
-                    onClickKeyboarListner.onClick(view, bt.getText().charAt(0), this.values);
+                if(valid && onClickKeyboarListener != null)
+                    onClickKeyboarListener.onClickKeyboard(view, bt.getText().charAt(0), this);
                 break;
+
             case R.id.bt_keyboard_backspace:
                 if(!values.isClosed()) {
                     valid = values.removeChar();
-                    if (valid && onClickKeyboarListner != null)
-                        onClickKeyboarListner.onClickAction(view, SupportCalculator.KeyboardAction.BACKSPACE, this.values);
+                    if (valid && onClickKeyboarListener != null)
+                        onClickKeyboarListener.onClickKeyboardAction(view, KeyboardAction.BACKSPACE, this);
                 }
                 else onCloseAction();
                 break;
+
             case R.id.bt_keyboard_clear:
                 if(!values.isClosed()) {
                     valid = values.clear();
-                    if (valid && onClickKeyboarListner != null)
-                        onClickKeyboarListner.onClickAction(view, SupportCalculator.KeyboardAction.CLEAR, this.values);
+                    if (valid && onClickKeyboarListener != null)
+                        onClickKeyboarListener.onClickKeyboardAction(view, KeyboardAction.CLEAR, this);
                 }
                 break;
+
             case R.id.bt_close_keyboard:
                 onCloseAction();
                 break;
@@ -184,11 +180,34 @@ public class CalculatorViewHolder extends BaseRecyclerAdapter.ItemViewHolder imp
     }
 
     public void valueChaged() {
-        this.tvPreviewValue.setText(FMT.format(this.values.getPreviewPrice()));
+        this.tvPreviewValue.setText(formatterMoney.format(this.values.getPreviewPrice()));
     }
 
-    public void setOnclickListiner(SupportCalculator.OnClickKeyboardListener onClickKeyboarListner)
+    public void setOnKeyboardClickListener(OnClickKeyboardListener onClickKeyboarListener)
     {
-        this.onClickKeyboarListner = onClickKeyboarListner;
+        this.onClickKeyboarListener = onClickKeyboarListener;
+    }
+
+    public double getValue() {
+        return this.values.getValue();
+    }
+
+    public void setPreviewPrice(double previewPrice) {
+        if(values != null)
+            this.values.setPreviewPrice(previewPrice);
+        this.tvPreviewValue.setText(formatterMoney.format(previewPrice));
+    }
+
+    public interface OnClickKeyboardListener
+    {
+        void onClickKeyboard(View view, char key, CalculatorViewHolder data);
+
+        void onClickKeyboardAction(View view, KeyboardAction action, CalculatorViewHolder data);
+    }
+
+    public enum KeyboardAction
+    {
+        BACKSPACE,
+        CLEAR
     }
 }

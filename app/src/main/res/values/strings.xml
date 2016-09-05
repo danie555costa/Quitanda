@@ -107,5 +107,8 @@
     <string name="title_activity_ola_float">Ola Float</string>
     <string name="add">Adicionar</string>
     <string name="remove">Remover</string>
+    <string name="product">Productos</string>
+    <string name="measure">Measure</string>
+    <string name="values">Values</string>
 
 </resources>

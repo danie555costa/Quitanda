@@ -15,9 +15,7 @@ public class SellRuleFinal implements PriceRule
     }
 
     @Override
-    public void setOtherRule(PriceRule nextRule)
-    {
-
+    public void setOtherRule(PriceRule nextRule) {
     }
 
     @Override

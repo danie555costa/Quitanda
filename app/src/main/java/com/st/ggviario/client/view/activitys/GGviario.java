@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.idescout.sql.SqlScoutServer;
 import com.st.dbutil.android.beans.CallbackControler;
 import com.st.dbutil.android.fragment.GeralActivityPager;
 import com.st.dbutil.android.model.CallbackClient;
@@ -32,8 +33,7 @@ public class GGviario extends GeralActivityPager implements ClientSocketListener
     private String host;
     private Divice divice;
 
-    public GGviario()
-    {
+    public GGviario() {
         XTextName.apllyText(RData.class, XTextName.ApplyMode.ORIGINAL, XTextName.ApplyRange.CLASS_ONLY);
     }
 
@@ -42,6 +42,8 @@ public class GGviario extends GeralActivityPager implements ClientSocketListener
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SqlScoutServer.create(this, getPackageName());
 
         this.pager = (ViewPager) this.findViewById(R.id.pagerInit);
         this.slidingLayout = (SlidingTabLayout) this.findViewById(R.id.tabs_init);

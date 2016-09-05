@@ -9,7 +9,6 @@ import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.view.activitys.PaymentMode;
-import com.st.ggviario.client.view.adapters.ListItemView;
 
 /**
  * Created by Daniel Costa at 8/26/16.

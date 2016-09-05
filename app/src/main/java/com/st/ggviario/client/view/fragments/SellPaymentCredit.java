@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import com.st.dbutil.android.model.ItemFragment;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.references.RMap;
-import com.st.ggviario.client.view.components.DatePickeControl;
+import com.st.ggviario.client.util.components.DatePickerControl;
 import com.st.ggviario.client.view.structure.AbstractPaymentMode;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -24,8 +24,8 @@ public class SellPaymentCredit extends Fragment implements AbstractPaymentMode, 
     private ImageButton ibtEditDatePayment;
     private ImageButton ibtEditDateSend;
 
-    private DatePickeControl dateSendControl;
-    private DatePickeControl datePayControl;
+    private DatePickerControl dateSendControl;
+    private DatePickerControl datePayControl;
 
 
     @Override
@@ -41,8 +41,8 @@ public class SellPaymentCredit extends Fragment implements AbstractPaymentMode, 
         this.ibtEditDatePayment = (ImageButton) this.rootView.findViewById(R.id.ibt_edit_date_payment);
         this.ibtEditDateSend = (ImageButton) this.rootView.findViewById(R.id.ibt_edit_date_send);
 
-        this.datePayControl = new DatePickeControl("Pagamento");
-        this.dateSendControl = new DatePickeControl("Entrega");
+        this.datePayControl = new DatePickerControl("Pagamento");
+        this.dateSendControl = new DatePickerControl("Entrega");
 
         this.ibtEditDatePayment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +62,7 @@ public class SellPaymentCredit extends Fragment implements AbstractPaymentMode, 
         return rootView;
     }
 
-    private void opemDialog(DatePickeControl datePickerControl)
+    private void opemDialog(DatePickerControl datePickerControl)
     {
         DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(datePickerControl,
                 datePickerControl.getYear(),

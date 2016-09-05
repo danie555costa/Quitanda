@@ -56,7 +56,7 @@ public class PaymentMode extends GeralActivityPager
         super.setDistributeEvenly(true);
         super.setUp();
 
-        //Treat the action bar here
+        //Treat the notifyCar bar here
         super.setSupportActionBar(this.tollbar);
         ActionBar actionBar = super.getSupportActionBar();
         if(actionBar != null)

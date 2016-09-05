@@ -8,13 +8,17 @@ import com.st.dbutil.android.process.ProcessResult;
  */
 public class ItemSell extends ProcessResult
 {
-    private final Product product;
-    private final Measure measure;
-    private final double requestQuantity;
+    private Product product;
+    private Measure measure;
+    private double requestQuantity;
 
-    private final double amountPay;
-    private final Double baseQuantity;
-    private final double usedQuantity;
+    private double amountPay;
+    private Double baseQuantity;
+    private double usedQuantity;
+
+    public ItemSell() {
+        super(0);
+    }
 
     public ItemSell(double amountPay, Double baseQuantity, double usedQuantity, Product product, Measure measure, double requestQuantity) {
         super(amountPay);
@@ -42,11 +46,8 @@ public class ItemSell extends ProcessResult
         return amountPay;
     }
 
-    public Double getBaseQuantity() {
-        return baseQuantity;
-    }
-
     public double getUsedQuantity() {
         return usedQuantity;
     }
+
 }

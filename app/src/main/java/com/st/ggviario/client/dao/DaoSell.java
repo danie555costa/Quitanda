@@ -136,11 +136,11 @@ public class DaoSell extends LiteDataBase
 //    public SellHome.SummarySell creatSummary()
 //    {
 //        begin(Operaction.SELECT);
-//        select(ALL)
+//        selected(ALL)
 //                .from(VER_SUMMARY_SELL)
 //                .executeQuery();
 //        ArrayList<LinkedHashMap<CharSequence, Object>> result = getSelectResult();
-//        end();
+//        execute();
 //
 //        long total =  Long.parseLong(result.get(0).get(SUMSELL_TOTAL).toString());
 //        String valueTotal = (result.get(0).get(SUMSELL_TOTAL_VALUE) == null)? "0.0" : result.get(0).get(SUMSELL_TOTAL_VALUE).toString();

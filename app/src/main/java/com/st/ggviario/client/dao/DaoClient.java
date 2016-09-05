@@ -8,9 +8,11 @@ import com.st.ggviario.client.references.RData;
 import com.st.ggviario.client.model.Client;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.st.dbutil.android.sqlite.LiteSelect.toNetIntentList;
 import static com.st.ggviario.client.references.RData.ALL;
@@ -24,6 +26,7 @@ import static com.st.ggviario.client.references.RData.DATABASE_NAME;
 import static com.st.ggviario.client.references.RData.DATABASE_VERSION;
 import static com.st.ggviario.client.references.RData.OBJ_DESC;
 import static com.st.ggviario.client.references.RData.T_CLIENT;
+import static com.st.ggviario.client.references.RData.VER_CLIENTS;
 import static com.st.ggviario.client.references.RData.VER_CLIEN_NEWS;
 
 
@@ -33,6 +36,7 @@ import static com.st.ggviario.client.references.RData.VER_CLIEN_NEWS;
 public class DaoClient extends LiteDataBase
 {
     private Context context;
+    private Client defaultClient;
 
     public DaoClient(Context context)
     {
@@ -92,6 +96,26 @@ public class DaoClient extends LiteDataBase
         String contact = (String) map.get(CLI_CONTACT);
         String morada = (String) map.get(OBJ_DESC);
         return new Client(id, name, surname, morada, contact);
+    }
+
+
+    public Client getDefaultCliente() {
+        if(this.defaultClient != null) return this.defaultClient;
+        begin(Operaction.SELECT);
+        select(ALL)
+                .from(VER_CLIENTS)
+                .where(new Condicion() {
+                    @Override
+                    public boolean accept(int wherePosition, HashMap<CharSequence, Object> row) {
+                        return row.get(CLI_ID) != null && Objects.equals(row.get(CLI_ID), 1);
+                    }
+                })
+                .limit(1)
+                .execute();
+        ArrayList<LinkedHashMap<CharSequence, Object>> result = this.getSelectResult();
+        if(result.size() > 0 )
+            this.defaultClient = mountClient(result.get(0));
+        return this.defaultClient;
     }
 
     public List<? extends Map<String, String>> loadClientesNews()
