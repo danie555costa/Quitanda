@@ -17,16 +17,14 @@
         <activity android:name=".view.activitys.GGviario">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".view.activitys.SellStepperActivity" />
         <activity android:name=".view.activitys.Harvest" />
         <activity android:name=".view.activitys.CalculatorActivity" />
-        <activity android:name=".view.activitys.PaymentMode" />
-        <activity android:name=".view.activitys.RegisterClientActivity" />
-        <!-- This meta-data tag is required to use Google Play Services. -->
+        <activity android:name=".view.activitys.PaymentModeActivity" />
+        <activity android:name=".view.activitys.NewClientActivity" />
 
     </application>
 

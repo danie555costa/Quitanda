@@ -8,7 +8,7 @@ import android.widget.Button;
 import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.dbutil.android.adapter.SupportRecyclerAdapter;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.view.activitys.PaymentMode;
+import com.st.ggviario.client.view.activitys.PaymentModeActivity;
 
 /**
  * Created by Daniel Costa at 8/26/16.
@@ -83,7 +83,7 @@ public class ModePayment extends BaseRecyclerAdapter.ItemViewHolder implements S
     {
         if(view == btChagePayMode)
         {
-            Intent intent = new Intent(getContext(), PaymentMode.class);
+            Intent intent = new Intent(getContext(), PaymentModeActivity.class);
             getContext().startActivity(intent);
         }
     }

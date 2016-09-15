@@ -1,5 +1,8 @@
 package com.st.ggviario.client.model;
 
+import com.st.ggviario.client.model.ItemSell;
+import com.st.ggviario.client.model.Product;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -86,7 +89,7 @@ public class Car
         this.amountFinal += itemSell.getAmountPay();
     }
 
-    int getIndex(Product product) {
+    public int getIndex(Product product) {
         int count = 0;
         for(ItemSell itemSellList: this.itemSellList) {
             if (itemSellList.getProduct().equals(product))

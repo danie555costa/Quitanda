@@ -1,11 +1,11 @@
-package com.st.ggviario.client.model;
+package com.st.ggviario.client.model.action;
 
 import android.widget.TextView;
 
 import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
-import com.st.ggviario.client.model.rules.CarAction;
+import com.st.ggviario.client.model.Car;
+import com.st.ggviario.client.model.ItemSell;
 import com.st.ggviario.client.util.FormatterFactory;
-import com.st.ggviario.client.util.animator.Selectable;
 import com.st.ggviario.client.view.adapters.dataset.ItemSellDataSet;
 
 import java.text.NumberFormat;

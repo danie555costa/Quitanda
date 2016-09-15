@@ -2,28 +2,34 @@ package com.st.ggviario.client.view.activitys;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.github.fcannizzaro.materialstepper.style.TabStepper;
-import com.st.ggviario.client.references.RMap;
+import com.st.ggviario.client.model.visitor.SellCollectorVisitor;
+import com.st.ggviario.client.model.visitor.Collectable;
 import com.st.ggviario.client.view.fragments.SellCarStep;
 import com.st.ggviario.client.view.fragments.SellClientStep;
 import com.st.ggviario.client.view.fragments.SellPayment;
 
-public class SellStepperActivity extends TabStepper implements RMap
+public class SellStepperActivity extends TabStepper implements Collectable
 {
     public static final String CLIENT = "CLIENT";
 
     private Toolbar toolbar;
+    private SellCarStep sellCarStep;
+    private SellClientStep client;
+    private SellPayment payment;
+
     @Override
     protected void onCreate(Bundle restore)
     {
         //Create fragments
-        SellCarStep principal = new SellCarStep();
-        SellClientStep client = new SellClientStep();
-        SellPayment payment =  new SellPayment();
+        this.sellCarStep = new SellCarStep();
+        this.client = new SellClientStep();
+        this.payment =  new SellPayment();
 
-        super.addStep(principal);
+        super.addStep(sellCarStep);
         super.addStep(client);
         super.addStep(payment);
 
@@ -50,6 +56,28 @@ public class SellStepperActivity extends TabStepper implements RMap
         if(id == android.R.id.home)
             this.finish();
         return true;
+    }
+
+    @Override
+    public void onComplete() {
+        super.onComplete();
+    }
+
+    @Override
+    public void onComplete(Bundle data) {
+        Log.i("DBA:APP.TEST", "On finish activity");
+        super.onComplete(data);
+        SellCollectorVisitor collector;
+        this.accept(collector = new SellCollectorVisitor());
+    }
+
+    @Override
+    public void accept(SellCollectorVisitor collectorVisitor) {
+        this.sellCarStep.accept(collectorVisitor);
+        this.client.accept(collectorVisitor);
+        this.payment.accept(collectorVisitor);
+
+        Log.i("DBA:APP.TEST", "Collection result "+collectorVisitor.toString());
     }
 }
 

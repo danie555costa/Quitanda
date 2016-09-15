@@ -6,14 +6,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.model.Car;
-import com.st.ggviario.client.model.CarActionAdd;
-import com.st.ggviario.client.model.CarActionRemove;
-import com.st.ggviario.client.model.CarActionReplace;
+import com.st.ggviario.client.model.action.CarActionAdd;
+import com.st.ggviario.client.model.action.CarActionRemove;
+import com.st.ggviario.client.model.action.CarActionReplace;
 import com.st.ggviario.client.model.ItemSell;
 import com.st.ggviario.client.model.Product;
 import com.st.ggviario.client.model.contract.ObserverCalculated;
-import com.st.ggviario.client.model.rules.CarAction;
+import com.st.ggviario.client.model.action.CarAction;
 
 /**
  * Created by Daniel Costa at 8/30/16.

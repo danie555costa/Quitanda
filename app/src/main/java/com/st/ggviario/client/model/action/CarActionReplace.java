@@ -1,11 +1,12 @@
-package com.st.ggviario.client.model;
+package com.st.ggviario.client.model.action;
 
 import android.widget.TextView;
 
 import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
-import com.st.ggviario.client.model.rules.CarAction;
+import com.st.ggviario.client.model.Car;
+import com.st.ggviario.client.model.ItemSell;
 import com.st.ggviario.client.util.FormatterFactory;
-import com.st.ggviario.client.util.animator.Selectable;
+import com.st.ggviario.client.view.adapters.dataset.ItemSellDataSet;
 
 import java.text.NumberFormat;
 
@@ -13,8 +14,8 @@ import java.text.NumberFormat;
  * Created by Daniel Costa at 9/2/16.
  * Using user computer xdata
  */
-public class CarActionRemove extends CarAction {
-
+public class CarActionReplace extends CarAction
+{
     private ItemSell item;
     private Car car;
     private TextView tvAmount;
@@ -47,12 +48,12 @@ public class CarActionRemove extends CarAction {
     @Override
     public void execute() {
         this.populateAdapter(this.adapter, this.car);
-
         NumberFormat format = new FormatterFactory().instanceFormatterMoney();
         int index = this.car.getIndex(this.item.getProduct());
-        this.car.remove(this.item.getProduct());
-        this.adapter.removeDataSet(index);
+
+        this.car.replace(this.item);
+        this.adapter.replace(index, new ItemSellDataSet(this.item));
         this.tvAmount.setText(format.format(this.car.getAmountFinal()));
-        this.adapter.notifyItemRemoved(index);
+        this.adapter.notifyDataSetChanged();
     }
 }

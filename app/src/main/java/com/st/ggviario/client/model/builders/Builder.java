@@ -41,7 +41,7 @@ public abstract class Builder  <T>
      * @param xml
      * @return
      */
-    public @Nullable T buildFromXML(String xml)
+    public @Nullable T buildFromXML(@NonNull String xml)
     {
         XStream xStream = new XStream();
         onPrepareXStream(xStream);

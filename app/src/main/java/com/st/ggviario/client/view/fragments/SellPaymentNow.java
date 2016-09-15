@@ -1,5 +1,6 @@
 package com.st.ggviario.client.view.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,12 +10,13 @@ import android.view.ViewGroup;
 
 import com.st.dbutil.android.model.ItemFragment;
 import com.st.ggviario.client.R;
+import com.st.ggviario.client.view.callbaks.OnPaymentChoseListiner;
 
 /**
  * Created by Daniel Costa at 8/27/16.
  * Using user computer xdata
  */
-public class SellPaymentNow extends Fragment implements ItemFragment
+public class SellPaymentNow extends Fragment implements ItemFragment, OnPaymentChoseListiner
 {
     private View rootView;
 
@@ -44,5 +46,21 @@ public class SellPaymentNow extends Fragment implements ItemFragment
     public CharSequence getProtocolKey()
     {
         return  "YHhsn";
+    }
+
+    @Override
+    public void accept(Activity activity) {
+//        PUT HERE THE RESULT OF RETUR FOR PAYAMENT TYPE
+//        activity.setResult();
+    }
+
+    @Override
+    public boolean isValid() {
+        return false;
+    }
+
+    @Override
+    public String invalidMessage() {
+        return null;
     }
 }

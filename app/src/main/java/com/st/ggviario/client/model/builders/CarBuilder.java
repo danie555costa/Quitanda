@@ -2,7 +2,6 @@ package com.st.ggviario.client.model.builders;
 
 import com.st.ggviario.client.model.Car;
 import com.st.ggviario.client.model.ItemSell;
-import com.thoughtworks.xstream.XStream;
 
 import java.util.ArrayList;
 import java.util.List;

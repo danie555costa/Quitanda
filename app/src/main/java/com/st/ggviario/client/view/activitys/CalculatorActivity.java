@@ -1,5 +1,6 @@
 package com.st.ggviario.client.view.activitys;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -88,10 +89,11 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorV
         this.carActionEvent = new CarActionEvent(this.product, this.haveInCar);
 
         menuMapper.add(this.carActionEvent);
-        menuMapper.add(new CloseActivityEvent(new CloseActivityEvent.OnFinishing() {
+        CloseActivityEvent close;
+        menuMapper.add(close = new CloseActivityEvent());
+        close.add(new CloseActivityEvent.OnFinishing() {
             @Override
-            public void onFinish() {
-
+            public void onFinish(Activity activity) {
                 Bundle bundle = new Bundle();
                 ItemSellBuilder sellBuilder = new ItemSellBuilder();
                 if(lastCreated == null)
@@ -103,9 +105,8 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorV
                 Intent intent = new Intent();
                 intent.putExtras(bundle);
                 setResult(10, intent);
-                finish();
             }
-        }));
+        });
 
         prepareToolbar();
 
@@ -244,7 +245,7 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorV
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return this.menuMapper.menu(item);
+        return this.menuMapper.menuAction(item);
     }
 
     @Override

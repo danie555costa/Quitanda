@@ -4,9 +4,8 @@ import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.model.Car;
 import com.st.ggviario.client.model.ItemSell;
-import com.st.ggviario.client.model.rules.CarAction;
+import com.st.ggviario.client.model.action.CarAction;
 import com.st.ggviario.client.util.FormatterFactory;
-import com.st.ggviario.client.util.animator.Selectable;
 
 import java.text.NumberFormat;
 

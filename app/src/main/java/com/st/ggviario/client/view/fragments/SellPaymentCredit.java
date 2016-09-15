@@ -1,5 +1,6 @@
 package com.st.ggviario.client.view.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,25 +8,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.st.dbutil.android.model.ItemFragment;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.util.components.DatePickerControl;
-import com.st.ggviario.client.view.structure.AbstractPaymentMode;
+import com.st.ggviario.client.util.components.OnChangeCalendar;
+import com.st.ggviario.client.view.callbaks.OnPaymentChoseListiner;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 /**
  * Created by Daniel Costa at 8/27/16.
  * Using user computer xdata
  */
-public class SellPaymentCredit extends Fragment implements AbstractPaymentMode, ItemFragment {
+public class SellPaymentCredit extends Fragment implements  ItemFragment, OnPaymentChoseListiner {
     private View rootView;
     private ImageButton ibtEditDatePayment;
     private ImageButton ibtEditDateSend;
 
     private DatePickerControl dateSendControl;
     private DatePickerControl datePayControl;
+    private TextView tvDatePay;
+    private TextView tvDateSend;
 
 
     @Override
@@ -40,9 +45,26 @@ public class SellPaymentCredit extends Fragment implements AbstractPaymentMode, 
         this.rootView = inflater.inflate(R.layout.fragment_sell_payment_credito, container, false);
         this.ibtEditDatePayment = (ImageButton) this.rootView.findViewById(R.id.ibt_edit_date_payment);
         this.ibtEditDateSend = (ImageButton) this.rootView.findViewById(R.id.ibt_edit_date_send);
+        this.tvDatePay = (TextView) this.rootView.findViewById(R.id.tv_date_pay);
+        this.tvDateSend = (TextView) this.rootView.findViewById(R.id.tv_date_send);
 
         this.datePayControl = new DatePickerControl("Pagamento");
         this.dateSendControl = new DatePickerControl("Entrega");
+
+        this.datePayControl.addOnChangeCalendar(new OnChangeCalendar() {
+            @Override
+            public void accept(DatePickerControl calendar) {
+                tvDatePay.setText(calendar.getData("dd 'de' MMMM 'de' yyyy"));
+            }
+        });
+
+        this.dateSendControl.addOnChangeCalendar(new OnChangeCalendar() {
+            @Override
+            public void accept(DatePickerControl calendar) {
+                tvDateSend.setText(calendar.getData("dd 'de' MMMM 'de' yyyy"));
+            }
+        });
+
 
         this.ibtEditDatePayment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,8 +118,11 @@ public class SellPaymentCredit extends Fragment implements AbstractPaymentMode, 
     }
 
     @Override
-    public String getInvalidMessage() {
+    public String invalidMessage() {
         return "Falta data de pagamento";
     }
 
+    @Override
+    public void accept(Activity activity) {
+    }
 }

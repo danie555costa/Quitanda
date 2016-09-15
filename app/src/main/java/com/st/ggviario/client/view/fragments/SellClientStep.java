@@ -1,6 +1,7 @@
 package com.st.ggviario.client.view.fragments;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,26 +18,34 @@ import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.dao.DaoClient;
 import com.st.ggviario.client.model.Client;
+import com.st.ggviario.client.model.visitor.SellCollectorVisitor;
+import com.st.ggviario.client.model.builders.ClientBuilder;
+import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.util.animator.OnAnimateSelection;
 import com.st.ggviario.client.util.animator.Selectable;
-import com.st.ggviario.client.view.activitys.RegisterClientActivity;
-import com.st.ggviario.client.view.adapters.vholders.ClientViewHolder;
+import com.st.ggviario.client.view.activitys.NewClientActivity;
 import com.st.ggviario.client.view.adapters.vholders.SupportAdapter;
 import com.st.ggviario.client.view.adapters.vfactory.ClientViewHolderFactory;
 import com.st.ggviario.client.view.adapters.dataset.ClientDataSet;
+import com.st.ggviario.client.model.visitor.Collectable;
+import com.st.ggviario.client.view.callbaks.OnActivityResultObserver;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Daniel Costa at 7/26/16.
  * Using user computer xdata
  */
-public class SellClientStep extends AbstractStep
+public class SellClientStep extends AbstractStep implements Collectable
 {
     private Context context;
     private SupportAdapter support;
     private DaoClient daoClient;
-    private ClientViewHolder clientViewHolder;
+    private Map<Integer, OnActivityResultObserver> map;
+    private Client client;
+
 
     @Override
     public void onCreate(@Nullable Bundle restore)
@@ -44,21 +53,38 @@ public class SellClientStep extends AbstractStep
         super.onCreate(restore);
         this.context = this.getActivity();
         this.support = new SupportAdapter(this.context);
-        ClientViewHolderFactory clientViewHolderFactory;
-        this.support.addViewHolderFactory(clientViewHolderFactory = new ClientViewHolderFactory());
-        clientViewHolderFactory.getAnimatorManager()
-                .addOnAnimateSelection(new OnAnimateSelection() {
-                    @Override
-                    public void onPreAnimate(BaseRecyclerAdapter.ItemViewHolder itemViewHolder, Selectable selectable) {
-                        clientViewHolder = (ClientViewHolder) itemViewHolder;
-                    }
+        this.map = new HashMap<>();
 
-                    @Override
-                    public void onPosAnimate(BaseRecyclerAdapter.ItemViewHolder itemViewHolder, Selectable selectable) {
-                        if(clientViewHolder.isSeleted())
-                            SellClientStep.super.onNext();
-                    }
-                });
+        //Acao depois de registrar o cliente
+        this.map.put(RMap.RESP_REG_CLIENT, new OnActivityResultObserver() {
+            @Override
+            public void onResult(Activity activity, Intent intent) {
+                Bundle bundle = intent.getExtras();
+                String clientXML = bundle.getString(RMap.CLIENT);
+                ClientBuilder clientBuilder = new ClientBuilder();
+                assert clientXML != null;
+                client = clientBuilder.buildFromXML(clientXML);
+            }
+
+            @Override
+            public void onResultEmpty(Activity activity) {}
+
+        });
+
+        ClientViewHolderFactory clientFactory;
+        this.support.addViewHolderFactory(clientFactory = new ClientViewHolderFactory());
+        clientFactory.getAnimatorManager().addOnAnimateSelection(new OnAnimateSelection() {
+            @Override
+            public void onPreAnimate(BaseRecyclerAdapter.ItemViewHolder itemViewHolder, Selectable selectable){}
+
+            @Override
+            public void onPosAnimate(BaseRecyclerAdapter.ItemViewHolder itemViewHolder, Selectable selectable)
+            {
+                if (!(selectable instanceof ClientDataSet)) throw new AssertionError();
+                client = ((ClientDataSet) selectable).getClient();
+            }
+        });
+
 
         this.daoClient = new DaoClient(context);
         Thread thread = new Thread(new Runnable() {
@@ -86,6 +112,13 @@ public class SellClientStep extends AbstractStep
         RecyclerView recicler = (RecyclerView) viewRoot.findViewById(R.id.recycler_view);
         FloatingActionButton floatingActionButton = (FloatingActionButton) viewRoot.findViewById(R.id.fab_new_client);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SellClientStep.this.getContext(), NewClientActivity.class);
+                startActivityForResult(intent, RMap.REQ_REG_CLIENT);
+            }
+        });
 
         recicler.setLayoutManager(layoutManager);
         recicler.setAdapter(this.support);
@@ -101,11 +134,19 @@ public class SellClientStep extends AbstractStep
     }
 
     private void openRegisterClient() {
-        Intent intent = new Intent(getContext(), RegisterClientActivity.class);
+        Intent intent = new Intent(getContext(), NewClientActivity.class);
         startActivityForResult(intent, 10);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == RMap.REQ_REG_CLIENT
+                && requestCode == RMap.RESP_REG_CLIENT
+                && data != null) {
+            Bundle bundle =data.getExtras();
 
+        }
+    }
 
     @Override
     public String name() {
@@ -121,5 +162,14 @@ public class SellClientStep extends AbstractStep
     @Override
     public String optional() {
         return "Opcional";
+    }
+
+    @Override
+    public void onNext() {
+    }
+
+    @Override
+    public void accept(SellCollectorVisitor collectorVisitor) {
+        collectorVisitor.collectClient(this.client);
     }
 }

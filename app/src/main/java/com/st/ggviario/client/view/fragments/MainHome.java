@@ -15,7 +15,7 @@ import com.st.dbutil.android.model.ItemFragment;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.view.activitys.Harvest;
-import com.st.ggviario.client.view.activitys.RegisterClientActivity;
+import com.st.ggviario.client.view.activitys.NewClientActivity;
 import com.st.ggviario.client.view.activitys.SellStepperActivity;
 import com.st.ggviario.client.view.adapters.vholders.SupportHome;
 
@@ -44,7 +44,7 @@ public class MainHome extends Fragment implements ItemFragment
 
         this.list = supportAdapter.getCreatedSupport().getListDataSet();
         sell.setClassManager(SellStepperActivity.class);
-        sync.setClassManager(RegisterClientActivity.class);
+        sync.setClassManager(NewClientActivity.class);
         harvest.setClassManager(Harvest.class);
 
         this.list.add(sell);

@@ -1,4 +1,4 @@
-package com.st.ggviario.client.model.rules;
+package com.st.ggviario.client.model.action;
 
 import android.widget.TextView;
 

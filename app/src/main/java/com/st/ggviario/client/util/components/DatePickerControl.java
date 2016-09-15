@@ -2,7 +2,11 @@ package com.st.ggviario.client.util.components;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Daniel Costa at 8/27/16.
@@ -10,10 +14,14 @@ import java.util.Calendar;
  */
 public class DatePickerControl implements DatePickerDialog.OnDateSetListener
 {
+
+    private List<OnChangeCalendar> listOnChangeCalendar;
+
     public DatePickerControl(String label)
     {
         this.calendar = Calendar.getInstance();
         this.label = label;
+        this.listOnChangeCalendar = new ArrayList<>();
     }
 
     public  void DatePickerDialog(String label, int year, int monthOfYear, int dayOfMonth)
@@ -23,6 +31,11 @@ public class DatePickerControl implements DatePickerDialog.OnDateSetListener
         this.calendar.set(Calendar.YEAR, year);
         this.calendar.set(Calendar.MONTH, monthOfYear);
         this.calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+    }
+
+    public void addOnChangeCalendar(OnChangeCalendar onChangeCalendar)
+    {
+        this.listOnChangeCalendar.add(onChangeCalendar);
     }
 
     private Calendar calendar;
@@ -49,9 +62,17 @@ public class DatePickerControl implements DatePickerDialog.OnDateSetListener
         this.calendar.set(Calendar.YEAR, year);
         this.calendar.set(Calendar.MONTH, monthOfYear);
         this.calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        for(OnChangeCalendar onChageCalendar: this.listOnChangeCalendar)
+            onChageCalendar.accept(this);
     }
 
     public String getLabel() {
         return label;
+    }
+
+    public String getData(String formatter) {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(formatter);
+        Date date = this.calendar.getTime();
+        return dateFormatter.format(date);
     }
 }

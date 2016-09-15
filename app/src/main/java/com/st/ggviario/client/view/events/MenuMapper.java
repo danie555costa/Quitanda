@@ -24,7 +24,7 @@ public class MenuMapper {
         map.put(menuObserver.getKey(), menuObserver);
     }
 
-    public boolean menu(MenuItem menuItem) {
+    public boolean menuAction(MenuItem menuItem) {
         MenuObserver observer = map.get(menuItem.getItemId());
         if(observer != null)
             return observer.accept(menuItem, this.activity);

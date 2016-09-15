@@ -12,13 +12,17 @@ import java.util.List;
  */
 public class CloseActivityEvent implements MenuObserver
 {
-    private final OnFinishing onFinishing;
     private List<OnFinishing> onFinishingList;
+    private int idMenu;
 
-    public CloseActivityEvent(OnFinishing onFinishing)
+    public CloseActivityEvent()
     {
         this.onFinishingList = new ArrayList<>();
-        this.onFinishing = onFinishing;
+        this.idMenu =  android.R.id.home;
+    }
+
+    public void setMenuId(int idMenu) {
+        this.idMenu = idMenu;
     }
 
     public void add(OnFinishing onFinishing) {
@@ -28,19 +32,18 @@ public class CloseActivityEvent implements MenuObserver
     @Override
     public boolean accept(MenuItem menuItem, Activity activity)
     {
-        int id = menuItem.getItemId();
         for(OnFinishing onFinishing: this.onFinishingList)
-                onFinishing.onFinish();
-            this.onFinishing.onFinish();
-            return true;
+                onFinishing.onFinish(activity);
+        activity.finish();
+        return true;
     }
 
     @Override
     public int getKey() {
-        return android.R.id.home;
+        return  this.idMenu;
     }
 
     public interface OnFinishing {
-        void onFinish();
+        void onFinish(Activity activity);
     }
 }

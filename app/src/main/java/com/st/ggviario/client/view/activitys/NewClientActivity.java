@@ -15,7 +15,7 @@ import com.st.ggviario.client.R;
  * Created by Daniel Costa at 8/28/16.
  * Using user computer xdata
  */
-public class RegisterClientActivity extends AppCompatActivity
+public class NewClientActivity extends AppCompatActivity
 {
 
     @Override

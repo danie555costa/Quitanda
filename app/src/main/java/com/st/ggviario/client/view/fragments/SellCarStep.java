@@ -17,11 +17,12 @@ import com.st.dbutil.android.adapter.BaseRecyclerAdapter;
 import com.st.ggviario.client.R;
 import com.st.ggviario.client.dao.DaoProduct;
 import com.st.ggviario.client.model.Car;
+import com.st.ggviario.client.model.visitor.SellCollectorVisitor;
 import com.st.ggviario.client.model.ItemSell;
 import com.st.ggviario.client.model.Product;
 import com.st.ggviario.client.model.builders.ItemSellBuilder;
 import com.st.ggviario.client.model.builders.MeasureBuilder;
-import com.st.ggviario.client.model.rules.CarAction;
+import com.st.ggviario.client.model.action.CarAction;
 import com.st.ggviario.client.references.RColors;
 import com.st.ggviario.client.references.RMap;
 import com.st.ggviario.client.view.activitys.CalculatorActivity;
@@ -31,12 +32,13 @@ import com.st.ggviario.client.view.adapters.vfactory.ViewHolderFactory;
 import com.st.ggviario.client.view.adapters.dataset.CarDataSet;
 import com.st.ggviario.client.view.adapters.dataset.ProductDataSet;
 import com.st.ggviario.client.view.adapters.vholders.CarViewHolder;
+import com.st.ggviario.client.model.visitor.Collectable;
 import com.st.ggviario.client.view.callbaks.OnStartActivityItemView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SellCarStep extends AbstractStep implements OnStartActivityItemView {
+public class SellCarStep extends AbstractStep implements OnStartActivityItemView, Collectable {
 	public static final String PRODUCT = "PRODUCT";
 	private View rootView;
 	private SupportAdapter supportAdapter;
@@ -97,8 +99,10 @@ public class SellCarStep extends AbstractStep implements OnStartActivityItemView
 	}
 
 	@Override
-	public boolean nextIf() {
-		return this.car != null && !this.car.isEmpty();
+	public boolean nextIf()
+	{
+		return this.car != null
+				&& !this.car.isEmpty();
 	}
 
 	@Override
@@ -184,6 +188,11 @@ public class SellCarStep extends AbstractStep implements OnStartActivityItemView
 			this.carDataSet.setLastAction(carAction, itemSell);
 			this.supportAdapter.notifyItemChanged(0);
 		}
+	}
+
+	@Override
+	public void accept(SellCollectorVisitor collectorVisitor) {
+		collectorVisitor.collectCar(this.car);
 	}
 }
 

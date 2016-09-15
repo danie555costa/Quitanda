@@ -3,7 +3,6 @@ package com.st.ggviario.client.view.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,17 +11,22 @@ import android.view.ViewGroup;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.st.dbutil.android.model.ImageTextResource;
-import com.st.dbutil.android.model.ItemFragment;
 import com.st.ggviario.client.R;
-import com.st.ggviario.client.references.RMap;
+import com.st.ggviario.client.model.visitor.SellCollectorVisitor;
 import com.st.ggviario.client.view.adapters.vholders.SupportSellPayment;
+import com.st.ggviario.client.model.visitor.Collectable;
 
-public class SellPayment extends AbstractStep implements ItemFragment, RMap
+public class SellPayment extends AbstractStep implements Collectable
 {
 	private View rootView;
 	private SupportSellPayment support;
 	private RecyclerView recyclerView;
 	private Context context;
+
+	@Override
+	public void onAttach(Context context) {
+		super.onAttach(context);
+	}
 
 	@Override
 	public void onCreate(@Nullable Bundle restore)
@@ -34,7 +38,7 @@ public class SellPayment extends AbstractStep implements ItemFragment, RMap
 
 	@Override
 	public String name() {
-		return this.getTitle().toString();
+		return new ImageTextResource("Cocluir", R.drawable.img_money_subs).toString();
 	}
 
 	@Override
@@ -48,21 +52,8 @@ public class SellPayment extends AbstractStep implements ItemFragment, RMap
 		return rootView;
 	}
 
-
 	@Override
-	public CharSequence getTitle()
-	{
-		return  new ImageTextResource("Cocluir", R.drawable.img_money_subs);
-	}
-
-	@Override
-	public Fragment getFragment()
-	{
-		return this;
-	}
-
-	@Override
-	public CharSequence getProtocolKey() {
-		return IDENTIFIER_SELL_PAYMENT;
+	public void accept(SellCollectorVisitor collectorVisitor) {
+		collectorVisitor.collectPaymentMode();
 	}
 }
