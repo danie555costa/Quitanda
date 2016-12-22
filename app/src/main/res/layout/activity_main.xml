@@ -16,7 +16,7 @@
         android:orientation="vertical"
         >
 
-        <com.st.dbutil.android.view.SlidingTabLayout
+        <st.domain.support.android.view.SlidingTabLayout
             android:id="@+id/tabs_init"
             style="@style/lib_tab_layout"/>
 

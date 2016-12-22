@@ -24,8 +24,7 @@
         android:layout_height="wrap_content">
 
         <!--
-
-         Preciso de saber o montante todo a pagar
+         TODO Preciso de saber o montante todo a pagar
          A quantidade de items selecionado
          Os item selecionados a sua quantiade a sua medida e o seu respectivo preço aplicado
 

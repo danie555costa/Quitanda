@@ -8,7 +8,7 @@
     <include android:id="@+id/toolbar_top"
         layout="@layout/toolbar_main"/>
 
-    <com.st.dbutil.android.view.SlidingTabLayout
+    <st.domain.support.android.view.SlidingTabLayout
         android:id="@+id/tabs_payment_mode"
         style="@style/lib_tab_layout"/>
 
